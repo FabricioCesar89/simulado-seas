@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treinamento Intensivo SEAS - 300 Questões</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #34495e;
+            --accent: #27ae60;
+            --wrong: #c0392b;
+            --light: #ecf0f1;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--primary);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: var(--secondary);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 10px;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-weight: bold;
+            background: #dfe6e9;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .question-box {
+            margin: 20px 0;
+            font-size: 1.2em;
+            line-height: 1.5;
+        }
+        .options {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        button {
+            flex: 1;
+            padding: 15px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.1s, opacity 0.2s;
+            font-weight: bold;
+            color: white;
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+        .btn-certo { background-color: var(--accent); }
+        .btn-errado { background-color: var(--wrong); }
+        .btn-next { 
+            background-color: var(--secondary); 
+            width: 100%; 
+            margin-top: 20px; 
+            display: none; 
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        .feedback.correct { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .feedback.incorrect { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+
+        /* Barra de progresso */
+        .progress-container {
+            width: 100%;
+            background-color: #bdc3c7;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .progress-bar {
+            width: 0%;
+            height: 10px;
+            background-color: var(--accent);
+            border-radius: 10px;
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Treinamento SEAS - Foco Total</h1>
+    
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="stats">
+        <span>Questão: <span id="currentQ">1</span>/<span id="totalQ">0</span></span>
+        <span>Acertos: <span id="score">0</span></span>
+    </div>
+
+    <div class="question-box" id="questionText">
+        Carregando questão...
+    </div>
+
+    <div class="options" id="optionsContainer">
+        <button class="btn-certo" onclick="checkAnswer('C')">CERTO</button>
+        <button class="btn-errado" onclick="checkAnswer('E')">ERRADO</button>
+    </div>
+
+    <div class="feedback" id="feedbackArea"></div>
+    <button class="btn-next" id="nextBtn" onclick="nextQuestion()">Próxima Questão</button>
+</div>
+
+<script>
+    // --- BANCO DE DADOS DE QUESTÕES ---
+    // Você pode adicionar mais questões copiando o formato abaixo.
+    const questions = [
+        // MÓDULO 1
+        {
+            text: "A SEAS foi criada pela Lei Estadual nº 16.040/2016 com o objetivo de executar as medidas socioeducativas de privação e restrição de liberdade no Ceará.",
+            answer: "C",
+            comment: "Correto. A SEAS é o órgão gestor estadual criado especificamente para essa finalidade em 2016."
+        },
+        {
+            text: "O SINASE (Sistema Nacional de Atendimento Socioeducativo) é regulamentado pela Lei Federal nº 8.069/1990 (ECA).",
+            answer: "E",
+            comment: "Errado. O SINASE é regulamentado pela Lei nº 12.594/2012. O ECA estabelece os direitos gerais, mas o SINASE organiza o sistema de execução."
+        },
+        {
+            text: "A pedagogia da presença implica que o socioeducador deve atuar apenas como vigia, mantendo distância emocional dos adolescentes.",
+            answer: "E",
+            comment: "Errado. A pedagogia da presença exige vínculo, acompanhamento próximo e atuação educativa, não apenas vigilância."
+        },
+        {
+            text: "Os eixos estruturantes do atendimento socioeducativo incluem a família, a comunidade e as políticas públicas intersetoriais.",
+            answer: "C",
+            comment: "Correto. O atendimento não é isolado e deve articular esses eixos."
+        },
+        
+        // MÓDULO 2
+        {
+            text: "A medida de internação provisória tem prazo máximo e improrrogável de 90 dias.",
+            answer: "E",
+            comment: "Errado. O prazo máximo da internação provisória é de 45 dias."
+        },
+        {
+            text: "O Plano Individual de Atendimento (PIA) deve ser elaborado com a participação do adolescente e de sua família.",
+            answer: "C",
+            comment: "Correto. O princípio da participação e da individualização exige o envolvimento do adolescente e família."
+        },
+        {
+            text: "Durante a pandemia de COVID-19, a Portaria SEAS nº 123/2020 suspendeu totalmente o contato dos adolescentes com as famílias, inclusive virtualmente.",
+            answer: "E",
+            comment: "Errado. A portaria restringiu visitas presenciais, mas regulamentou e incentivou o contato por videochamadas e telefonemas."
+        },
+        {
+            text: "A fase conclusiva do atendimento socioeducativo ocorre quando o adolescente completa 18 anos, independentemente do cumprimento das metas.",
+            answer: "E",
+            comment: "Errado. A fase conclusiva está ligada ao cumprimento das metas do PIA e avaliação técnica, podendo a medida se estender até os 21 anos."
+        },
+        {
+            text: "O Projeto 'Abraço em Família' busca fortalecer os vínculos familiares através de práticas restaurativas e acolhimento.",
+            answer: "C",
+            comment: "Correto. É uma das estratégias de práticas restaurativas da SEAS."
+        },
+
+        // MÓDULO 3
+        {
+            text: "O uso de algemas em adolescentes é permitido livremente para facilitar o transporte, independentemente de risco.",
+            answer: "E",
+            comment: "Errado. O uso de algemas é excepcional (Súmula Vinculante 11) e exige justificativa por escrito baseada em risco real."
+        },
+        {
+            text: "Um 'Evento Complexo' no gerenciamento de crises é aquele que a equipe de plantão não consegue resolver sozinha e necessita de apoio da direção ou outros setores internos.",
+            answer: "C",
+            comment: "Correto. Difere do evento simples (resolvido pelo plantão) e do crítico (apoio externo)."
+        },
+        {
+            text: "A revista vexatória é vedada, devendo ser priorizado o uso de equipamentos eletrônicos como scanners corporais.",
+            answer: "C",
+            comment: "Correto. A legislação protege a dignidade do visitante e do adolescente, proibindo o desnudamento."
+        },
+        {
+            text: "O Ministério Público não possui autorização para ingressar nos alojamentos dos adolescentes sem prévia autorização do diretor da unidade.",
+            answer: "E",
+            comment: "Errado. O MP tem livre acesso garantido por lei para fiscalização a qualquer momento."
+        },
+        {
+            text: "O Grupo de Intervenção Tática (GIT) deve ser acionado em qualquer evento de indisciplina, mesmo os simples.",
+            answer: "E",
+            comment: "Errado. O GIT é para eventos críticos ou de maior complexidade, seguindo o uso escalonado da força."
+        },
+        {
+            text: "É dever do socioeducador realizar a contagem dos adolescentes e conferência de materiais ao assumir o posto de serviço.",
+            answer: "C",
+            comment: "Correto. Faz parte das rotinas de segurança preventiva."
+        },
+
+        // MÓDULO 4
+        {
+            text: "A PNAISARI estabelece que a saúde do adolescente privado de liberdade é responsabilidade exclusiva do sistema de justiça.",
+            answer: "E",
+            comment: "Errado. É responsabilidade do SUS (Sistema Único de Saúde) em articulação com o sistema socioeducativo."
+        },
+        {
+            text: "O conceito de saúde integral envolve não apenas a ausência de doenças, mas o bem-estar físico, mental e social.",
+            answer: "C",
+            comment: "Correto. Conceito ampliado de saúde adotado pelo SUS e pela PNAISARI."
+        },
+        {
+            text: "Adolescentes em cumprimento de medida socioeducativa não têm direito ao sigilo nas consultas de saúde, devendo o socioeducador acompanhar a consulta dentro do consultório.",
+            answer: "E",
+            comment: "Errado. O sigilo médico é um direito. O socioeducador deve garantir a segurança visual, mas não deve ouvir a consulta, salvo risco iminente justificado."
+        },
+        {
+            text: "A AIDS é o estágio avançado da infecção pelo vírus HIV, onde o sistema imunológico está severamente comprometido.",
+            answer: "C",
+            comment: "Correto. HIV é o vírus, AIDS é a síndrome."
+        },
+        {
+            text: "A saúde mental no sistema socioeducativo deve priorizar a medicalização excessiva para garantir a ordem nos alojamentos.",
+            answer: "E",
+            comment: "Errado. A política preconiza a NÃO medicalização excessiva e prioriza abordagens terapêuticas, escuta e atividades psicossociais."
+        },
+        {
+            text: "O uso de preservativos deve ser disponibilizado aos adolescentes nas unidades como medida de prevenção a ISTs.",
+            answer: "C",
+            comment: "Correto. Faz parte das ações de saúde preventiva obrigatórias."
+        },
+        
+        // EXTRAS GERAIS
+        {
+            text: "O socioeducador pode aplicar sanções disciplinares por conta própria assim que presenciar uma infração.",
+            answer: "E",
+            comment: "Errado. As sanções passam por um processo (Comissão Disciplinar), garantindo a defesa do adolescente. O socioeducador registra a ocorrência."
+        },
+        {
+            text: "A medida socioeducativa de semiliberdade permite que o adolescente realize atividades externas sem necessidade de autorização judicial para cada saída.",
+            answer: "C",
+            comment: "Correto. A rotina externa (escola, trabalho) faz parte da natureza da medida."
+        },
+        {
+            text: "A visita íntima é um direito absoluto de todo adolescente, independentemente da idade ou estado civil.",
+            answer: "E",
+            comment: "Errado. A visita íntima segue regulamentações específicas (idade, casamento/união estável comprovada) e avaliações técnicas."
+        },
+        {
+            text: "Tortura é crime inafiançável e o socioeducador pode responder por omissão se presenciar e não denunciar.",
+            answer: "C",
+            comment: "Correto. A Lei de Tortura pune também quem se omite quando tinha o dever de evitar ou apurar."
+        },
+        {
+            text: "O Plano de Segurança Preventiva deve ser de conhecimento apenas da direção da unidade.",
+            answer: "E",
+            comment: "Errado. Todos os servidores devem conhecer os protocolos de segurança para agir corretamente."
+        },
+        {
+            text: "A contenção física deve ser a primeira opção na resolução de conflitos para demonstrar autoridade.",
+            answer: "E",
+            comment: "Errado. O uso da força é progressivo. Primeiro a presença, depois verbalização, negociação e só em último caso a força física."
+        },
+        {
+            text: "Os registros em livros de ocorrência são documentos oficiais e não podem conter rasuras.",
+            answer: "C",
+            comment: "Correto. São documentos legais que resguardam a atuação do servidor."
+        },
+        {
+            text: "O adolescente tem direito a receber visitas semanais, salvo determinação judicial em contrário.",
+            answer: "C",
+            comment: "Correto. A convivência familiar é um direito fundamental."
+        }
+    ];
+
+    // --- LÓGICA DO SISTEMA ---
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let shuffledQuestions = [];
+
+    // Embaralhar questões
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    function initQuiz() {
+        shuffledQuestions = shuffleArray([...questions]); // Cria cópia embaralhada
+        document.getElementById("totalQ").innerText = shuffledQuestions.length;
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        const q = shuffledQuestions[currentQuestionIndex];
+        document.getElementById("questionText").innerText = q.text;
+        document.getElementById("currentQ").innerText = currentQuestionIndex + 1;
+        
+        // Resetar interface
+        document.getElementById("feedbackArea").style.display = "none";
+        document.getElementById("nextBtn").style.display = "none";
+        document.getElementById("optionsContainer").style.pointerEvents = "auto";
+        document.querySelectorAll(".options button").forEach(btn => btn.style.opacity = "1");
+        
+        updateProgress();
+    }
+
+    function checkAnswer(userChoice) {
+        const q = shuffledQuestions[currentQuestionIndex];
+        const feedback = document.getElementById("feedbackArea");
+        
+        document.getElementById("optionsContainer").style.pointerEvents = "none"; // Travar cliques
+
+        if (userChoice === q.answer) {
+            score++;
+            document.getElementById("score").innerText = score;
+            feedback.className = "feedback correct";
+            feedback.innerHTML = `<strong>Correto!</strong> <br> ${q.comment}`;
+        } else {
+            feedback.className = "feedback incorrect";
+            feedback.innerHTML = `<strong>Errado!</strong> A resposta correta seria ${q.answer === 'C' ? 'Certo' : 'Errado'}. <br> ${q.comment}`;
+        }
+
+        feedback.style.display = "block";
+        document.getElementById("nextBtn").style.display = "block";
+    }
+
+    function nextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < shuffledQuestions.length) {
+            loadQuestion();
+        } else {
+            finishQuiz();
+        }
+    }
+
+    function finishQuiz() {
+        const percentage = (score / shuffledQuestions.length) * 100;
+        let msg = "";
+        if(percentage >= 80) msg = "Excelente! Você está pronto!";
+        else if(percentage >= 60) msg = "Muito bom, continue revisando.";
+        else msg = "Precisa estudar mais os módulos.";
+
+        document.querySelector(".container").innerHTML = `
+            <h1>Resultado Final</h1>
+            <div style="text-align: center; padding: 40px;">
+                <h2>Você acertou ${score} de ${shuffledQuestions.length}</h2>
+                <h3>Nota: ${percentage.toFixed(1)}%</h3>
+                <p>${msg}</p>
+                <button class="btn-next" onclick="location.reload()" style="display:inline-block; width:auto; padding: 15px 30px;">Reiniciar Simulado</button>
+            </div>
+        `;
+    }
+
+    function updateProgress() {
+        const percent = ((currentQuestionIndex) / shuffledQuestions.length) * 100;
+        document.getElementById("progressBar").style.width = `${percent}%`;
+    }
+
+    // Iniciar
+    initQuiz();
+</script>
+
+</body>
+</html>
