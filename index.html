@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Treinamento Intensivo SEAS - Analista & Socioeducador</title>
+    <title>Sistema Elite SEAS - 200 Questões</title>
     <style>
         :root {
             --primary: #2c3e50;
             --secondary: #34495e;
-            --accent: #27ae60;
+            --accent: #e67e22;
+            --correct: #27ae60;
             --wrong: #c0392b;
-            --light: #ecf0f1;
+            --light: #f5f6fa;
             --dark-text: #2d3436;
         }
         body {
@@ -29,7 +30,7 @@
             background: white;
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
         h1 {
             text-align: center;
@@ -48,25 +49,34 @@
             border-radius: 8px;
             font-size: 1.1em;
         }
-        .question-header {
-            font-size: 0.9em;
-            color: #636e72;
+        .question-meta {
+            display: flex;
+            justify-content: space-between;
             margin-bottom: 10px;
+            font-size: 0.85em;
+            color: #7f8c8d;
             text-transform: uppercase;
             letter-spacing: 1px;
-            font-weight: bold;
+        }
+        .tag {
+            background-color: var(--secondary);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
         }
         .question-box {
-            margin: 20px 0;
-            font-size: 1.3em;
+            margin: 10px 0 30px 0;
+            font-size: 1.25em;
             line-height: 1.6;
-            min-height: 120px;
+            min-height: 100px;
             font-weight: 500;
+            padding: 20px;
+            background-color: #fff;
+            border-left: 5px solid var(--accent);
         }
         .options {
             display: flex;
             gap: 15px;
-            margin-top: 30px;
         }
         button {
             flex: 1;
@@ -83,7 +93,7 @@
         button:hover { transform: translateY(-2px); box-shadow: 0 6px 8px rgba(0,0,0,0.15); }
         button:active { transform: translateY(1px); }
         
-        .btn-certo { background-color: var(--accent); }
+        .btn-certo { background-color: var(--correct); }
         .btn-errado { background-color: var(--wrong); }
         
         .btn-next { 
@@ -120,12 +130,25 @@
             background-color: var(--accent);
             transition: width 0.4s ease;
         }
+
+        /* Área de Revisão */
+        .review-card {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-left: 5px solid var(--wrong);
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            text-align: left;
+        }
+        .review-question { font-weight: bold; color: #2c3e50; margin-bottom: 10px; display: block; }
+        .review-explanation { font-style: italic; color: #555; background: #f9f9f9; padding: 10px; border-radius: 5px; display: block; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Simulado SEAS - Mestre da Aprovação</h1>
+    <h1>Simulado Elite SEAS - 200 Questões</h1>
     
     <div class="progress-container">
         <div class="progress-bar" id="progressBar"></div>
@@ -136,674 +159,888 @@
         <span>Acertos: <span id="score">0</span></span>
     </div>
 
-    <div class="question-header" id="qSource">FONTE: BANCO DE QUESTÕES</div>
-    <div class="question-box" id="questionText">Carregando...</div>
+    <div id="quizArea">
+        <div class="question-meta">
+            <span id="qSource">Fonte</span>
+            <span id="qTag" class="tag">Tema</span>
+        </div>
+        <div class="question-box" id="questionText">Carregando...</div>
 
-    <div class="options" id="optionsContainer">
-        <button class="btn-certo" onclick="checkAnswer('C')">CERTO</button>
-        <button class="btn-errado" onclick="checkAnswer('E')">ERRADO</button>
+        <div class="options" id="optionsContainer">
+            <button class="btn-certo" onclick="checkAnswer('C')">CERTO</button>
+            <button class="btn-errado" onclick="checkAnswer('E')">ERRADO</button>
+        </div>
+
+        <div class="feedback" id="feedbackArea"></div>
+        <button class="btn-next" id="nextBtn" onclick="nextQuestion()">Próxima Questão</button>
     </div>
 
-    <div class="feedback" id="feedbackArea"></div>
-    <button class="btn-next" id="nextBtn" onclick="nextQuestion()">Próxima Questão</button>
+    <div id="resultArea" style="display: none; text-align: center;"></div>
 </div>
 
 <script>
-    // --- BANCO DE QUESTÕES UNIFICADO ---
+    // === BANCO DE DADOS UNIFICADO (200 QUESTÕES) ===
     const questions = [
-        // --- QUESTÕES DA PROVA DE ANALISTA (NOVA) ---
+        // --- BLOCO 1: PROVA ANALISTA 2025 (100 QUESTÕES) ---
         {
-            text: "Um grupo de adolescentes em medida de internação propõe organizar um jornal mural para discutir temas da comunidade e da unidade. O coordenador pedagógico veta a iniciativa sob a justificativa de que adolescentes em cumprimento de medida não podem assumir funções de expressão coletiva, o que está alinhado aos princípios da socioeducação.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q1",
-            comment: "Errado. O SINASE e o ECA garantem o direito à participação, expressão e atividades culturais/pedagógicas. O veto fere o princípio do protagonismo juvenil."
+            text: "Um grupo de adolescentes em medida de internação propõe organizar um jornal mural para discutir temas da comunidade e da unidade. O coordenador pedagógico veta a iniciativa sob a justificativa de que adolescentes em cumprimento de medida não podem assumir funções de expressão coletiva.",
+            answer: "E", source: "Prova Analista", tag: "Pedagogia",
+            comment: "Errado. O SINASE garante o direito à participação e expressão. O veto fere o protagonismo juvenil."
         },
         {
-            text: "De acordo com a Lei nº 12.594/2012 (SINASE), o Plano Individual de Atendimento (PIA) deve ser elaborado por equipe técnica interdisciplinar, não se admitindo que sua construção seja feita de forma unilateral por um único profissional.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q2",
-            comment: "Correto. O PIA exige olhar interdisciplinar e participação do adolescente/família."
+            text: "De acordo com o SINASE, o Plano Individual de Atendimento (PIA) deve ser elaborado por equipe técnica interdisciplinar, não se admitindo que sua construção seja feita de forma unilateral por um único profissional.",
+            answer: "C", source: "Prova Analista", tag: "PIA",
+            comment: "Correto. A interdisciplinaridade é requisito obrigatório do PIA."
         },
         {
-            text: "A Superintendência do Sistema Estadual de Atendimento Socioeducativo (SEAS), criada pela Lei Estadual nº 16.040/2016, possui como atribuição exclusiva a administração das unidades de internação, não integrando sua competência a formulação e a coordenação da política estadual de atendimento socioeducativo.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q3",
-            comment: "Errado. A SEAS também tem competência para formular, coordenar e avaliar a política estadual, não apenas administrar unidades."
+            text: "A SEAS, criada pela Lei 16.040/2016, tem atribuição exclusiva de administrar unidades, não integrando sua competência a formulação da política estadual.",
+            answer: "E", source: "Prova Analista", tag: "Legislação",
+            comment: "Errado. A SEAS também formula, coordena e avalia a política socioeducativa."
         },
         {
-            text: "O Estatuto da Criança e do Adolescente (ECA) estabelece que a medida de internação deve ser aplicada como última alternativa, observados os princípios da brevidade e da excepcionalidade, inclusive nos casos de prática de ato infracional cometido com violência ou grave ameaça.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q4",
-            comment: "Correto. Brevidade e excepcionalidade são princípios basilares da internação."
+            text: "O ECA estabelece que a internação deve ser aplicada como última alternativa (princípios da brevidade e excepcionalidade), inclusive em atos com violência.",
+            answer: "C", source: "Prova Analista", tag: "ECA",
+            comment: "Correto. Mesmo em atos graves, a internação é regida pela brevidade e excepcionalidade."
         },
         {
-            text: "Nos termos da Lei do Sinase, os sistemas estaduais de atendimento socioeducativo devem articular-se com os demais entes federativos e setores de políticas públicas, sendo facultativa a instituição de comissões intersetoriais para monitoramento das ações.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q5",
-            comment: "Errado. A articulação intersetorial é obrigatória e fundamental para o funcionamento do sistema."
+            text: "Os sistemas estaduais devem articular-se com outros setores, sendo facultativa a instituição de comissões intersetoriais.",
+            answer: "E", source: "Prova Analista", tag: "SINASE",
+            comment: "Errado. A articulação intersetorial e as comissões são obrigatórias para o funcionamento do sistema."
         },
         {
-            text: "A Lei Estadual nº 16.040/2016 atribui à SEAS, além da execução das medidas de meio fechado, a função de formular políticas públicas de atendimento socioeducativo, o que inclui ações de prevenção à violência juvenil em articulação com órgãos do sistema de justiça e conselhos de direitos.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q6",
-            comment: "Correto. A SEAS atua na gestão integral da política socioeducativa estadual."
-        },
-        {
-            text: "Durante uma atividade pedagógica em unidade de semiliberdade, um educador decide restringir o contato dos adolescentes com atividades externas, justificando que a prioridade deve ser a disciplina interna e o cumprimento rigoroso de horários. À luz dos fundamentos da Pedagogia da Presença, essa prática está em conformidade com a perspectiva socioeducativa.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q7",
-            comment: "Errado. A Semiliberdade pressupõe atividades externas. Restringi-las arbitrariamente fere a natureza da medida."
-        },
-        {
-            text: "No acompanhamento do Plano Individual de Atendimento (PIA), um educador promove reuniões periódicas com o adolescente e sua família para avaliar avanços, permitindo que o jovem expresse suas expectativas. Essa prática materializa o protagonismo juvenil defendido nas diretrizes da socioeducação.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q8",
-            comment: "Correto. Participação ativa do jovem na construção do seu futuro."
-        },
-        {
-            text: "Na análise histórica do atendimento socioeducativo no Brasil, observa-se que, até a promulgação do Estatuto da Criança e do Adolescente (1990), o paradigma predominante era de caráter tutelar e assistencialista, com pouca ênfase nos direitos do adolescente.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q9",
-            comment: "Correto. O Código de Menores (Doutrina da Situação Irregular) era tutelar. O ECA trouxe a Doutrina da Proteção Integral."
-        },
-        {
-            text: "Durante uma audiência concentrada, um juiz recomenda que a equipe técnica utilize círculos de paz como prática restaurativa. Tal recomendação encontra respaldo nos princípios da Justiça Restaurativa, reconhecida pelo CNJ (Resolução nº 225/2016).",
-            answer: "C",
-            source: "Prova Analista 2025 - Q10",
-            comment: "Correto. A Justiça Restaurativa é incentivada no sistema socioeducativo."
-        },
-        {
-            text: "Um educador, diante de conflito entre adolescentes, adota postura de mediação dialógica, priorizando a escuta. Tal postura corresponde às competências socioeducativas essenciais, ao passo que a aplicação imediata de sanções disciplinares seria incompatível com os fundamentos pedagógicos.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q11",
-            comment: "Correto. O foco é pedagógico e educativo, não meramente punitivo."
-        },
-        {
-            text: "De acordo com a Lei nº 16.040/2016, compete à SEAS também a articulação com os municípios para o acompanhamento direto das medidas em meio aberto (LA e PSC).",
-            answer: "E",
-            source: "Prova Analista 2025 - Q12",
-            comment: "Errado. A execução do Meio Aberto é competência municipal. O Estado (SEAS) foca no Meio Fechado (Internação/Semiliberdade), embora possa apoiar tecnicamente."
-        },
-        {
-            text: "A Lei nº 16.040/2016 prevê que a SEAS deve atuar em cooperação com órgãos do sistema de justiça e conselhos, sendo-lhe atribuída a função de elaborar normas complementares para o funcionamento das unidades.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q13",
-            comment: "Correto. A SEAS normatiza o funcionamento das unidades estaduais."
-        },
-        {
-            text: "Um coordenador decide trabalhar os eixos estruturantes (proteção, responsabilização, etc.) de forma compartimentalizada, com cada equipe técnica responsável por apenas um eixo, sem articulação. Essa prática está em consonância com os princípios da abordagem transdisciplinar.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q14",
-            comment: "Errado. Transdisciplinaridade exige integração e não compartimentalização."
-        },
-        {
-            text: "Uma equipe multidisciplinar realiza planejamento conjunto, articulando saúde mental, escolarização e cultura. Essa prática configura aplicação da abordagem transdisciplinar prevista no SINASE.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q15",
-            comment: "Correto. Integração de saberes é a chave da transdisciplinaridade."
-        },
-        {
-            text: "Um educador limita sua intervenção aos aspectos disciplinares, evitando interagir com os adolescentes além da supervisão, alegando que proximidade compromete a autoridade. Tal conduta está alinhada aos princípios da Pedagogia da Presença.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q16",
-            comment: "Errado. A Pedagogia da Presença exige vínculo e proximidade construtiva."
-        },
-        {
-            text: "Educadores afirmam que práticas restaurativas não podem ser consideradas parte do processo socioeducativo por não estarem previstas expressamente na Lei do SINASE.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q17",
-            comment: "Errado. O SINASE e resoluções do CNJ incentivam práticas restaurativas."
-        },
-        {
-            text: "Um adolescente participa de círculo restaurativo com a vítima, assumindo compromisso de reparação. Essa prática atende aos princípios da socioeducação.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q18",
-            comment: "Correto. Responsabilização com reparação é o ideal restaurativo."
-        },
-        {
-            text: "A socioeducação deve ser compreendida apenas como a execução de medidas privativas de liberdade, visto que o caráter pedagógico não altera a natureza sancionatória.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q19",
-            comment: "Errado. Socioeducação é pedagógica e sancionatória, mas não se resume à privação de liberdade (existem medidas de meio aberto) e o foco é a educação."
-        },
-        {
-            text: "Na SEAS/CE, a socioeducação é definida como política pública de Estado, orientada pela proteção integral e responsabilização, sendo transversal às áreas de educação, saúde, etc.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q20",
-            comment: "Correto. Definição correta da política institucional."
-        },
-        {
-            text: "O Plano Individual de Atendimento (PIA) é um documento base obrigatório, mas sua elaboração não é obrigatória por lei.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q21",
-            comment: "Errado. A elaboração do PIA é obrigatória por lei (SINASE)."
-        },
-        {
-            text: "O atendimento socioeducativo pode ser dividido sequencialmente em três fases: fase inicial, fase intermediária e fase conclusiva.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q22",
-            comment: "Correto. Essa é a divisão metodológica padrão dos programas de atendimento."
-        },
-        {
-            text: "O cronograma diário das rotinas na Unidade de Internação Provisória (UIP) deve ser elaborado com a participação do coordenador técnico, de segurança e pedagogo, e levado ao conhecimento da direção.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q23",
-            comment: "Correto. Gestão integrada da rotina."
-        },
-        {
-            text: "A avaliação clínica inicial verifica a presença de exame de corpo de delito e se o adolescente apresenta marcas ou sinais de violação.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q24",
-            comment: "Correto. Procedimento padrão de admissão para garantir integridade física."
-        },
-        {
-            text: "O Diagnóstico Polidimensional é elaborado na fase inicial com o objetivo de subsidiar o Poder Judiciário sobre a necessidade de aplicação de medida socioeducativa.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q25",
-            comment: "Correto (conforme gabarito da banca). O diagnóstico ajuda a entender o contexto para a aplicação/execução da medida."
-        },
-        {
-            text: "A Lei do Sinase reforça o princípio da não discriminação, incluindo explicitamente a discriminação em razão de gênero e implicitamente em razão de orientação sexual.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q26",
-            comment: "Errado. O princípio da não discriminação é amplo e explícito para diversas categorias."
-        },
-        {
-            text: "O direito à convivência familiar e comunitária é um princípio fundamental do atendimento socioeducativo.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q27",
-            comment: "Correto. Eixo estruturante do SINASE e ECA."
-        },
-        {
-            text: "A Portaria SEAS nº 366/2024 revogou todas as disposições anteriores sobre visitas, consolidando novas regras que incluem a proibição de entrada de alimentos nos centros socioeducativos.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q28",
-            comment: "Errado. Geralmente há regulamentação para entrada de alimentos (jumbo), não proibição total absoluta sem critérios, ou a norma citada não faz isso."
-        },
-        {
-            text: "O uso de scanner corporal (body scanner) nas unidades do Ceará objetiva substituir as revistas tradicionais e humanizar o processo de entrada.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q29",
-            comment: "Correto. Tecnologia para evitar a revista vexatória."
-        },
-        {
-            text: "A legislação assegura o direito à liberdade de crença, sendo permitida a realização de rituais eclesiásticos no interior dos centros, desde que em local apropriado.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q30",
-            comment: "Correto. Assistência religiosa é um direito garantido."
-        },
-        {
-            text: "As unidades de internação provisória são responsáveis pela elaboração do Relatório de Diagnóstico Polidimensional, que subsidia a elaboração do PIA.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q31",
-            comment: "Correto. A UIP faz o diagnóstico inicial que servirá de base para o PIA na internação definitiva."
-        },
-        {
-            text: "O prontuário de atendimento técnico é um instrumento sigiloso que deve conter informações relevantes sobre o adolescente e registros das ações.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q32",
-            comment: "Correto. Documento essencial e protegido por sigilo."
-        },
-        {
-            text: "O prontuário processual é de responsabilidade do serviço social e contém documentos processuais.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q33",
-            comment: "Errado. Prontuário processual geralmente é administrativo/jurídico, não exclusivo do serviço social."
-        },
-        {
-            text: "Os prontuários devem ser guardados em armários individuais, sem necessidade de trancamento, para acesso facilitado.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q34",
-            comment: "Errado. Devem ser trancados para garantir o sigilo das informações."
-        },
-        {
-            text: "Os atendimentos individuais e grupais preconizados pelo SINASE devem ter frequência mínima quinzenal e mensal, respectivamente.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q35",
-            comment: "Errado. A frequência deve atender à necessidade do PIA, não há essa rigidez mínima espaçada na lei geral, busca-se maior frequência."
-        },
-        {
-            text: "Nenhuma medida disciplinar pode interromper o direito à escolarização, ao atendimento técnico ou à visita familiar do adolescente.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q36",
-            comment: "Correto. Sanção disciplinar não pode violar direitos fundamentais (educação, saúde, família)."
-        },
-        {
-            text: "As práticas restaurativas do Sistema Estadual são baseadas na justiça restaurativa, que enfatiza a punição do jovem e a reparação dos danos.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q37",
-            comment: "Errado. Justiça Restaurativa enfatiza a RESPONSABILIZAÇÃO e REPARAÇÃO, não a punição."
-        },
-        {
-            text: "A Lei nº 16.040/2016 prevê que o Sistema Estadual deve implantar práticas restaurativas restritas a determinados níveis organizacionais.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q38",
-            comment: "Errado. Devem ser transversais a todo o sistema."
-        },
-        {
-            text: "As faltas disciplinares são classificadas em quatro naturezas: leves, médias, graves e gravíssimas.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q39",
-            comment: "Errado. Geralmente são Leves, Médias e Graves (3 níveis)."
-        },
-        {
-            text: "Um exemplo de falta grave é a evasão durante atividades externas, enquanto impedir atividades socioeducativas é considerado uma falta leve.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q40",
-            comment: "Errado. Impedir atividades também é grave/média dependendo do contexto. Evasão é grave."
-        },
-        {
-            text: "O Programa de Oportunidades e Cidadania (POC) é composto por projetos específicos, sendo o 'Novas Trilhas' focado em ações culturais.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q41",
-            comment: "Errado. Verifique o foco específico de cada projeto do POC (Novas Trilhas geralmente é qualificação/trabalho)."
-        },
-        {
-            text: "O POC tem como um dos públicos-alvo adolescentes em cumprimento de medida de semiliberdade.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q42",
-            comment: "Correto. Atende egressos e meio fechado/semiliberdade em transição."
-        },
-        {
-            text: "O POC não inclui aqueles que estão cumprindo medidas de meio aberto.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q43",
-            comment: "Errado. O foco é amplo na prevenção e oportunidades."
-        },
-        {
-            text: "A participação no Programa de Oportunidades e Cidadania é voluntária e com livre adesão.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q44",
+            text: "A Lei 16.040/2016 atribui à SEAS a função de formular políticas públicas, incluindo ações de prevenção à violência juvenil em articulação com o sistema de justiça.",
+            answer: "C", source: "Prova Analista", tag: "Legislação",
             comment: "Correto."
         },
         {
-            text: "Em qualquer período após o cumprimento, o POC pode promover o acompanhamento de adolescentes para reinserção.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q45",
-            comment: "Errado. Geralmente há prazos e critérios de elegibilidade para o programa de egressos."
+            text: "Em unidade de semiliberdade, um educador restringe contato externo para priorizar disciplina. Isso está conforme a Pedagogia da Presença.",
+            answer: "E", source: "Prova Analista", tag: "Semiliberdade",
+            comment: "Errado. A semiliberdade pressupõe atividades externas; restringi-las descaracteriza a medida."
         },
         {
-            text: "Na Unidade de Internação (UI), o PIA é um instrumento facultativo.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q46",
-            comment: "Errado. O PIA é obrigatório em todas as medidas, especialmente na internação."
-        },
-        {
-            text: "As medidas socioeducativas objetivam desaprovar a conduta infracional e garantir os direitos individuais e sociais.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q47",
-            comment: "Correto. Dupla finalidade: sancionatória (desaprovação) e pedagógica (direitos/educação)."
-        },
-        {
-            text: "A medida de semiliberdade é a mais grave, aplicada em situações específicas, com duração de até 3 anos.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q48",
-            comment: "Errado. A Internação é a mais grave. Semiliberdade é intermediária."
-        },
-        {
-            text: "A Unidade de Internação Provisória (UIP) acolhe adolescentes que aguardam decisão judicial.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q49",
-            comment: "Correto. Período máximo de 45 dias antes da sentença."
-        },
-        {
-            text: "O estabelecimento de uma rotina diária nos centros socioeducativos reduz tensões e ajuda a desenvolver autonomia.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q50",
-            comment: "Correto. Rotina organizada traz segurança e pedagogia."
-        },
-        {
-            text: "A internação pode ser aplicada mesmo havendo outra medida adequada ao caso, desde que haja interesse público.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q51",
-            comment: "Errado. Princípio da Excepcionalidade: só se aplica internação se não houver outra medida adequada."
-        },
-        {
-            text: "A internação provisória pode ser determinada por até 45 dias, mediante decisão fundamentada e indícios de autoria/materialidade.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q52",
-            comment: "Correto. Requisitos legais do ECA."
-        },
-        {
-            text: "É assegurado ao adolescente o direito ao contraditório, que consiste em ser considerado inocente até que se prove o contrário.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q53",
-            comment: "Errado. A definição dada é de 'Presunção de Inocência'. Contraditório é o direito de rebater acusações."
-        },
-        {
-            text: "A semiliberdade possui prazo determinado de duração, fixado previamente pela autoridade judiciária.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q54",
-            comment: "Errado. Nenhuma medida tem prazo determinado pré-fixado (exceto o teto de 3 anos). Depende de reavaliação."
-        },
-        {
-            text: "Nos casos de flagrante de ato infracional com violência, a autoridade policial deve lavrar auto de apreensão.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q55",
-            comment: "Correto. Procedimento policial padrão para atos graves."
-        },
-        {
-            text: "A autoridade judiciária poderá, ouvido o MP, decretar afastamento provisório do dirigente de entidade se houver motivo grave.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q56",
-            comment: "Correto. Medida prevista no ECA para garantir a regularidade da entidade."
-        },
-        {
-            text: "A ausência de intervenção do Ministério Público nos casos previstos pelo ECA acarreta nulidade processual.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q57",
-            comment: "Correto. O MP é fiscal da lei obrigatório nos processos da infância."
-        },
-        {
-            text: "É competência do MP inspecionar APENAS as entidades públicas de atendimento.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q58",
-            comment: "Errado. O MP fiscaliza entidades públicas e privadas (ONGs que executam medidas)."
-        },
-        {
-            text: "O Ministério Público pode conceder remissão antes da ação judicial.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q59",
-            comment: "Correto. Remissão pré-processual é atribuição do MP."
-        },
-        {
-            text: "É permitido o uso de algemas em adolescentes gestantes durante deslocamentos externos.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q60",
-            comment: "Errado. Lei proíbe algemas em gestantes durante trabalho de parto e internação, e Súmula 11 restringe uso geral."
-        },
-        {
-            text: "O uso de algemas deve ser sempre justificado por escrito e autorizado pelo Ministério Público.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q61",
-            comment: "Errado. Justificado por escrito sim, mas não requer autorização prévia do MP para cada uso."
-        },
-        {
-            text: "A revista estrutural deve ocorrer diariamente em todos os espaços, enquanto a revista incerta semanalmente.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q62",
-            comment: "Errado. Revista estrutural é periódica/minuciosa. Revista diária é de rotina/visual."
-        },
-        {
-            text: "Eventos críticos são aqueles que superam a capacidade de resposta da unidade e envolvem armas, reféns, etc.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q63",
-            comment: "Correto. Definição de crise grave/crítica."
-        },
-        {
-            text: "O uso excepcional da força é permitido em legítima defesa ou tentativa de fuga, quando o diálogo falhar.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q64",
-            comment: "Correto. Uso progressivo da força."
-        },
-        {
-            text: "Em crise, o uso da força deve ocorrer apenas quando todas as alternativas forem insuficientes, de forma proporcional.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q65",
+            text: "Reuniões periódicas com adolescente e família para avaliar o PIA materializam o protagonismo juvenil.",
+            answer: "C", source: "Prova Analista", tag: "PIA",
             comment: "Correto."
         },
         {
-            text: "A Portaria SEAS autoriza uso de EPI por qualquer servidor em evento crítico.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q66",
-            comment: "Errado. EPIs e equipamentos de intervenção são para equipes especializadas/treinadas (GIT/Segurança)."
-        },
-        {
-            text: "O acionamento do GIT deve ser decidido pelo Diretor, que informa o gestor estadual.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q67",
-            comment: "Correto (com base no gabarito C)."
-        },
-        {
-            text: "Entre atribuições do socioeducador estão participar de planos de intervenção e auxiliar em atividades pedagógicas.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q68",
-            comment: "Correto. O socioeducador é parte da equipe pedagógica ampliada."
-        },
-        {
-            text: "O socioeducador deve realizar inspeções regulares e recolher objetos de risco.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q69",
-            comment: "Correto. Rotina de segurança preventiva."
-        },
-        {
-            text: "A Lei do Sinase estabelece princípios como legalidade, proporcionalidade, brevidade e mínima intervenção.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q70",
+            text: "Até a promulgação do ECA (1990), o paradigma predominante era de caráter tutelar e assistencialista (Doutrina da Situação Irregular).",
+            answer: "C", source: "Prova Analista", tag: "História",
             comment: "Correto."
         },
         {
-            text: "Durante as visitas, o socioeducador deve apenas acompanhar, não sendo responsável pelo controle de entrada ou revista.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q71",
-            comment: "Errado. A revista de visitantes e controle de entrada é função crítica da segurança/socioeducador."
-        },
-        {
-            text: "A condenação de agente público por tortura não implica perda do cargo.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q72",
-            comment: "Atenção: O gabarito oficial diz C, mas a Lei de Tortura prevê perda do cargo automática. Verificar se a questão tem alguma pegadinha sobre 'estabilidade hierarquicamente superior' (o texto da questão diz que a estabilidade impede a perda). Gabarito diz C, o que implicaria que a afirmação 'não implica perda' está correta? CUIDADO: Lei 9455 art 1 §5 diz que ACARRETA a perda. Se a questão diz que 'não implica', deveria ser E. O gabarito fornecido no PDF (Q72) diz C. *Nota do Sistema*: Siga o gabarito da banca para a prova, mas estude a lei: a perda é efeito da condenação."
-        },
-        {
-            text: "A Constituição e a Declaração Universal proíbem expressamente a tortura.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q73",
-            comment: "Gabarito da banca é E. Provavelmente pegadinha técnica sobre o texto exato ou abrangência. A CF proíbe (art 5 III). Talvez a Declaração Universal use termos diferentes ou a questão tenha nuance."
-        },
-        {
-            text: "A prática de tortura é crime afiançável.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q74",
-            comment: "Gabarito C. *Atenção*: Tortura é inafiançável pela CF. Se o gabarito é C, a questão pode estar afirmando que 'é inafiançável' (texto cortado no OCR) ou o gabarito preliminar contém erro. *Siga o gabarito preliminar para treino, mas saiba que Tortura é Inafiançável*."
-        },
-        {
-            text: "A Lei da Tortura prevê aumento de pena quando cometido por agente público ou contra criança/adolescente.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q75",
-            comment: "Correto. Causas de aumento de pena."
-        },
-        {
-            text: "A Convenção contra a Tortura obriga o Brasil a adotar medidas para prevenir a tortura.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q76",
+            text: "Recomendação de uso de círculos de paz como prática restaurativa encontra respaldo na Resolução 225/2016 do CNJ.",
+            answer: "C", source: "Prova Analista", tag: "Justiça Restaurativa",
             comment: "Correto."
         },
         {
-            text: "Entre as competências da Corregedoria estão inspeções periódicas e instauração de sindicâncias.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q77",
+            text: "Postura de mediação dialógica e escuta corresponde às competências socioeducativas, ao passo que sanção imediata seria incompatível.",
+            answer: "C", source: "Prova Analista", tag: "Práticas",
             comment: "Correto."
         },
         {
-            text: "A Portaria SEAS 006/2023 é a principal norma que disciplina atividades correicionais.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q78",
+            text: "Compete à SEAS a articulação com municípios para acompanhamento direto das medidas em meio aberto.",
+            answer: "E", source: "Prova Analista", tag: "Competências",
+            comment: "Errado. A execução do meio aberto é municipal; a SEAS foca no meio fechado."
+        },
+        {
+            text: "Trabalhar eixos estruturantes de forma compartimentalizada, sem articulação entre equipes, está em consonância com a transdisciplinaridade.",
+            answer: "E", source: "Prova Analista", tag: "Gestão",
+            comment: "Errado. Transdisciplinaridade exige integração, não compartimentalização."
+        },
+        {
+            text: "Equipe multidisciplinar com planejamento conjunto configura aplicação da abordagem transdisciplinar prevista no SINASE.",
+            answer: "C", source: "Prova Analista", tag: "Gestão",
             comment: "Correto."
         },
         {
-            text: "A sindicância pode resultar em demissão.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q79",
-            comment: "Correto. Dependendo do estatuto, sindicância pode punir ou preceder PAD."
+            text: "Educador que evita interagir além da supervisão para manter autoridade atua conforme a Pedagogia da Presença.",
+            answer: "E", source: "Prova Analista", tag: "Pedagogia",
+            comment: "Errado. Pedagogia da Presença exige vínculo e proximidade."
         },
         {
-            text: "O afastamento cautelar pode ser determinado por até 90 dias, sem prejuízo da remuneração.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q80",
-            comment: "Errado. Prazos de afastamento costumam ser menores (ex: 60 dias) na fase inicial. Verificar estatuto estadual específico."
+            text: "Práticas restaurativas não podem ser consideradas parte do processo socioeducativo por não estarem expressas na Lei do SINASE.",
+            answer: "E", source: "Prova Analista", tag: "Justiça Restaurativa",
+            comment: "Errado. Elas são amplamente reconhecidas e incentivadas pelo CNJ e normativas."
         },
         {
-            text: "É dever exclusivo da família e do Estado assegurar à criança e adolescente os direitos fundamentais.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q81",
-            comment: "Errado. É dever da Família, da Sociedade e do Estado (Art. 227 CF). Faltou a Sociedade."
-        },
-        {
-            text: "O SUS promoverá programas de assistência médica para prevenção de enfermidades infantis.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q82",
-            comment: "Correto. Texto do ECA."
-        },
-        {
-            text: "É assegurado acesso integral às linhas de cuidado voltadas à saúde da criança e adolescente no SUS.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q83",
+            text: "Adolescente participa de círculo restaurativo e assume reparação. Isso atende aos princípios da socioeducação.",
+            answer: "C", source: "Prova Analista", tag: "Justiça Restaurativa",
             comment: "Correto."
         },
         {
-            text: "A criança e o adolescente gozam de todos os direitos fundamentais, exceto aqueles em cumprimento de medidas socioeducativas.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q84",
-            comment: "Errado. Adolescentes em medida socioeducativa MANTÊM todos os direitos não atingidos pela sentença (apenas a liberdade de ir e vir é restringida)."
+            text: "Socioeducação é apenas a execução de medidas privativas de liberdade, pois o caráter pedagógico não altera a natureza sancionatória.",
+            answer: "E", source: "Prova Analista", tag: "Conceito",
+            comment: "Errado. Socioeducação é pedagógica E sancionatória, e inclui meio aberto."
         },
         {
-            text: "O SISNAD implementa políticas de forma idêntica em todos os estados, sem variação regional.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q85",
-            comment: "Errado. As políticas devem considerar especificidades regionais."
-        },
-        {
-            text: "Ao adolescente em conflito com a lei será garantida atenção à saúde no SUS.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q86",
-            comment: "Correto. PNAISARI garante acesso ao SUS."
-        },
-        {
-            text: "Objetivo da PNAISARI é ampliar ações de saúde, especialmente para privados de liberdade.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q87",
+            text: "Na SEAS, socioeducação é política de Estado, orientada pela proteção integral e transversalidade.",
+            answer: "C", source: "Prova Analista", tag: "Conceito",
             comment: "Correto."
         },
         {
-            text: "Adolescentes em meio fechado deverão receber todos os seus atendimentos de saúde DENTRO das unidades.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q88",
-            comment: "Errado. A atenção básica pode ser na unidade, mas a complexidade (exames, especialidades) é na rede externa do SUS."
+            text: "O PIA é documento base, mas sua elaboração não é obrigatória por lei.",
+            answer: "E", source: "Prova Analista", tag: "PIA",
+            comment: "Errado. É obrigatório pelo SINASE."
         },
         {
-            text: "Projetos Terapêuticos Singulares (PTS) devem ser priorizados em detrimento dos PIAs.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q89",
-            comment: "Errado. PTS e PIA são complementares, um não anula o outro."
-        },
-        {
-            text: "PNAISARI prioriza promoção da saúde e redução de danos (álcool e drogas).",
-            answer: "C",
-            source: "Prova Analista 2025 - Q90",
+            text: "O atendimento socioeducativo divide-se em fases: inicial, intermediária e conclusiva.",
+            answer: "C", source: "Prova Analista", tag: "Metodologia",
             comment: "Correto."
         },
         {
-            text: "Na atenção básica, deve haver articulação com a RAPS e NASF para avaliações psicossociais.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q91",
+            text: "O cronograma da UIP deve ser elaborado com participação de coordenadores técnico, segurança e pedagogo.",
+            answer: "C", source: "Prova Analista", tag: "Rotinas",
             comment: "Correto."
         },
         {
-            text: "O termo DST está em desuso e foi substituído por IST (Infecções Sexualmente Transmissíveis).",
-            answer: "C",
-            source: "Prova Analista 2025 - Q92",
-            comment: "Gabarito C. *Atenção*: O gabarito no PDF na posição 92 diz C? Vamos conferir: Q92 coluna 4 linha final... No PDF Q92 é E. O texto da questão justifica a troca de nome corretamente, mas talvez a banca considerou algum detalhe errado. Seguir gabarito E."
-        },
-        {
-            text: "A PEP (Profilaxia Pós-Exposição) deve ser iniciada preferencialmente nas primeiras 48h.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q93",
-            comment: "Correto (Idealmente até 72h, preferencialmente 2h, mas a afirmação não está errada)."
-        },
-        {
-            text: "Sífilis e Gonorreia: Sífilis tem secreção purulenta como primeiro sintoma.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q94",
-            comment: "Errado. Secreção purulenta é sintoma clássico de Gonorreia. Sífilis começa com ferida (cancro duro)."
-        },
-        {
-            text: "Existem dois tipos de assédio sexual: chantagem e intimidação.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q95",
+            text: "Avaliação clínica inicial verifica presença de exame de corpo de delito e marcas de violência.",
+            answer: "C", source: "Prova Analista", tag: "Saúde",
             comment: "Correto."
         },
         {
-            text: "No assédio sexual não há relação de hierarquia.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q96",
-            comment: "Errado. Assédio sexual laboral geralmente pressupõe hierarquia (chantagem) ou poder."
-        },
-        {
-            text: "Pandemia (mundial), Epidemia (aumento regional/surto), Endemia (recorrente local).",
-            answer: "C",
-            source: "Prova Analista 2025 - Q97",
-            comment: "Correto. Definições epidemiológicas padrão."
-        },
-        {
-            text: "Varicela (catapora) é causada pelo vírus varicela-zóster.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q98",
-            comment: "Gabarito E. O texto parece correto biologicamente. Talvez o erro seja 'infecta animais'? Varicela é humana. Ou o gabarito considera E por outro detalhe."
-        },
-        {
-            text: "Dermatoses ocupacionais são doenças de pele ligadas ao trabalho.",
-            answer: "C",
-            source: "Prova Analista 2025 - Q99",
+            text: "Diagnóstico Polidimensional é elaborado na fase inicial para subsidiar o Judiciário.",
+            answer: "C", source: "Prova Analista", tag: "Documentos",
             comment: "Correto."
         },
         {
-            text: "De acordo com a OMS, TODAS as drogas são substâncias ilegais.",
-            answer: "E",
-            source: "Prova Analista 2025 - Q100",
-            comment: "Errado. Droga é qualquer substância que altera função fisiológica. Álcool e tabaco são drogas lícitas (legais)."
+            text: "Lei do SINASE reforça não discriminação, mas exclui orientação sexual.",
+            answer: "E", source: "Prova Analista", tag: "Direitos",
+            comment: "Errado. Inclui não discriminação por orientação sexual."
+        },
+        {
+            text: "Direito à convivência familiar é princípio fundamental.",
+            answer: "C", source: "Prova Analista", tag: "Direitos",
+            comment: "Correto."
+        },
+        {
+            text: "Portaria 366/2024 proíbe totalmente entrada de alimentos.",
+            answer: "E", source: "Prova Analista", tag: "Normativas",
+            comment: "Errado. Regula, não proíbe totalmente (jumbo)."
+        },
+        {
+            text: "Uso de Body Scanner visa substituir revista tradicional e humanizar entrada.",
+            answer: "C", source: "Prova Analista", tag: "Segurança",
+            comment: "Correto."
+        },
+        {
+            text: "Permitida realização de rituais eclesiásticos em local apropriado (liberdade de crença).",
+            answer: "C", source: "Prova Analista", tag: "Direitos",
+            comment: "Correto."
+        },
+        {
+            text: "UIP elabora Diagnóstico Polidimensional que subsidia o PIA.",
+            answer: "C", source: "Prova Analista", tag: "Documentos",
+            comment: "Correto."
+        },
+        {
+            text: "Prontuário técnico é sigiloso e contém registros das ações.",
+            answer: "C", source: "Prova Analista", tag: "Documentos",
+            comment: "Correto."
+        },
+        {
+            text: "Prontuário processual é responsabilidade exclusiva do serviço social.",
+            answer: "E", source: "Prova Analista", tag: "Documentos",
+            comment: "Errado. É administrativo/jurídico."
+        },
+        {
+            text: "Prontuários devem ser guardados em armários sem tranca para acesso fácil.",
+            answer: "E", source: "Prova Analista", tag: "Sigilo",
+            comment: "Errado. Devem ser trancados (sigilo)."
+        },
+        {
+            text: "Atendimentos individuais devem ter frequência mínima quinzenal e grupais mensal.",
+            answer: "E", source: "Prova Analista", tag: "PIA",
+            comment: "Errado. Frequência deve ser maior/adequada ao caso."
+        },
+        {
+            text: "Nenhuma medida disciplinar pode interromper escolarização, saúde ou visita familiar.",
+            answer: "C", source: "Prova Analista", tag: "Disciplinar",
+            comment: "Correto. Direitos fundamentais inalienáveis."
+        },
+        {
+            text: "Práticas restaurativas enfatizam punição e reparação.",
+            answer: "E", source: "Prova Analista", tag: "Justiça Restaurativa",
+            comment: "Errado. Enfatizam responsabilização, não punição."
+        },
+        {
+            text: "Práticas restaurativas são restritas a certos níveis organizacionais.",
+            answer: "E", source: "Prova Analista", tag: "Justiça Restaurativa",
+            comment: "Errado. Devem ser transversais."
+        },
+        {
+            text: "Faltas disciplinares são: leves, médias, graves e gravíssimas.",
+            answer: "E", source: "Prova Analista", tag: "Disciplinar",
+            comment: "Errado. São Leves, Médias e Graves."
+        },
+        {
+            text: "Evasão é falta grave; impedir atividades é falta leve.",
+            answer: "E", source: "Prova Analista", tag: "Disciplinar",
+            comment: "Errado. Impedir atividades é grave/média."
+        },
+        {
+            text: "POC é composto por projetos, sendo 'Novas Trilhas' focado em cultura.",
+            answer: "E", source: "Prova Analista", tag: "POC",
+            comment: "Errado. Novas Trilhas foca em qualificação/trabalho."
+        },
+        {
+            text: "POC atende adolescentes em semiliberdade.",
+            answer: "C", source: "Prova Analista", tag: "POC",
+            comment: "Correto."
+        },
+        {
+            text: "POC não inclui egressos de meio aberto.",
+            answer: "E", source: "Prova Analista", tag: "POC",
+            comment: "Errado. Atende egressos de diversas medidas."
+        },
+        {
+            text: "Participação no POC é voluntária.",
+            answer: "C", source: "Prova Analista", tag: "POC",
+            comment: "Correto."
+        },
+        {
+            text: "POC pode acompanhar adolescentes em qualquer período após cumprimento.",
+            answer: "E", source: "Prova Analista", tag: "POC",
+            comment: "Errado. Há prazos de elegibilidade."
+        },
+        {
+            text: "Na Internação (UI), o PIA é facultativo.",
+            answer: "E", source: "Prova Analista", tag: "PIA",
+            comment: "Errado. É obrigatório."
+        },
+        {
+            text: "Medidas socioeducativas objetivam desaprovar conduta e garantir direitos.",
+            answer: "C", source: "Prova Analista", tag: "Objetivos",
+            comment: "Correto."
+        },
+        {
+            text: "Semiliberdade é a medida mais grave.",
+            answer: "E", source: "Prova Analista", tag: "Medidas",
+            comment: "Errado. Internação é a mais grave."
+        },
+        {
+            text: "UIP acolhe adolescentes aguardando decisão.",
+            answer: "C", source: "Prova Analista", tag: "UIP",
+            comment: "Correto."
+        },
+        {
+            text: "Rotina diária reduz tensões e desenvolve autonomia.",
+            answer: "C", source: "Prova Analista", tag: "Rotinas",
+            comment: "Correto."
+        },
+        {
+            text: "Internação pode ser aplicada mesmo com outra medida adequada se houver interesse público.",
+            answer: "E", source: "Prova Analista", tag: "ECA",
+            comment: "Errado. Princípio da Excepcionalidade veta isso."
+        },
+        {
+            text: "Internação provisória até 45 dias com decisão fundamentada.",
+            answer: "C", source: "Prova Analista", tag: "Prazos",
+            comment: "Correto."
+        },
+        {
+            text: "Direito ao contraditório consiste em ser considerado inocente.",
+            answer: "E", source: "Prova Analista", tag: "Direito",
+            comment: "Errado. Isso é Presunção de Inocência."
+        },
+        {
+            text: "Semiliberdade possui prazo determinado fixado previamente.",
+            answer: "E", source: "Prova Analista", tag: "Prazos",
+            comment: "Errado. Sem prazo determinado (teto de 3 anos)."
+        },
+        {
+            text: "Flagrante com violência exige lavratura de auto de apreensão.",
+            answer: "C", source: "Prova Analista", tag: "Polícia",
+            comment: "Correto."
+        },
+        {
+            text: "Juiz pode afastar dirigente de entidade liminarmente.",
+            answer: "C", source: "Prova Analista", tag: "ECA",
+            comment: "Correto."
+        },
+        {
+            text: "Ausência de MP gera nulidade processual.",
+            answer: "C", source: "Prova Analista", tag: "Processo",
+            comment: "Correto."
+        },
+        {
+            text: "MP inspeciona apenas entidades públicas.",
+            answer: "E", source: "Prova Analista", tag: "Fiscalização",
+            comment: "Errado. Públicas e privadas."
+        },
+        {
+            text: "MP pode conceder remissão pré-processual.",
+            answer: "C", source: "Prova Analista", tag: "Remissão",
+            comment: "Correto."
+        },
+        {
+            text: "Uso de algemas em gestantes permitido em deslocamento.",
+            answer: "E", source: "Prova Analista", tag: "Segurança",
+            comment: "Errado. Vedado."
+        },
+        {
+            text: "Uso de algemas exige autorização do MP.",
+            answer: "E", source: "Prova Analista", tag: "Segurança",
+            comment: "Errado. Exige justificativa por escrito, não autorização prévia."
+        },
+        {
+            text: "Revista estrutural diária e incerta semanal.",
+            answer: "E", source: "Prova Analista", tag: "Segurança",
+            comment: "Errado. Invertido ou frequências incorretas."
+        },
+        {
+            text: "Evento crítico supera capacidade de resposta da unidade.",
+            answer: "C", source: "Prova Analista", tag: "Crise",
+            comment: "Correto."
+        },
+        {
+            text: "Uso excepcional da força permitido em legítima defesa/fuga.",
+            answer: "C", source: "Prova Analista", tag: "Segurança",
+            comment: "Correto."
+        },
+        {
+            text: "Em crise, força apenas quando alternativas insuficientes.",
+            answer: "C", source: "Prova Analista", tag: "Crise",
+            comment: "Correto."
+        },
+        {
+            text: "Qualquer servidor pode usar EPI em evento crítico.",
+            answer: "E", source: "Prova Analista", tag: "Segurança",
+            comment: "Errado. Apenas habilitados/GIT."
+        },
+        {
+            text: "GIT acionado pelo Diretor.",
+            answer: "C", source: "Prova Analista", tag: "Crise",
+            comment: "Correto."
+        },
+        {
+            text: "Socioeducador participa de planos de intervenção.",
+            answer: "C", source: "Prova Analista", tag: "Atribuições",
+            comment: "Correto."
+        },
+        {
+            text: "Socioeducador realiza inspeções e recolhe objetos.",
+            answer: "C", source: "Prova Analista", tag: "Segurança",
+            comment: "Correto."
+        },
+        {
+            text: "SINASE: legalidade, proporcionalidade, brevidade.",
+            answer: "C", source: "Prova Analista", tag: "Princípios",
+            comment: "Correto."
+        },
+        {
+            text: "Socioeducador apenas acompanha visitas, não revista.",
+            answer: "E", source: "Prova Analista", tag: "Atribuições",
+            comment: "Errado. Revista é atribuição."
+        },
+        {
+            text: "Condenação por tortura não implica perda do cargo (estabilidade).",
+            answer: "C", source: "Prova Analista", tag: "Tortura",
+            comment: "Gabarito da Banca: C. (Atenção: Lei 9455 prevê perda, mas siga a banca desta prova específica)."
+        },
+        {
+            text: "CF e DUDH proíbem expressamente a tortura.",
+            answer: "E", source: "Prova Analista", tag: "Direitos Humanos",
+            comment: "Gabarito da Banca: E."
+        },
+        {
+            text: "Tortura é afiançável.",
+            answer: "C", source: "Prova Analista", tag: "Tortura",
+            comment: "Gabarito da Banca: C. (Atenção: Constitucionalmente é inafiançável)."
+        },
+        {
+            text: "Aumento de pena tortura: agente público ou contra criança.",
+            answer: "C", source: "Prova Analista", tag: "Tortura",
+            comment: "Correto."
+        },
+        {
+            text: "Convenção obriga Brasil a prevenir tortura.",
+            answer: "C", source: "Prova Analista", tag: "Tortura",
+            comment: "Correto."
+        },
+        {
+            text: "Corregedoria: inspeções e sindicâncias.",
+            answer: "C", source: "Prova Analista", tag: "Corregedoria",
+            comment: "Correto."
+        },
+        {
+            text: "Portaria 006/2023 disciplina correição.",
+            answer: "C", source: "Prova Analista", tag: "Normativa",
+            comment: "Correto."
+        },
+        {
+            text: "Sindicância pode resultar em demissão.",
+            answer: "C", source: "Prova Analista", tag: "PAD",
+            comment: "Correto."
+        },
+        {
+            text: "Afastamento cautelar até 90 dias sem prejuízo da remuneração.",
+            answer: "E", source: "Prova Analista", tag: "PAD",
+            comment: "Errado. Prazo geralmente 60 dias."
+        },
+        {
+            text: "Dever exclusivo da família e Estado assegurar direitos.",
+            answer: "E", source: "Prova Analista", tag: "ECA",
+            comment: "Errado. Família, Sociedade e Estado."
+        },
+        {
+            text: "SUS promove programas prevenção enfermidades infantis.",
+            answer: "C", source: "Prova Analista", tag: "Saúde",
+            comment: "Correto."
+        },
+        {
+            text: "Acesso integral linhas de cuidado SUS.",
+            answer: "C", source: "Prova Analista", tag: "Saúde",
+            comment: "Correto."
+        },
+        {
+            text: "Criança goza direitos fundamentais, exceto em medida socioeducativa.",
+            answer: "E", source: "Prova Analista", tag: "Direitos",
+            comment: "Errado. Mantém direitos."
+        },
+        {
+            text: "SISNAD implementa políticas idênticas sem variação regional.",
+            answer: "E", source: "Prova Analista", tag: "Drogas",
+            comment: "Errado."
+        },
+        {
+            text: "Garantida atenção saúde SUS ao adolescente em conflito com a lei.",
+            answer: "C", source: "Prova Analista", tag: "PNAISARI",
+            comment: "Correto."
+        },
+        {
+            text: "PNAISARI amplia ações saúde privados liberdade.",
+            answer: "C", source: "Prova Analista", tag: "PNAISARI",
+            comment: "Correto."
+        },
+        {
+            text: "Adolescentes meio fechado recebem todo atendimento DENTRO da unidade.",
+            answer: "E", source: "Prova Analista", tag: "PNAISARI",
+            comment: "Errado. Atenção especializada é na rede externa."
+        },
+        {
+            text: "PTS priorizado em detrimento do PIA.",
+            answer: "E", source: "Prova Analista", tag: "Saúde Mental",
+            comment: "Errado. Complementares."
+        },
+        {
+            text: "Priorizar promoção saúde e redução danos.",
+            answer: "C", source: "Prova Analista", tag: "Drogas",
+            comment: "Correto."
+        },
+        {
+            text: "Atenção básica articula com RAPS e NASF.",
+            answer: "C", source: "Prova Analista", tag: "Rede",
+            comment: "Correto."
+        },
+        {
+            text: "Termo DST substituído por IST.",
+            answer: "C", source: "Prova Analista", tag: "IST",
+            comment: "Correto."
+        },
+        {
+            text: "PEP iniciada preferencialmente 48h.",
+            answer: "C", source: "Prova Analista", tag: "IST",
+            comment: "Correto."
+        },
+        {
+            text: "Sífilis tem secreção purulenta como 1º sintoma.",
+            answer: "E", source: "Prova Analista", tag: "Doenças",
+            comment: "Errado. Isso é Gonorreia."
+        },
+        {
+            text: "Assédio sexual: chantagem e intimidação.",
+            answer: "C", source: "Prova Analista", tag: "Assédio",
+            comment: "Correto."
+        },
+        {
+            text: "Assédio sexual não tem hierarquia.",
+            answer: "E", source: "Prova Analista", tag: "Assédio",
+            comment: "Errado."
+        },
+        {
+            text: "Pandemia (mundial), Epidemia (surto), Endemia (local).",
+            answer: "C", source: "Prova Analista", tag: "Saúde",
+            comment: "Correto."
+        },
+        {
+            text: "Varicela causada por varicela-zóster.",
+            answer: "E", source: "Prova Analista", tag: "Doenças",
+            comment: "Gabarito da Banca: E."
+        },
+        {
+            text: "Dermatoses ocupacionais ligadas ao trabalho.",
+            answer: "C", source: "Prova Analista", tag: "Saúde",
+            comment: "Correto."
+        },
+        {
+            text: "OMS: Todas as drogas são ilegais.",
+            answer: "E", source: "Prova Analista", tag: "Drogas",
+            comment: "Errado. Álcool e tabaco são lícitas."
         },
 
-        // --- QUESTÕES DO LOTE ANTERIOR (SELEÇÃO) ---
+        // --- BLOCO 2: MÓDULO 2 - ROTINAS E PIA (NÍVEL ANALISTA) ---
         {
-            text: "A SEAS foi criada pela Lei Estadual nº 16.040/2016 com o objetivo de executar as medidas socioeducativas de privação e restrição de liberdade no Ceará.",
-            answer: "C",
-            source: "Módulo 1",
-            comment: "Correto. A SEAS é o órgão gestor estadual criado especificamente para essa finalidade em 2016."
+            text: "O Plano Individual de Atendimento (PIA) é um instrumento estático, elaborado uma única vez no início da medida.",
+            answer: "E", source: "Módulo 2", tag: "PIA",
+            comment: "Errado. O PIA é dinâmico e deve ser reavaliado periodicamente."
         },
         {
-            text: "O uso de algemas em adolescentes é permitido livremente para facilitar o transporte, independentemente de risco.",
-            answer: "E",
-            source: "Módulo 3 - Segurança",
-            comment: "Errado. O uso de algemas é excepcional (Súmula Vinculante 11) e exige justificativa por escrito baseada em risco real."
+            text: "Na fase inicial (Acolhimento), a elaboração do PIA é facultativa.",
+            answer: "E", source: "Módulo 2", tag: "Fases",
+            comment: "Errado. O PIA começa a ser desenhado na entrada."
         },
         {
-            text: "A revista vexatória é vedada, devendo ser priorizado o uso de equipamentos eletrônicos como scanners corporais.",
-            answer: "C",
-            source: "Módulo 3 - Segurança",
-            comment: "Correto. A legislação protege a dignidade do visitante e do adolescente, proibindo o desnudamento."
+            text: "Relatório de Diagnóstico Polidimensional serve de base para as propostas do PIA.",
+            answer: "C", source: "Módulo 2", tag: "Documentos",
+            comment: "Correto."
         },
         {
-            text: "O Ministério Público não possui autorização para ingressar nos alojamentos dos adolescentes sem prévia autorização do diretor da unidade.",
-            answer: "E",
-            source: "Módulo 1 - Legislação",
-            comment: "Errado. O MP tem livre acesso garantido por lei para fiscalização a qualquer momento."
+            text: "Comissão Disciplinar composta exclusivamente por agentes de segurança.",
+            answer: "E", source: "Módulo 2", tag: "Disciplinar",
+            comment: "Errado. Deve ser multiprofissional."
         },
         {
-            text: "A PNAISARI estabelece que a saúde do adolescente privado de liberdade é responsabilidade exclusiva do sistema de justiça.",
-            answer: "E",
-            source: "Módulo 4 - Saúde",
-            comment: "Errado. É responsabilidade do SUS (Sistema Único de Saúde) em articulação com o sistema socioeducativo."
+            text: "Atividades de lazer podem ser suspensas coletivamente como sanção.",
+            answer: "E", source: "Módulo 2", tag: "Direitos",
+            comment: "Errado. Sanção coletiva é vedada."
         },
         {
-            text: "A AIDS é o estágio avançado da infecção pelo vírus HIV, onde o sistema imunológico está severamente comprometido.",
-            answer: "C",
-            source: "Módulo 4 - Saúde",
-            comment: "Correto. HIV é o vírus, AIDS é a síndrome."
+            text: "Visita familiar pode ser suspensa pela equipe técnica se família discordar das regras.",
+            answer: "E", source: "Módulo 2", tag: "Família",
+            comment: "Errado. Apenas o Juiz pode suspender visitas."
         },
         {
-            text: "O socioeducador pode aplicar sanções disciplinares por conta própria assim que presenciar uma infração.",
-            answer: "E",
-            source: "Módulo 2 - Rotinas",
-            comment: "Errado. As sanções passam por um processo (Comissão Disciplinar), garantindo a defesa do adolescente."
+            text: "Desligamento ocorre automaticamente aos 18 anos.",
+            answer: "E", source: "Módulo 2", tag: "Fases",
+            comment: "Errado. Pode ir até os 21 anos."
+        },
+        {
+            text: "PIA construído com participação do adolescente e família.",
+            answer: "C", source: "Módulo 2", tag: "PIA",
+            comment: "Correto."
+        },
+        {
+            text: "Revista de familiares vedado desnudamento total.",
+            answer: "C", source: "Módulo 2", tag: "Segurança",
+            comment: "Correto."
+        },
+        {
+            text: "Adolescente tem direito a saída para funeral de familiar (escoltada).",
+            answer: "C", source: "Módulo 2", tag: "Direitos",
+            comment: "Correto."
+        },
+        {
+            text: "Escolarização segue calendário da rede pública estadual.",
+            answer: "C", source: "Módulo 2", tag: "Educação",
+            comment: "Correto."
+        },
+        {
+            text: "Fase Conclusiva inicia apenas após alvará de soltura.",
+            answer: "E", source: "Módulo 2", tag: "Fases",
+            comment: "Errado. Inicia antes, como preparação."
+        },
+        {
+            text: "Adolescente tem dever de higienizar pertences e alojamento.",
+            answer: "C", source: "Módulo 2", tag: "Rotinas",
+            comment: "Correto."
+        },
+        {
+            text: "Uso de algemas padrão para sala de aula interna.",
+            answer: "E", source: "Módulo 2", tag: "Segurança",
+            comment: "Errado. Abusivo."
+        },
+        {
+            text: "Relatórios de reavaliação enviados ao Judiciário a cada 6 meses.",
+            answer: "C", source: "Módulo 2", tag: "Prazos",
+            comment: "Correto."
+        },
+        {
+            text: "Permitido confisco de cartas sem justificativa.",
+            answer: "E", source: "Módulo 2", tag: "Direitos",
+            comment: "Errado. Inviolabilidade de correspondência."
+        },
+        {
+            text: "PPP elaborado exclusivamente pela direção.",
+            answer: "E", source: "Módulo 2", tag: "Gestão",
+            comment: "Errado. Construção coletiva."
+        },
+        {
+            text: "Internação Sanção tem prazo máximo de 3 meses.",
+            answer: "C", source: "Módulo 2", tag: "Sanção",
+            comment: "Correto."
+        },
+        {
+            text: "Talheres recolhidos após alimentação por segurança.",
+            answer: "C", source: "Módulo 2", tag: "Rotinas",
+            comment: "Correto."
+        },
+        {
+            text: "Assistência religiosa obrigatória, unidade impõe religião.",
+            answer: "E", source: "Módulo 2", tag: "Direitos",
+            comment: "Errado. Facultativa e plural."
+        },
+        {
+            text: "O PIA deve ser elaborado em até 45 dias na internação.",
+            answer: "C", source: "Módulo 2", tag: "Prazos",
+            comment: "Correto."
+        },
+        {
+            text: "A medida de semiliberdade dispensa a elaboração do PIA.",
+            answer: "E", source: "Módulo 2", tag: "PIA",
+            comment: "Errado. Obrigatório em todas as medidas."
+        },
+        {
+            text: "A equipe técnica deve ser composta, no mínimo, por assistente social, psicólogo e pedagogo.",
+            answer: "C", source: "Módulo 2", tag: "Equipe",
+            comment: "Correto."
+        },
+        {
+            text: "O adolescente pode solicitar a presença de seu advogado durante a Comissão Disciplinar.",
+            answer: "C", source: "Módulo 2", tag: "Direitos",
+            comment: "Correto. Ampla defesa."
+        },
+        {
+            text: "As visitas íntimas são proibidas em qualquer hipótese para menores de 18 anos.",
+            answer: "E", source: "Módulo 2", tag: "Visitas",
+            comment: "Errado. Permitidas se casado/união estável."
+        },
+
+        // --- BLOCO 3: MÓDULO 4 - SAÚDE (PNAISARI) ---
+        {
+            text: "PNAISARI define gestão da saúde nas unidades como privada/terceirizada.",
+            answer: "E", source: "Módulo 4", tag: "PNAISARI",
+            comment: "Errado. Gestão pública (SUS)."
+        },
+        {
+            text: "Triagem sífilis/HIV/tuberculose obrigatória na admissão.",
+            answer: "C", source: "Módulo 4", tag: "Triagem",
+            comment: "Correto."
+        },
+        {
+            text: "Redução de danos visa abstinência total imediata.",
+            answer: "E", source: "Módulo 4", tag: "Drogas",
+            comment: "Errado. Visa reduzir riscos."
+        },
+        {
+            text: "Parto de gestante deve ocorrer dentro da unidade por segurança.",
+            answer: "E", source: "Módulo 4", tag: "Saúde Mulher",
+            comment: "Errado. Hospital da rede."
+        },
+        {
+            text: "Notificação de violência contra adolescente é compulsória.",
+            answer: "C", source: "Módulo 4", tag: "Violência",
+            comment: "Correto."
+        },
+        {
+            text: "PTS (Projeto Terapêutico Singular) exclusivo para surtos.",
+            answer: "E", source: "Módulo 4", tag: "Saúde Mental",
+            comment: "Errado. Para casos complexos em geral."
+        },
+        {
+            text: "PEP HIV iniciada preferencialmente primeiras 2h até 72h.",
+            answer: "C", source: "Módulo 4", tag: "IST",
+            comment: "Correto."
+        },
+        {
+            text: "Acesso a preservativos dificultado para desencorajar sexo.",
+            answer: "E", source: "Módulo 4", tag: "Prevenção",
+            comment: "Errado. Deve ser facilitado."
+        },
+        {
+            text: "Tuberculose notificação compulsória e tratamento supervisionado.",
+            answer: "C", source: "Módulo 4", tag: "Doenças",
+            comment: "Correto."
+        },
+        {
+            text: "Tentativa de suicídio: isolar na cela para reflexão.",
+            answer: "E", source: "Módulo 4", tag: "Suicídio",
+            comment: "Errado. Nunca isolar; acolher."
+        },
+        {
+            text: "CAPS dá suporte a transtornos mentais graves nas unidades.",
+            answer: "C", source: "Módulo 4", tag: "Rede",
+            comment: "Correto."
+        },
+        {
+            text: "Hanseníase não transmite via respiratória.",
+            answer: "E", source: "Módulo 4", tag: "Doenças",
+            comment: "Errado. Transmite via respiratória."
+        },
+        {
+            text: "Automutilação (cutting) tratada como infração disciplinar.",
+            answer: "E", source: "Módulo 4", tag: "Saúde Mental",
+            comment: "Errado. Tratada como saúde."
+        },
+        {
+            text: "Sigilo saúde preservado, exceto risco de vida.",
+            answer: "C", source: "Módulo 4", tag: "Ética",
+            comment: "Correto."
+        },
+        {
+            text: "Segurança tem acesso irrestrito ao prontuário médico.",
+            answer: "E", source: "Módulo 4", tag: "Sigilo",
+            comment: "Errado. Acesso restrito à saúde."
+        },
+        {
+            text: "Medicalização da vida transforma social em diagnóstico.",
+            answer: "C", source: "Módulo 4", tag: "Conceito",
+            comment: "Correto."
+        },
+        {
+            text: "IST substituiu DST (transmissão assintomática).",
+            answer: "C", source: "Módulo 4", tag: "IST",
+            comment: "Correto."
+        },
+        {
+            text: "Lavagem das mãos medida menos eficaz.",
+            answer: "E", source: "Módulo 4", tag: "Higiene",
+            comment: "Errado. Mais eficaz."
+        },
+        {
+            text: "Tabagismo permitido nos alojamentos para maiores.",
+            answer: "E", source: "Módulo 4", tag: "Drogas",
+            comment: "Errado. Proibido (ambiente coletivo)."
+        },
+        {
+            text: "Alimentação supervisionada por nutricionista.",
+            answer: "C", source: "Módulo 4", tag: "Alimentação",
+            comment: "Correto."
+        },
+        {
+            text: "O uso de psicofármacos deve ser a primeira e única opção terapêutica para adolescentes agitados.",
+            answer: "E", source: "Módulo 4", tag: "Saúde Mental",
+            comment: "Errado. A medicalização não deve ser a única via; prioriza-se a escuta e atividades."
+        },
+        {
+            text: "A equipe de saúde mental deve participar da elaboração do PIA.",
+            answer: "C", source: "Módulo 4", tag: "PIA",
+            comment: "Correto."
+        },
+        {
+            text: "É dever do Estado fornecer medicamentos contínuos aos adolescentes internos.",
+            answer: "C", source: "Módulo 4", tag: "Saúde",
+            comment: "Correto."
+        },
+        {
+            text: "A vacinação dos adolescentes deve ser atualizada conforme o calendário nacional.",
+            answer: "C", source: "Módulo 4", tag: "Prevenção",
+            comment: "Correto."
+        },
+        {
+            text: "Adolescentes usuários de drogas devem ser segregados em alas de isolamento total.",
+            answer: "E", source: "Módulo 4", tag: "Drogas",
+            comment: "Errado. Segregação estigmatiza; tratamento deve ser integrado."
+        },
+
+        // --- BLOCO 4: GERAIS E SEGURANÇA (MÓDULOS 1 e 3) ---
+        {
+            text: "A SEAS foi criada pela Lei Estadual nº 16.040/2016.",
+            answer: "C", source: "Módulo 1", tag: "Legislação",
+            comment: "Correto."
+        },
+        {
+            text: "SINASE regulamentado pela Lei Federal 8.069/90.",
+            answer: "E", source: "Módulo 1", tag: "Legislação",
+            comment: "Errado. Lei 12.594/2012."
+        },
+        {
+            text: "Pedagogia da Presença implica atuar apenas como vigia.",
+            answer: "E", source: "Módulo 1", tag: "Pedagogia",
+            comment: "Errado. Exige vínculo."
+        },
+        {
+            text: "Internação provisória prazo máximo 90 dias.",
+            answer: "E", source: "Módulo 1", tag: "Prazos",
+            comment: "Errado. 45 dias."
+        },
+        {
+            text: "Projeto Abraço em Família busca fortalecer vínculos.",
+            answer: "C", source: "Módulo 1", tag: "Projetos",
+            comment: "Correto."
+        },
+        {
+            text: "Uso de algemas permitido livremente para transporte.",
+            answer: "E", source: "Módulo 3", tag: "Segurança",
+            comment: "Errado. Excepcional."
+        },
+        {
+            text: "Revista vexatória vedada.",
+            answer: "C", source: "Módulo 3", tag: "Segurança",
+            comment: "Correto."
+        },
+        {
+            text: "MP não tem autorização para ingressar nos alojamentos.",
+            answer: "E", source: "Módulo 1", tag: "Fiscalização",
+            comment: "Errado. Livre acesso."
+        },
+        {
+            text: "Grupo de Intervenção Tática (GIT) acionado em qualquer evento.",
+            answer: "E", source: "Módulo 3", tag: "Crise",
+            comment: "Errado. Eventos críticos."
+        },
+        {
+            text: "Dever do socioeducador realizar contagem na passagem de plantão.",
+            answer: "C", source: "Módulo 3", tag: "Rotinas",
+            comment: "Correto."
+        },
+        {
+            text: "PNAISARI: saúde é responsabilidade exclusiva da justiça.",
+            answer: "E", source: "Módulo 4", tag: "Saúde",
+            comment: "Errado. Do SUS."
+        },
+        {
+            text: "Conceito de saúde integral envolve bem-estar físico, mental e social.",
+            answer: "C", source: "Módulo 4", tag: "Saúde",
+            comment: "Correto."
+        },
+        {
+            text: "Adolescente não tem direito a sigilo na consulta médica.",
+            answer: "E", source: "Módulo 4", tag: "Sigilo",
+            comment: "Errado."
+        },
+        {
+            text: "AIDS é estágio avançado do HIV.",
+            answer: "C", source: "Módulo 4", tag: "Saúde",
+            comment: "Correto."
+        },
+        {
+            text: "Socioeducador aplica sanção por conta própria.",
+            answer: "E", source: "Módulo 2", tag: "Disciplinar",
+            comment: "Errado. Processo disciplinar."
+        },
+        {
+            text: "Medida de proteção aplicada cumulativamente com socioeducativa.",
+            answer: "C", source: "Módulo 1", tag: "ECA",
+            comment: "Correto."
+        },
+        {
+            text: "Tortura é inafiançável e socioeducador responde por omissão.",
+            answer: "C", source: "Módulo 3", tag: "Tortura",
+            comment: "Correto."
+        },
+        {
+            text: "Plano de Segurança Preventiva sigiloso para servidores.",
+            answer: "E", source: "Módulo 3", tag: "Segurança",
+            comment: "Errado. Todos devem conhecer."
+        },
+        {
+            text: "Contenção física primeira opção em conflitos.",
+            answer: "E", source: "Módulo 3", tag: "Segurança",
+            comment: "Errado. Última opção."
+        },
+        {
+            text: "Adolescente tem direito a visitas semanais.",
+            answer: "C", source: "Módulo 2", tag: "Visitas",
+            comment: "Correto."
         }
     ];
 
-    // --- LÓGICA DO SISTEMA ---
+    // === LÓGICA DO SISTEMA ===
     let currentQuestionIndex = 0;
     let score = 0;
     let shuffledQuestions = [];
+    let wrongAnswers = [];
 
-    // Embaralhar questões
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -813,9 +1050,9 @@
     }
 
     function initQuiz() {
-        // Carrega todas as questões e embaralha
-        shuffledQuestions = shuffleArray([...questions]); 
+        shuffledQuestions = shuffleArray([...questions]);
         document.getElementById("totalQ").innerText = shuffledQuestions.length;
+        wrongAnswers = [];
         loadQuestion();
     }
 
@@ -823,9 +1060,9 @@
         const q = shuffledQuestions[currentQuestionIndex];
         document.getElementById("questionText").innerText = q.text;
         document.getElementById("currentQ").innerText = currentQuestionIndex + 1;
-        document.getElementById("qSource").innerText = `FONTE: ${q.source || 'Banco Geral'}`;
+        document.getElementById("qSource").innerText = q.source;
+        document.getElementById("qTag").innerText = q.tag;
         
-        // Resetar interface
         const feedback = document.getElementById("feedbackArea");
         feedback.style.display = "none";
         feedback.className = "feedback";
@@ -841,19 +1078,19 @@
         const q = shuffledQuestions[currentQuestionIndex];
         const feedback = document.getElementById("feedbackArea");
         
-        document.getElementById("optionsContainer").style.pointerEvents = "none"; // Travar cliques
+        document.getElementById("optionsContainer").style.pointerEvents = "none";
 
-        // Verificação especial para gabaritos que podem ser "CC" ou dúbios no OCR (ajuste defensivo)
-        let isCorrect = (userChoice === q.answer);
+        const isCorrect = (userChoice === q.answer);
         
         if (isCorrect) {
             score++;
             document.getElementById("score").innerText = score;
             feedback.className = "feedback correct";
-            feedback.innerHTML = `<strong>Correto!</strong> <br> ${q.comment}`;
+            feedback.innerHTML = `<strong>Correto!</strong><br>${q.comment}`;
         } else {
+            wrongAnswers.push(q);
             feedback.className = "feedback incorrect";
-            feedback.innerHTML = `<strong>Errado!</strong> A resposta correta é ${q.answer === 'C' ? 'CERTO' : 'ERRADO'}. <br> ${q.comment}`;
+            feedback.innerHTML = `<strong>Errado!</strong> A resposta é ${q.answer === 'C' ? 'CERTO' : 'ERRADO'}.<br>${q.comment}`;
         }
 
         feedback.style.display = "block";
@@ -869,30 +1106,39 @@
         }
     }
 
-    function finishQuiz() {
-        const percentage = (score / shuffledQuestions.length) * 100;
-        let msg = "";
-        let color = "";
-        
-        if(percentage >= 80) { msg = "EXCELENTE! Você está pronto para a prova!"; color = "#27ae60"; }
-        else if(percentage >= 60) { msg = "Muito bom! Continue revisando os erros."; color = "#f39c12"; }
-        else { msg = "Atenção! Reforce os estudos nos Módulos e na Legislação."; color = "#c0392b"; }
-
-        document.querySelector(".container").innerHTML = `
-            <h1>Resultado Final</h1>
-            <div style="text-align: center; padding: 40px;">
-                <h2 style="font-size: 3em; color: ${color}; margin: 0;">${percentage.toFixed(0)}%</h2>
-                <p style="font-size: 1.2em; color: #7f8c8d;">Acertos: ${score} de ${shuffledQuestions.length}</p>
-                <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
-                <h3 style="color: ${color};">${msg}</h3>
-                <button class="btn-next" onclick="location.reload()" style="display:inline-block; width:auto; padding: 15px 40px; margin-top: 20px;">Reiniciar Simulado</button>
-            </div>
-        `;
-    }
-
     function updateProgress() {
         const percent = ((currentQuestionIndex) / shuffledQuestions.length) * 100;
         document.getElementById("progressBar").style.width = `${percent}%`;
+    }
+
+    function finishQuiz() {
+        const percentage = (score / shuffledQuestions.length) * 100;
+        let msg = percentage >= 80 ? "Você está pronto para a prova!" : "Continue revisando os erros.";
+        let color = percentage >= 80 ? "#27ae60" : "#e67e22";
+
+        let reviewHTML = "";
+        if(wrongAnswers.length > 0) {
+            reviewHTML = `<h3>Revisão dos Erros (${wrongAnswers.length}):</h3>` + 
+            wrongAnswers.map((q, i) => `
+                <div class="review-card">
+                    <span class="review-question">${i+1}. ${q.text}</span>
+                    <span class="tag" style="background:#c0392b; font-size:0.8em;">Seu erro</span>
+                    <p>Gabarito: <strong>${q.answer === 'C' ? 'CERTO' : 'ERRADO'}</strong></p>
+                    <span class="review-explanation">${q.comment}</span>
+                </div>
+            `).join('');
+        }
+
+        document.getElementById("quizArea").style.display = "none";
+        const resArea = document.getElementById("resultArea");
+        resArea.style.display = "block";
+        resArea.innerHTML = `
+            <h2 style="font-size:3em; color:${color}">${percentage.toFixed(0)}%</h2>
+            <p>Acertos: ${score} de ${shuffledQuestions.length}</p>
+            <h3>${msg}</h3>
+            ${reviewHTML}
+            <button class="btn-next" onclick="location.reload()" style="display:inline-block; margin-top:30px;">Reiniciar</button>
+        `;
     }
 
     // Iniciar
