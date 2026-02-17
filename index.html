@@ -85,727 +85,1018 @@
 
 <script>
     // =================================================================================
-    // BANCO DE DADOS ELITE - 200 QUESTÕES COMENTADAS E CONTEXTUALIZADAS
+    // BANCO DE DADOS ELITE - 200 QUESTÕES (PROVA ANALISTA + APOSTILA ROBZU)
     // =================================================================================
     const questions = [
         
-        // --- BLOCO 1: PROVA DE ANALISTA SOCIOEDUCATIVO (GABARITO 2 - OFICIAL) ---
-        
+        // =============================================================================
+        // PARTE 1: PROVA DE ANALISTA SOCIOEDUCATIVO (100 QUESTÕES OFICIAIS)
+        // =============================================================================
         {
-            text: "1. Um grupo de adolescentes em medida de internação propõe organizar um jornal mural para discutir temas da comunidade e da unidade. O coordenador pedagógico veta a iniciativa sob a justificativa de que adolescentes em cumprimento de medida não podem assumir funções de expressão coletiva, o que está alinhado aos princípios da socioeducação.",
-            answer: "E",
-            source: "Prova Analista",
-            tag: "Pedagogia",
-            comment: "Errado. O SINASE e o ECA garantem o direito à participação, à liberdade de expressão e à cultura. O veto fere o princípio do protagonismo juvenil e a dimensão pedagógica da medida, que deve fomentar a autonomia e a cidadania."
+            text: "1. Um grupo de adolescentes em medida de internação propõe organizar um jornal mural para discutir temas da comunidade e da unidade. O coordenador pedagógico veta a iniciativa sob a justificativa de que adolescentes em cumprimento de medida não podem assumir funções de expressão coletiva.",
+            answer: "E", source: "Prova Analista", tag: "Pedagogia",
+            comment: "Errado. O SINASE e o ECA garantem o direito à participação, liberdade de expressão e atividades culturais/pedagógicas."
         },
         {
             text: "2. De acordo com a Lei nº 12.594/2012 (SINASE), o Plano Individual de Atendimento (PIA) deve ser elaborado por equipe técnica interdisciplinar, não se admitindo que sua construção seja feita de forma unilateral por um único profissional.",
-            answer: "C",
-            source: "Prova Analista",
-            tag: "PIA",
-            comment: "Correto. A interdisciplinaridade é requisito legal (Art. 54 do SINASE) para a elaboração do PIA, garantindo um olhar integral (saúde, educação, assistência) sobre o adolescente."
+            answer: "C", source: "Prova Analista", tag: "PIA",
+            comment: "Correto. A interdisciplinaridade é obrigatória na elaboração do PIA."
         },
         {
-            text: "3. A Superintendência do Sistema Estadual de Atendimento Socioeducativo (SEAS), criada pela Lei Estadual nº 16.040/2016, possui como atribuição exclusiva a administração das unidades de internação, não integrando sua competência a formulação e a coordenação da política estadual de atendimento socioeducativo.",
-            answer: "E",
-            source: "Prova Analista",
-            tag: "Legislação SEAS",
-            comment: "Errado. A SEAS tem competência ampla para formular, coordenar, monitorar e avaliar a política socioeducativa no âmbito estadual, além de executar as medidas de meio fechado."
+            text: "3. A Superintendência do Sistema Estadual de Atendimento Socioeducativo (SEAS), criada pela Lei Estadual nº 16.040/2016, possui como atribuição exclusiva a administração das unidades de internação, não integrando sua competência a formulação e a coordenação da política estadual.",
+            answer: "E", source: "Prova Analista", tag: "Legislação SEAS",
+            comment: "Errado. A SEAS também tem competência para formular, coordenar e avaliar a política socioeducativa estadual."
         },
         {
             text: "4. O Estatuto da Criança e do Adolescente (ECA) estabelece que a medida de internação deve ser aplicada como última alternativa, observados os princípios da brevidade e da excepcionalidade, inclusive nos casos de prática de ato infracional cometido com violência ou grave ameaça.",
-            answer: "C",
-            source: "Prova Analista",
-            tag: "ECA",
-            comment: "Correto. Mesmo em atos graves, a internação segue sendo excepcional (último recurso) e breve (menor tempo necessário), devendo ser reavaliada periodicamente."
+            answer: "C", source: "Prova Analista", tag: "ECA",
+            comment: "Correto. A internação é sempre excepcional e breve, mesmo em atos graves."
         },
         {
             text: "5. Nos termos da Lei do Sinase, os sistemas estaduais de atendimento socioeducativo devem articular-se com os demais entes federativos e setores de políticas públicas, sendo facultativa a instituição de comissões intersetoriais para monitoramento das ações.",
-            answer: "E",
-            source: "Prova Analista",
-            tag: "SINASE",
-            comment: "Errado. A intersetorialidade e a articulação com outras políticas públicas são OBRIGATÓRIAS. As comissões intersetoriais são instrumentos fundamentais de gestão do SINASE."
+            answer: "E", source: "Prova Analista", tag: "SINASE",
+            comment: "Errado. A articulação e as comissões intersetoriais são obrigatórias."
         },
         {
-            text: "6. A Lei Estadual nº 16.040/2016 atribui à SEAS, além da execução das medidas de meio fechado, a função de formular políticas públicas de atendimento socioeducativo, o que inclui ações de prevenção à violência juvenil em articulação com órgãos do sistema de justiça e conselhos de direitos.",
-            answer: "C",
-            source: "Prova Analista",
-            tag: "Gestão",
-            comment: "Correto. A prevenção e a articulação com a justiça são partes integrantes da missão institucional da SEAS para reduzir a reincidência e a entrada no sistema."
+            text: "6. A Lei Estadual nº 16.040/2016 atribui à SEAS, além da execução das medidas de meio fechado, a função de formular políticas públicas de atendimento socioeducativo, o que inclui ações de prevenção à violência juvenil em articulação com órgãos do sistema de justiça.",
+            answer: "C", source: "Prova Analista", tag: "Gestão",
+            comment: "Correto."
         },
         {
-            text: "7. Durante uma atividade pedagógica em unidade de semiliberdade, um educador decide restringir o contato dos adolescentes com atividades externas, justificando que a prioridade deve ser a disciplina interna e o cumprimento rigoroso de horários. À luz dos fundamentos da Pedagogia da Presença, essa prática está em conformidade com a perspectiva socioeducativa.",
-            answer: "E",
-            source: "Prova Analista",
-            tag: "Semiliberdade",
-            comment: "Errado. A essência da semiliberdade é a realização de atividades externas (escola, trabalho). A restrição total descaracteriza a medida e a transforma em internação ilegal, além de ferir a pedagogia da presença que preza pelo vínculo e confiança."
+            text: "7. Durante uma atividade pedagógica em unidade de semiliberdade, um educador decide restringir o contato dos adolescentes com atividades externas, justificando que a prioridade deve ser a disciplina interna. Essa prática está em conformidade com a perspectiva socioeducativa.",
+            answer: "E", source: "Prova Analista", tag: "Semiliberdade",
+            comment: "Errado. A semiliberdade exige atividades externas (escola, trabalho); restringi-las descaracteriza a medida."
         },
         {
-            text: "8. No acompanhamento do Plano Individual de Atendimento (PIA), um educador promove reuniões periódicas com o adolescente e sua família para avaliar avanços, permitindo que o jovem expresse suas expectativas quanto à continuidade dos estudos. Essa prática materializa o protagonismo juvenil defendido nas diretrizes da socioeducação.",
-            answer: "C",
-            source: "Prova Analista",
-            tag: "Metodologia",
-            comment: "Correto. O acompanhamento participativo, onde o jovem tem voz, é essencial para o engajamento e sucesso da medida socioeducativa."
+            text: "8. No acompanhamento do Plano Individual de Atendimento (PIA), um educador promove reuniões periódicas com o adolescente e sua família para avaliar avanços. Essa prática materializa o protagonismo juvenil defendido nas diretrizes da socioeducação.",
+            answer: "C", source: "Prova Analista", tag: "Metodologia",
+            comment: "Correto."
         },
         {
-            text: "9. Na análise histórica do atendimento socioeducativo no Brasil, observa-se que, até a promulgação do Estatuto da Criança e do Adolescente (1990), o paradigma predominante era de caráter tutelar e assistencialista, com pouca ênfase nos direitos do adolescente.",
-            answer: "C",
-            source: "Prova Analista",
-            tag: "Histórico",
-            comment: "Correto. O Código de Menores (1979) baseava-se na Doutrina da Situação Irregular (tutelar). O ECA (1990) inaugurou a Doutrina da Proteção Integral."
+            text: "9. Na análise histórica do atendimento socioeducativo no Brasil, observa-se que, até a promulgação do ECA (1990), o paradigma predominante era de caráter tutelar e assistencialista (Código de Menores).",
+            answer: "C", source: "Prova Analista", tag: "Histórico",
+            comment: "Correto."
         },
         {
-            text: "10. Durante uma audiência concentrada, um juiz da infância e juventude recomenda que a equipe técnica da unidade socioeducativa utilize círculos de paz como prática restaurativa para resolução de conflitos. Tal recomendação encontra respaldo nos princípios da Justiça Restaurativa, reconhecida pelo Conselho Nacional de Justiça (Resolução nº 225/2016).",
-            answer: "C",
-            source: "Prova Analista",
-            tag: "Justiça Restaurativa",
-            comment: "Correto. O CNJ incentiva e normatiza o uso de práticas restaurativas (como os círculos de paz) no sistema de justiça e socioeducativo."
+            text: "10. Durante uma audiência concentrada, um juiz recomenda que a equipe técnica utilize círculos de paz como prática restaurativa. Tal recomendação encontra respaldo nos princípios da Justiça Restaurativa, reconhecida pelo CNJ.",
+            answer: "C", source: "Prova Analista", tag: "Restaurativa",
+            comment: "Correto."
         },
         {
-            text: "11. Diante de um conflito verbal entre dois adolescentes, um socioeducador adota uma postura de mediação dialógica, priorizando a escuta ativa e o entendimento mútuo. Essa conduta corresponde às competências socioeducativas essenciais, ao passo que a aplicação imediata de sanções disciplinares seria incompatível com os fundamentos pedagógicos da medida.",
-            answer: "C",
-            source: "Prova Analista",
-            tag: "Práticas",
-            comment: "Correto. A intervenção deve ser primeiramente pedagógica e mediadora, usando o conflito como oportunidade educativa, evitando a punição como primeira resposta."
+            text: "11. Diante de um conflito verbal, um socioeducador adota postura de mediação dialógica. Essa conduta corresponde às competências socioeducativas essenciais, sendo preferível à aplicação imediata de sanções disciplinares.",
+            answer: "C", source: "Prova Analista", tag: "Práticas",
+            comment: "Correto."
         },
         {
             text: "12. De acordo com a Lei nº 16.040/2016, compete à SEAS também a articulação com os municípios para o acompanhamento direto das medidas em meio aberto (Liberdade Assistida e Prestação de Serviços à Comunidade).",
-            answer: "E",
-            source: "Prova Analista",
-            tag: "Competência",
-            comment: "Errado. A execução direta das medidas de Meio Aberto é competência MUNICIPAL. O Estado (SEAS) executa o Meio Fechado e cofinancia/apoia o meio aberto, mas não executa diretamente."
+            answer: "E", source: "Prova Analista", tag: "Competência",
+            comment: "Errado. A execução do Meio Aberto é competência municipal, não da SEAS (Estadual)."
         },
         {
-            text: "13. A Lei nº 16.040/2016 prevê que a SEAS deve atuar em cooperação com órgãos do sistema de justiça e conselhos, sendo-lhe atribuída a função de elaborar normas complementares para o funcionamento das unidades socioeducativas.",
-            answer: "C",
-            source: "Prova Analista",
-            tag: "Legislação",
-            comment: "Correto. A SEAS tem poder normativo para regular o funcionamento interno das unidades estaduais."
+            text: "13. A Lei nº 16.040/2016 prevê que a SEAS deve atuar em cooperação com órgãos do sistema de justiça e conselhos, sendo-lhe atribuída a função de elaborar normas complementares para o funcionamento das unidades.",
+            answer: "C", source: "Prova Analista", tag: "Legislação",
+            comment: "Correto."
         },
         {
-            text: "14. Um coordenador de unidade decide trabalhar os eixos estruturantes do atendimento (escolarização, profissionalização, saúde, etc.) de forma compartimentalizada, com cada equipe técnica responsável por apenas um eixo, sem articulação. Essa prática está em consonância com os princípios da abordagem transdisciplinar.",
-            answer: "E",
-            source: "Prova Analista",
-            tag: "Metodologia",
-            comment: "Errado. A transdisciplinaridade exige a integração dos saberes e a articulação entre os eixos, não a fragmentação/compartimentalização."
+            text: "14. Um coordenador decide trabalhar os eixos estruturantes de forma compartimentalizada, com cada equipe técnica responsável por apenas um eixo, sem articulação. Essa prática está em consonância com os princípios da abordagem transdisciplinar.",
+            answer: "E", source: "Prova Analista", tag: "Metodologia",
+            comment: "Errado. Transdisciplinaridade exige integração, não fragmentação."
         },
         {
-            text: "15. Uma equipe multidisciplinar realiza o planejamento conjunto das atividades, articulando ações de saúde mental, escolarização e cultura. Essa prática configura a aplicação da abordagem transdisciplinar prevista no SINASE.",
-            answer: "C",
-            source: "Prova Analista",
-            tag: "Gestão",
-            comment: "Correto. O planejamento integrado é a base da transdisciplinaridade exigida pelo SINASE."
+            text: "15. Uma equipe multidisciplinar realiza o planejamento conjunto, articulando ações de saúde mental, escolarização e cultura. Essa prática configura a aplicação da abordagem transdisciplinar prevista no SINASE.",
+            answer: "C", source: "Prova Analista", tag: "Gestão",
+            comment: "Correto."
         },
         {
-            text: "16. Um educador limita sua intervenção aos aspectos disciplinares, evitando interagir com os adolescentes além da supervisão, alegando que a proximidade compromete a autoridade. Tal conduta está alinhada aos princípios da Pedagogia da Presença.",
-            answer: "E",
-            source: "Prova Analista",
-            tag: "Pedagogia",
-            comment: "Errado. A Pedagogia da Presença exige vínculo, proximidade e exemplo. O distanciamento excessivo impede a ação socioeducativa transformadora."
+            text: "16. Um educador limita sua intervenção aos aspectos disciplinares, evitando interagir com os adolescentes, alegando que a proximidade compromete a autoridade. Tal conduta está alinhada à Pedagogia da Presença.",
+            answer: "E", source: "Prova Analista", tag: "Pedagogia",
+            comment: "Errado. A Pedagogia da Presença exige vínculo e proximidade construtiva."
         },
         {
-            text: "17. Educadores de uma unidade afirmam que práticas restaurativas não podem ser consideradas parte do processo socioeducativo por não estarem previstas expressamente na Lei do SINASE.",
-            answer: "E",
-            source: "Prova Analista",
-            tag: "Justiça Restaurativa",
-            comment: "Errado. As práticas restaurativas são princípios implícitos no SINASE (responsabilização, reparação) e explicitamente incentivadas por resoluções do CNJ e normas estaduais."
+            text: "17. Educadores afirmam que práticas restaurativas não podem ser consideradas parte do processo socioeducativo por não estarem previstas expressamente na Lei do SINASE.",
+            answer: "E", source: "Prova Analista", tag: "Restaurativa",
+            comment: "Errado. São incentivadas pelo CNJ e princípios do SINASE."
         },
         {
-            text: "18. Um adolescente participa de um círculo restaurativo com a vítima de seu ato infracional, assumindo o compromisso de reparação. Essa prática atende aos princípios da socioeducação.",
-            answer: "C",
-            source: "Prova Analista",
-            tag: "Restaurativa",
-            comment: "Correto. A responsabilização com reparação do dano e reconhecimento da vítima é o ideal da Justiça Restaurativa."
+            text: "18. Um adolescente participa de um círculo restaurativo com a vítima, assumindo o compromisso de reparação. Essa prática atende aos princípios da socioeducação.",
+            answer: "C", source: "Prova Analista", tag: "Restaurativa",
+            comment: "Correto."
         },
         {
-            text: "19. A socioeducação deve ser compreendida apenas como a execução de medidas privativas de liberdade, visto que o caráter pedagógico não altera a natureza sancionatória da intervenção estatal.",
-            answer: "E",
-            source: "Prova Analista",
-            tag: "Conceito",
-            comment: "Errado. A socioeducação engloba também o meio aberto e sua natureza é sancionatória-pedagógica, com prevalência do caráter educativo."
+            text: "19. A socioeducação deve ser compreendida apenas como a execução de medidas privativas de liberdade, visto que o caráter pedagógico não altera a natureza sancionatória.",
+            answer: "E", source: "Prova Analista", tag: "Conceito",
+            comment: "Errado. Inclui meio aberto e tem caráter pedagógico central."
         },
         {
-            text: "20. Na SEAS/CE, a socioeducação é definida como política pública de Estado, orientada pela proteção integral e responsabilização, sendo transversal às áreas de educação, saúde, assistência social, cultura, esporte e lazer.",
-            answer: "C",
-            source: "Prova Analista",
-            tag: "Conceito",
-            comment: "Correto. Definição precisa da política institucional da SEAS."
-        },
-        // ... (Mantendo a sequência lógica da prova com as correções de gabarito indicadas nos comentários)
-        
-        // --- BLOCO 2: MÓDULO 1 - FUNDAMENTOS E LEGISLAÇÃO (QUESTÕES INÉDITAS) ---
-        
-        {
-            text: "101. A SEAS é uma autarquia especial vinculada à Secretaria de Proteção Social (SPS), dotada de autonomia administrativa, financeira e patrimonial, criada para gerir o sistema socioeducativo do Ceará.",
-            answer: "C",
-            source: "Módulo 1",
-            tag: "Natureza Jurídica",
-            comment: "Correto. Lei 16.040/2016 define a SEAS como autarquia com autonomia de gestão."
+            text: "20. Na SEAS/CE, a socioeducação é definida como política pública de Estado, orientada pela proteção integral e responsabilização, sendo transversal às áreas de educação, saúde e assistência.",
+            answer: "C", source: "Prova Analista", tag: "Conceito",
+            comment: "Correto."
         },
         {
-            text: "102. O princípio da 'Incompletude Institucional', previsto no SINASE, determina que a unidade socioeducativa deve ser autossuficiente, oferecendo todos os serviços de saúde e educação internamente para evitar a saída do adolescente.",
-            answer: "E",
-            source: "Módulo 1",
-            tag: "SINASE",
-            comment: "Errado. A Incompletude Institucional diz o contrário: a unidade NÃO deve ser autossuficiente; ela deve utilizar os serviços da comunidade (rede pública externa) para promover a integração e não o isolamento."
+            text: "21. O Plano Individual de Atendimento (PIA) é um documento base obrigatório, mas sua elaboração não é obrigatória por lei.",
+            answer: "E", source: "Prova Analista", tag: "PIA",
+            comment: "Errado. É obrigatório por lei (SINASE)."
         },
         {
-            text: "103. O projeto 'Abraço em Família' é uma estratégia da SEAS que visa fortalecer os vínculos familiares e comunitários, reconhecendo a família como parceira essencial no processo socioeducativo e não apenas como visita.",
-            answer: "C",
-            source: "Módulo 1",
-            tag: "Projetos",
-            comment: "Correto. O fortalecimento de vínculos é um dos eixos estruturantes do atendimento na SEAS."
+            text: "22. O atendimento socioeducativo pode ser dividido sequencialmente em três fases: fase inicial, fase intermediária e fase conclusiva.",
+            answer: "C", source: "Prova Analista", tag: "Fases",
+            comment: "Correto."
         },
         {
-            text: "104. A medida de Internação-Sanção pode ser aplicada pelo prazo máximo de 3 meses em caso de descumprimento reiterado e injustificável de medida anteriormente imposta (ex: meio aberto).",
-            answer: "C",
-            source: "Módulo 1",
-            tag: "Medidas",
-            comment: "Correto. Previsto no ECA (Art. 122). É uma 'prisão' por descumprimento, com prazo rígido de 3 meses."
+            text: "23. O cronograma diário das rotinas na Unidade de Internação Provisória (UIP) deve ser elaborado com a participação do coordenador técnico, de segurança e pedagogo.",
+            answer: "C", source: "Prova Analista", tag: "Rotinas",
+            comment: "Correto."
         },
         {
-            text: "105. A maioridade penal aos 18 anos extingue automaticamente a medida socioeducativa de internação, devendo o jovem ser liberado imediatamente no dia do seu aniversário.",
-            answer: "E",
-            source: "Módulo 1",
-            tag: "Execução",
-            comment: "Errado. A medida pode se estender até os 21 anos de idade (liberação compulsória). Aos 18, ele apenas passa para alas de maiores, mas continua cumprindo."
+            text: "24. A avaliação clínica inicial verifica a presença de exame de corpo de delito e se o adolescente apresenta marcas ou sinais de violação.",
+            answer: "C", source: "Prova Analista", tag: "Saúde",
+            comment: "Correto."
+        },
+        {
+            text: "25. O Diagnóstico Polidimensional é elaborado na fase inicial com o objetivo de subsidiar o Poder Judiciário sobre a necessidade de aplicação de medida socioeducativa.",
+            answer: "C", source: "Prova Analista", tag: "Documentos",
+            comment: "Correto."
+        },
+        {
+            text: "26. A Lei do Sinase reforça o princípio da não discriminação, incluindo explicitamente a discriminação em razão de gênero e implicitamente em razão de orientação sexual.",
+            answer: "E", source: "Prova Analista", tag: "Direitos",
+            comment: "Errado. O SINASE inclui explicitamente orientação sexual."
+        },
+        {
+            text: "27. O direito à convivência familiar e comunitária é um princípio fundamental do atendimento socioeducativo.",
+            answer: "C", source: "Prova Analista", tag: "Direitos",
+            comment: "Correto."
+        },
+        {
+            text: "28. A Portaria SEAS nº 366/2024 revogou disposições anteriores sobre visitas e incluiu a proibição total de entrada de alimentos nos centros socioeducativos.",
+            answer: "E", source: "Prova Analista", tag: "Normas",
+            comment: "Errado. A entrada é regulada (lista de jumbo), não proibida totalmente."
+        },
+        {
+            text: "29. O uso de scanner corporal (body scanner) nas unidades do Ceará objetiva substituir as revistas tradicionais e humanizar o processo de entrada.",
+            answer: "C", source: "Prova Analista", tag: "Segurança",
+            comment: "Correto."
+        },
+        {
+            text: "30. A legislação assegura o direito à liberdade de crença, sendo permitida a realização de rituais eclesiásticos no interior dos centros, em local apropriado.",
+            answer: "C", source: "Prova Analista", tag: "Direitos",
+            comment: "Correto."
+        },
+        {
+            text: "31. As unidades de internação provisória são responsáveis pela elaboração do Relatório de Diagnóstico Polidimensional, que subsidia a elaboração do PIA.",
+            answer: "C", source: "Prova Analista", tag: "Documentos",
+            comment: "Correto."
+        },
+        {
+            text: "32. O prontuário de atendimento técnico é um instrumento sigiloso que deve conter informações relevantes sobre o adolescente e registros das ações.",
+            answer: "C", source: "Prova Analista", tag: "Documentos",
+            comment: "Correto."
+        },
+        {
+            text: "33. O prontuário processual é de responsabilidade do serviço social e contém documentos processuais.",
+            answer: "E", source: "Prova Analista", tag: "Documentos",
+            comment: "Errado. Prontuário processual é jurídico/administrativo."
+        },
+        {
+            text: "34. Os prontuários devem ser guardados em armários individuais, sem necessidade de trancamento, para acesso facilitado.",
+            answer: "E", source: "Prova Analista", tag: "Sigilo",
+            comment: "Errado. Devem ser trancados para garantir sigilo."
+        },
+        {
+            text: "35. Os atendimentos individuais e grupais preconizados pelo SINASE devem ter frequência mínima quinzenal e mensal, respectivamente.",
+            answer: "E", source: "Prova Analista", tag: "Atendimento",
+            comment: "Errado. Frequências rígidas mínimas dessa forma não são o padrão ideal; deve ser conforme a necessidade do PIA."
+        },
+        {
+            text: "36. Nenhuma medida disciplinar pode interromper o direito à escolarização, ao atendimento técnico ou à visita familiar do adolescente.",
+            answer: "C", source: "Prova Analista", tag: "Disciplinar",
+            comment: "Correto."
+        },
+        {
+            text: "37. As práticas restaurativas do Sistema Estadual são baseadas na justiça restaurativa, que enfatiza a punição do jovem e a reparação dos danos.",
+            answer: "E", source: "Prova Analista", tag: "Restaurativa",
+            comment: "Errado. Enfatiza a responsabilização e reparação, não a punição."
+        },
+        {
+            text: "38. A Lei nº 16.040/2016 prevê que o Sistema Estadual deve implantar práticas restaurativas restritas a determinados níveis organizacionais.",
+            answer: "E", source: "Prova Analista", tag: "Restaurativa",
+            comment: "Errado. Devem ser transversais."
+        },
+        {
+            text: "39. As faltas disciplinares são classificadas em quatro naturezas: leves, médias, graves e gravíssimas.",
+            answer: "E", source: "Prova Analista", tag: "Disciplinar",
+            comment: "Errado. São três: Leves, Médias e Graves."
+        },
+        {
+            text: "40. Um exemplo de falta grave é a evasão durante atividades externas, enquanto impedir atividades socioeducativas é considerado uma falta leve.",
+            answer: "E", source: "Prova Analista", tag: "Disciplinar",
+            comment: "Errado. Impedir atividades também pode ser grave."
+        },
+        {
+            text: "41. O Programa de Oportunidades e Cidadania (POC) é composto por projetos, sendo o 'Novas Trilhas' focado em ações culturais.",
+            answer: "E", source: "Prova Analista", tag: "POC",
+            comment: "Errado. 'Novas Trilhas' foca em qualificação e trabalho."
+        },
+        {
+            text: "42. O POC tem como um dos públicos-alvo adolescentes em cumprimento de medida de semiliberdade.",
+            answer: "C", source: "Prova Analista", tag: "POC",
+            comment: "Correto."
+        },
+        {
+            text: "43. O POC não inclui aqueles que estão cumprindo medidas de meio aberto.",
+            answer: "E", source: "Prova Analista", tag: "POC",
+            comment: "Errado. Inclui diversos públicos."
+        },
+        {
+            text: "44. A participação no Programa de Oportunidades e Cidadania é voluntária e com livre adesão.",
+            answer: "C", source: "Prova Analista", tag: "POC",
+            comment: "Correto."
+        },
+        {
+            text: "45. Em qualquer período após o cumprimento, o POC pode promover o acompanhamento de adolescentes para reinserção.",
+            answer: "E", source: "Prova Analista", tag: "POC",
+            comment: "Errado. Existem critérios de tempo para elegibilidade."
+        },
+        {
+            text: "46. Na Unidade de Internação (UI), o PIA é um instrumento facultativo.",
+            answer: "E", source: "Prova Analista", tag: "PIA",
+            comment: "Errado. É obrigatório."
+        },
+        {
+            text: "47. As medidas socioeducativas objetivam desaprovar a conduta infracional e garantir os direitos individuais e sociais.",
+            answer: "C", source: "Prova Analista", tag: "Objetivos",
+            comment: "Correto."
+        },
+        {
+            text: "48. A medida de semiliberdade é a mais grave, aplicada em situações específicas, com duração de até 3 anos.",
+            answer: "E", source: "Prova Analista", tag: "Medidas",
+            comment: "Errado. A Internação é a mais grave."
+        },
+        {
+            text: "49. A Unidade de Internação Provisória (UIP) acolhe adolescentes que aguardam decisão judicial.",
+            answer: "C", source: "Prova Analista", tag: "UIP",
+            comment: "Correto."
+        },
+        {
+            text: "50. O estabelecimento de uma rotina diária nos centros socioeducativos reduz tensões e ajuda a desenvolver autonomia.",
+            answer: "C", source: "Prova Analista", tag: "Rotinas",
+            comment: "Correto."
+        },
+        {
+            text: "51. A internação pode ser aplicada mesmo havendo outra medida adequada ao caso, desde que haja interesse público.",
+            answer: "E", source: "Prova Analista", tag: "ECA",
+            comment: "Errado. Princípio da Excepcionalidade veta isso."
+        },
+        {
+            text: "52. A internação provisória pode ser determinada por até 45 dias, mediante decisão fundamentada e indícios de autoria/materialidade.",
+            answer: "C", source: "Prova Analista", tag: "Prazos",
+            comment: "Correto."
+        },
+        {
+            text: "53. É assegurado ao adolescente o direito ao contraditório, que consiste em ser considerado inocente até que se prove o contrário.",
+            answer: "E", source: "Prova Analista", tag: "Direito",
+            comment: "Errado. Isso é Presunção de Inocência. Contraditório é o direito de defesa."
+        },
+        {
+            text: "54. A semiliberdade possui prazo determinado de duração, fixado previamente pela autoridade judiciária.",
+            answer: "E", source: "Prova Analista", tag: "Prazos",
+            comment: "Errado. Medidas não têm prazo determinado (exceto teto de 3 anos ou 21 anos de idade)."
+        },
+        {
+            text: "55. Nos casos de flagrante de ato infracional com violência, a autoridade policial deve lavrar auto de apreensão.",
+            answer: "C", source: "Prova Analista", tag: "Polícia",
+            comment: "Correto."
+        },
+        {
+            text: "56. A autoridade judiciária poderá, ouvido o MP, decretar afastamento provisório do dirigente de entidade se houver motivo grave.",
+            answer: "C", source: "Prova Analista", tag: "ECA",
+            comment: "Correto."
+        },
+        {
+            text: "57. A ausência de intervenção do Ministério Público nos casos previstos pelo ECA acarreta nulidade processual.",
+            answer: "C", source: "Prova Analista", tag: "Processo",
+            comment: "Correto."
+        },
+        {
+            text: "58. É competência do MP inspecionar APENAS as entidades públicas de atendimento.",
+            answer: "E", source: "Prova Analista", tag: "Fiscalização",
+            comment: "Errado. Públicas e privadas."
+        },
+        {
+            text: "59. O Ministério Público pode conceder remissão antes da ação judicial.",
+            answer: "C", source: "Prova Analista", tag: "Remissão",
+            comment: "Correto."
+        },
+        {
+            text: "60. É permitido o uso de algemas em adolescentes gestantes durante deslocamentos externos.",
+            answer: "E", source: "Prova Analista", tag: "Segurança",
+            comment: "Errado. Vedado."
+        },
+        {
+            text: "61. O uso de algemas deve ser sempre justificado por escrito e autorizado pelo Ministério Público.",
+            answer: "E", source: "Prova Analista", tag: "Segurança",
+            comment: "Errado. Requer justificativa, mas não autorização prévia do MP para cada uso."
+        },
+        {
+            text: "62. A revista estrutural deve ocorrer diariamente em todos os espaços, enquanto a revista incerta semanalmente.",
+            answer: "E", source: "Prova Analista", tag: "Segurança",
+            comment: "Errado. Frequências incorretas."
+        },
+        {
+            text: "63. Eventos críticos são aqueles que superam a capacidade de resposta da unidade e envolvem armas, reféns, etc.",
+            answer: "C", source: "Prova Analista", tag: "Crise",
+            comment: "Correto."
+        },
+        {
+            text: "64. O uso excepcional da força é permitido em legítima defesa ou tentativa de fuga, quando o diálogo falhar.",
+            answer: "C", source: "Prova Analista", tag: "Segurança",
+            comment: "Correto."
+        },
+        {
+            text: "65. Em crise, o uso da força deve ocorrer apenas quando todas as alternativas forem insuficientes, de forma proporcional.",
+            answer: "C", source: "Prova Analista", tag: "Crise",
+            comment: "Correto."
+        },
+        {
+            text: "66. A Portaria SEAS autoriza uso de EPI por qualquer servidor em evento crítico.",
+            answer: "E", source: "Prova Analista", tag: "Segurança",
+            comment: "Errado. Apenas habilitados (GIT/Segurança)."
+        },
+        {
+            text: "67. O acionamento do GIT deve ser decidido pelo Diretor, que informa o gestor estadual.",
+            answer: "C", source: "Prova Analista", tag: "Crise",
+            comment: "Correto."
+        },
+        {
+            text: "68. Entre atribuições do socioeducador estão participar de planos de intervenção e auxiliar em atividades pedagógicas.",
+            answer: "C", source: "Prova Analista", tag: "Atribuições",
+            comment: "Correto."
+        },
+        {
+            text: "69. O socioeducador deve realizar inspeções regulares e recolher objetos de risco.",
+            answer: "C", source: "Prova Analista", tag: "Segurança",
+            comment: "Correto."
+        },
+        {
+            text: "70. A Lei do Sinase estabelece princípios como legalidade, proporcionalidade, brevidade e mínima intervenção.",
+            answer: "C", source: "Prova Analista", tag: "Princípios",
+            comment: "Correto."
+        },
+        {
+            text: "71. Durante as visitas, o socioeducador deve apenas acompanhar, não sendo responsável pelo controle de entrada ou revista.",
+            answer: "E", source: "Prova Analista", tag: "Atribuições",
+            comment: "Errado. Revista é função essencial."
+        },
+        {
+            text: "72. A condenação de agente público por tortura não implica perda do cargo.",
+            answer: "C", source: "Prova Analista", tag: "Tortura",
+            comment: "Gabarito da Banca: C. (Atenção: A Lei 9.455/97 prevê a perda, mas siga o gabarito oficial desta prova)."
+        },
+        {
+            text: "73. A Constituição e a Declaração Universal proíbem expressamente a tortura.",
+            answer: "E", source: "Prova Analista", tag: "Direitos Humanos",
+            comment: "Gabarito da Banca: E."
+        },
+        {
+            text: "74. A prática de tortura é crime afiançável.",
+            answer: "C", source: "Prova Analista", tag: "Tortura",
+            comment: "Gabarito da Banca: C. (Atenção: Constitucionalmente é inafiançável)."
+        },
+        {
+            text: "75. A Lei da Tortura prevê aumento de pena quando cometido por agente público ou contra criança/adolescente.",
+            answer: "C", source: "Prova Analista", tag: "Tortura",
+            comment: "Correto."
+        },
+        {
+            text: "76. A Convenção contra a Tortura obriga o Brasil a adotar medidas para prevenir a tortura.",
+            answer: "C", source: "Prova Analista", tag: "Tortura",
+            comment: "Correto."
+        },
+        {
+            text: "77. Entre as competências da Corregedoria estão inspeções periódicas e instauração de sindicâncias.",
+            answer: "C", source: "Prova Analista", tag: "Corregedoria",
+            comment: "Correto."
+        },
+        {
+            text: "78. A Portaria SEAS 006/2023 é a principal norma que disciplina atividades correicionais.",
+            answer: "C", source: "Prova Analista", tag: "Normas",
+            comment: "Correto."
+        },
+        {
+            text: "79. A sindicância pode resultar em demissão.",
+            answer: "C", source: "Prova Analista", tag: "PAD",
+            comment: "Correto."
+        },
+        {
+            text: "80. O afastamento cautelar pode ser determinado por até 90 dias, sem prejuízo da remuneração.",
+            answer: "E", source: "Prova Analista", tag: "PAD",
+            comment: "Errado."
+        },
+        {
+            text: "81. É dever exclusivo da família e do Estado assegurar à criança e adolescente os direitos fundamentais.",
+            answer: "E", source: "Prova Analista", tag: "ECA",
+            comment: "Errado. Família, Sociedade e Estado."
+        },
+        {
+            text: "82. O SUS promoverá programas de assistência médica para prevenção de enfermidades infantis.",
+            answer: "C", source: "Prova Analista", tag: "Saúde",
+            comment: "Correto."
+        },
+        {
+            text: "83. É assegurado acesso integral às linhas de cuidado voltadas à saúde da criança e adolescente no SUS.",
+            answer: "C", source: "Prova Analista", tag: "Saúde",
+            comment: "Correto."
+        },
+        {
+            text: "84. A criança e o adolescente gozam de todos os direitos fundamentais, exceto aqueles em cumprimento de medidas socioeducativas.",
+            answer: "E", source: "Prova Analista", tag: "Direitos",
+            comment: "Errado."
+        },
+        {
+            text: "85. O SISNAD implementa políticas de forma idêntica em todos os estados, sem variação regional.",
+            answer: "E", source: "Prova Analista", tag: "Drogas",
+            comment: "Errado."
+        },
+        {
+            text: "86. Ao adolescente em conflito com a lei será garantida atenção à saúde no SUS.",
+            answer: "C", source: "Prova Analista", tag: "PNAISARI",
+            comment: "Correto."
+        },
+        {
+            text: "87. Objetivo da PNAISARI é ampliar ações de saúde, especialmente para privados de liberdade.",
+            answer: "C", source: "Prova Analista", tag: "PNAISARI",
+            comment: "Correto."
+        },
+        {
+            text: "88. Adolescentes em meio fechado deverão receber todos os seus atendimentos de saúde DENTRO das unidades.",
+            answer: "E", source: "Prova Analista", tag: "PNAISARI",
+            comment: "Errado. Articulação com a rede externa é necessária."
+        },
+        {
+            text: "89. Projetos Terapêuticos Singulares (PTS) devem ser priorizados em detrimento dos PIAs.",
+            answer: "E", source: "Prova Analista", tag: "Saúde",
+            comment: "Errado."
+        },
+        {
+            text: "90. PNAISARI prioriza promoção da saúde e redução de danos (álcool e drogas).",
+            answer: "C", source: "Prova Analista", tag: "Drogas",
+            comment: "Correto."
+        },
+        {
+            text: "91. Na atenção básica, deve haver articulação com a RAPS e NASF para avaliações psicossociais.",
+            answer: "C", source: "Prova Analista", tag: "Rede",
+            comment: "Correto."
+        },
+        {
+            text: "92. O termo DST está em desuso e foi substituído por IST (Infecções Sexualmente Transmissíveis).",
+            answer: "E", source: "Prova Analista", tag: "IST",
+            comment: "Gabarito da Banca: E."
+        },
+        {
+            text: "93. A PEP (Profilaxia Pós-Exposição) deve ser iniciada preferencialmente nas primeiras 48h.",
+            answer: "C", source: "Prova Analista", tag: "IST",
+            comment: "Correto."
+        },
+        {
+            text: "94. Sífilis e Gonorreia: Sífilis tem secreção purulenta como primeiro sintoma.",
+            answer: "E", source: "Prova Analista", tag: "Doenças",
+            comment: "Errado. Gonorreia tem secreção. Sífilis tem ferida."
+        },
+        {
+            text: "95. Existem dois tipos de assédio sexual: chantagem e intimidação.",
+            answer: "C", source: "Prova Analista", tag: "Assédio",
+            comment: "Correto."
+        },
+        {
+            text: "96. No assédio sexual não há relação de hierarquia.",
+            answer: "E", source: "Prova Analista", tag: "Assédio",
+            comment: "Errado."
+        },
+        {
+            text: "97. Pandemia (mundial), Epidemia (aumento regional/surto), Endemia (recorrente local).",
+            answer: "C", source: "Prova Analista", tag: "Saúde",
+            comment: "Correto."
+        },
+        {
+            text: "98. Varicela (catapora) é causada pelo vírus varicela-zóster.",
+            answer: "E", source: "Prova Analista", tag: "Doenças",
+            comment: "Gabarito da Banca: E."
+        },
+        {
+            text: "99. Dermatoses ocupacionais são doenças de pele ligadas ao trabalho.",
+            answer: "C", source: "Prova Analista", tag: "Saúde",
+            comment: "Correto."
+        },
+        {
+            text: "100. De acordo com a OMS, TODAS as drogas são substâncias ilegais.",
+            answer: "E", source: "Prova Analista", tag: "Drogas",
+            comment: "Errado. Álcool e tabaco são lícitas."
         },
 
-        // --- BLOCO 3: MÓDULO 2 - ROTINAS, PIA E GESTÃO (QUESTÕES INÉDITAS) ---
-
+        // =============================================================================
+        // PARTE 2: QUESTÕES AUTORAIS APOSTILA ROBZU (MÓDULOS I, II, III, IV)
+        // =============================================================================
         {
-            text: "106. O Plano Individual de Atendimento (PIA) é um documento estático que deve ser preenchido apenas na entrada do adolescente e arquivado, servindo apenas como registro burocrático.",
-            answer: "E",
-            source: "Módulo 2",
-            tag: "PIA",
-            comment: "Errado. O PIA é dinâmico, deve ser construído participativamente com o jovem/família e reavaliado periodicamente para ajustar as metas."
+            text: "101. [Autoral | Prof. Robson Sousa] Ao analisarmos a estrutura normativa da SEAS, observamos sua conexão com os dispositivos da Constituição Federal (CF), do ECA e da Lei do SINASE. Tais instrumentos estabelecem os fundamentos para a organização do atendimento socioeducativo como uma política pública pautada pela legalidade, pela prioridade absoluta e pelo princípio da proteção integral.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo I - Fundamentos",
+            comment: "Correto. A base normativa é hierárquica e integrada: CF > ECA > SINASE."
         },
         {
-            text: "107. A elaboração do Diagnóstico Polidimensional é uma etapa obrigatória da Fase Inicial do atendimento, servindo de base ('raio-x') para a construção das metas do PIA.",
-            answer: "C",
-            source: "Módulo 2",
-            tag: "Metodologia",
-            comment: "Correto. É o levantamento inicial completo (familiar, escolar, saúde) que orienta todo o tratamento."
+            text: "102. [Autoral | Prof. Robson Sousa] A Lei do Sistema Nacional de Atendimento Socioeducativo (SINASE) define os direitos específicos da infância e juventude e orienta a execução das medidas socioeducativas, substituindo integralmente o ECA nessa função.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo I - Legislação",
+            comment: "Errado. O SINASE complementa e regulamenta a execução, mas não substitui o ECA, que continua definindo direitos e atos infracionais."
         },
         {
-            text: "108. A Comissão Disciplinar da unidade, responsável por apurar faltas graves, deve ser composta exclusivamente por agentes de segurança para garantir a imparcialidade e o rigor.",
-            answer: "E",
-            source: "Módulo 2",
-            tag: "Disciplinar",
-            comment: "Errado. A Portaria 093/2022 exige que a Comissão seja MULTIPROFISSIONAL (técnicos, direção e segurança) para avaliar a conduta de forma integral e pedagógica."
+            text: "103. [Autoral | Prof. Robson Sousa] A SEAS atua na formação de profissionais, na supervisão das unidades e na articulação com outras políticas públicas, como saúde e educação.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo I - Gestão",
+            comment: "Correto. Atribuições centrais do órgão gestor estadual."
         },
         {
-            text: "109. É expressamente vedada a aplicação de sanção disciplinar de isolamento (tranca) em adolescentes, devendo a separação ocorrer apenas em caráter excepcional e protetivo, nunca punitivo.",
-            answer: "C",
-            source: "Módulo 2",
-            tag: "Disciplinar",
-            comment: "Correto. O SINASE e as normas estaduais proíbem o isolamento como punição. A separação é medida cautelar de segurança."
+            text: "104. [Autoral | Prof. Robson Sousa] A socioeducação constitui um campo de atuação que ultrapassa a ideia de punição. Baseada na responsabilização com dignidade e no reconhecimento da adolescência como uma fase peculiar do desenvolvimento humano.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo I - Conceitos",
+            comment: "Correto. Natureza pedagógica e sancionatória."
         },
         {
-            text: "110. A 'Fase Conclusiva' do atendimento socioeducativo inicia-se apenas no momento em que o juiz assina o alvará de soltura, não havendo preparação prévia.",
-            answer: "E",
-            source: "Módulo 2",
-            tag: "Fases",
-            comment: "Errado. A fase conclusiva é um processo pedagógico de preparação para a saída (pré-egresso) que deve começar ANTES da decisão judicial."
+            text: "105. [Autoral | Prof. Robson Sousa] Enquanto o SINASE institui princípios e direitos fundamentais aplicáveis às crianças em geral, o ECA detalha, de maneira operacional e normativa, a execução das medidas socioeducativas.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo I - Legislação",
+            comment: "Errado. É o inverso: O ECA traz os princípios gerais e direitos; o SINASE detalha a execução operacional das medidas."
         },
         {
-            text: "111. A revista de visitantes deve ser realizada prioritariamente por meio de equipamentos eletrônicos (scanners), sendo a revista vexatória (desnudamento total/agachamento) proibida por lei.",
-            answer: "C",
-            source: "Módulo 2",
-            tag: "Segurança",
-            comment: "Correto. A legislação atual protege a dignidade do visitante, vedando procedimentos invasivos ou degradantes."
+            text: "106. [Autoral | Prof. Robson Sousa] Tanto o ECA quanto o SINASE garantem o direito à educação como parte do atendimento integral. A ausência desse direito compromete os objetivos pedagógicos da medida.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo I - Direitos",
+            comment: "Correto. Escolarização é obrigatória."
         },
         {
-            text: "112. O adolescente tem o dever de higienizar seus pertences pessoais e o alojamento, sendo essa prática parte das rotinas de autonomia e convivência da unidade.",
-            answer: "C",
-            source: "Módulo 2",
-            tag: "Rotinas",
-            comment: "Correto. O autocuidado e a organização do espaço são deveres pedagógicos previstos nos regimentos."
+            text: "107. [Autoral | Prof. Robson Sousa] O Sistema Nacional de Atendimento Socioeducativo (SINASE) organiza o atendimento em dimensões técnica, administrativa e pedagógica, garantindo que o foco da execução esteja na formação cidadã e na contenção disciplinar rígida como prioridade absoluta.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo I - SINASE",
+            comment: "Errado. O foco é pedagógico e na responsabilização, não apenas na contenção disciplinar."
         },
         {
-            text: "113. As visitas íntimas são proibidas em qualquer hipótese para adolescentes menores de 18 anos, mesmo que casados ou em união estável.",
-            answer: "E",
-            source: "Módulo 2",
-            tag: "Visitas",
-            comment: "Errado. O SINASE garante o direito à visita íntima para adolescentes casados ou com união estável comprovada, independente da idade (respeitando a legislação penal sobre vulneráveis)."
-        },
-
-        // --- BLOCO 4: MÓDULO 3 - SEGURANÇA E GERENCIAMENTO DE CRISES (QUESTÕES INÉDITAS) ---
-
-        {
-            text: "114. Conforme a Súmula Vinculante nº 11 do STF, o uso de algemas é a regra geral no transporte de adolescentes para garantir a segurança da equipe.",
-            answer: "E",
-            source: "Módulo 3",
-            tag: "Algemas",
-            comment: "Errado. O uso é EXCEPCIONAL. Só permitido em caso de resistência, fundado receio de fuga ou perigo, devendo ser JUSTIFICADO POR ESCRITO."
+            text: "108. [Autoral | Prof. Robson Sousa] No Ceará, destaca-se a Superintendência do Sistema Estadual de Atendimento Socioeducativo (SEAS), que é responsável pela implementação das medidas socioeducativas em meio fechado e semiliberdade.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo I - SEAS",
+            comment: "Correto."
         },
         {
-            text: "115. Um 'Evento Crítico' é definido como aquele que ultrapassa a capacidade de resposta da equipe interna, exigindo apoio externo de forças de segurança pública (ex: rebelião com reféns).",
-            answer: "C",
-            source: "Módulo 3",
-            tag: "Crise",
-            comment: "Correto. Classificação da Portaria 004/2021: Simples (plantão resolve), Complexo (apoio direção) e Crítico (apoio externo)."
+            text: "109. [Autoral | Prof. Robson Sousa] A SEAS e o Serviço Especializado em Abordagem Social (SEAS/SUAS) tratam-se da mesma estrutura administrativa, focada na população de rua.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo I - Instituições",
+            comment: "Errado. São órgãos distintos. A SEAS (Superintendência) cuida do socioeducativo; o SEAS (Serviço) é da Assistência Social/SUAS."
         },
         {
-            text: "116. O Plano de Segurança Preventiva da unidade é um documento sigiloso que deve ser conhecido apenas pelo Diretor, sendo proibido o acesso aos socioeducadores.",
-            answer: "E",
-            source: "Módulo 3",
-            tag: "Protocolos",
-            comment: "Errado. Todos os servidores devem conhecer os protocolos de segurança e emergência para saberem como agir."
+            text: "110. [Autoral | Prof. Robson Sousa] Os direitos humanos são a base de toda a estrutura normativa da socioeducação. Eles orientam os limites das medidas aplicadas e fundamentam a necessidade de inclusão e autonomia.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo I - DH",
+            comment: "Correto."
         },
         {
-            text: "117. Em situações de gerenciamento de crise, o uso da força física deve ser a primeira opção de intervenção para demonstrar autoridade imediata.",
-            answer: "E",
-            source: "Módulo 3",
-            tag: "Uso da Força",
-            comment: "Errado. O uso da força é a ÚLTIMA opção. Segue-se o uso progressivo: presença, verbalização, negociação e só então força física."
+            text: "111. [Autoral | Prof. Robson Sousa] O Educador Social e o Socioeducador desempenham a mesma função: ambos atuam exclusivamente dentro das unidades de internação seguindo o regime disciplinar da SEAS.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo I - Profissionais",
+            comment: "Errado. O Educador Social tem atuação mais ampla (ONGs, rua). O Socioeducador tem vínculo específico com a execução da medida (segurança/pedagogia)."
         },
         {
-            text: "118. O Grupo de Intervenção Tática (GIT) é uma equipe especializada que deve ser acionada apenas em eventos de alta complexidade ou críticos, e não para rotinas comuns.",
-            answer: "C",
-            source: "Módulo 3",
-            tag: "GIT",
-            comment: "Correto. O GIT não deve ser banalizado para resolver problemas disciplinares simples."
+            text: "112. [Autoral | Prof. Robson Sousa] Para Carlos Skliar, a Pedagogia da Presença não é apenas física, mas implica atenção, escuta, reconhecimento e disponibilidade genuína diante do outro.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo I - Pedagogia",
+            comment: "Correto."
         },
         {
-            text: "119. A contagem dos adolescentes (procedimento de 'confere') deve ser realizada obrigatoriamente em todas as trocas de plantão e em momentos estratégicos da rotina.",
-            answer: "C",
-            source: "Módulo 3",
-            tag: "Rotina",
-            comment: "Correto. É o procedimento básico de controle e segurança."
+            text: "113. [Autoral | Prof. Robson Sousa] São competências fundamentais para os profissionais do sistema: Empatia, escuta qualificada, gestão de conflitos, postura ética antidiscriminatória e reflexividade.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo I - Competências",
+            comment: "Correto."
         },
         {
-            text: "120. Em caso de incêndio na unidade, a prioridade absoluta do plano de emergência deve ser a preservação do patrimônio público e dos arquivos.",
-            answer: "E",
-            source: "Módulo 3",
-            tag: "Emergência",
-            comment: "Errado. A prioridade absoluta é a VIDA (adolescentes e servidores). O patrimônio é secundário."
-        },
-
-        // --- BLOCO 5: MÓDULO 4 - SAÚDE E PNAISARI (QUESTÕES INÉDITAS) ---
-
-        {
-            text: "121. A PNAISARI estabelece que a responsabilidade pela saúde dos adolescentes privados de liberdade é exclusiva da equipe da unidade, sem vínculo com o SUS.",
-            answer: "E",
-            source: "Módulo 4",
-            tag: "PNAISARI",
-            comment: "Errado. A saúde é responsabilidade do SUS (Sistema Único de Saúde). A unidade deve se articular com a rede pública municipal."
+            text: "114. [Autoral | Prof. Robson Sousa] Os princípios centrais da Pedagogia da Presença são: Escuta qualificada, Reconhecimento do outro como sujeito e Construção de vínculos.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo I - Pedagogia",
+            comment: "Correto."
         },
         {
-            text: "122. A triagem de saúde na admissão deve incluir obrigatoriamente testes rápidos para Sífilis, HIV, Hepatites Virais e rastreamento de Tuberculose.",
-            answer: "C",
-            source: "Módulo 4",
-            tag: "Triagem",
-            comment: "Correto. Protocolo básico de entrada para controle de doenças transmissíveis em ambientes confinados."
+            text: "115. [Autoral | Prof. Robson Sousa] Apesar dos avanços normativos, desafios permanecem: precariedade das estruturas físicas, rotatividade de profissionais e ausência de articulação com outras políticas públicas.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo I - Desafios",
+            comment: "Correto."
         },
         {
-            text: "123. A política de Redução de Danos (RD) tem como objetivo principal exigir a abstinência total e imediata do uso de drogas como condição para o atendimento.",
-            answer: "E",
-            source: "Módulo 4",
-            tag: "Drogas",
-            comment: "Errado. A RD visa reduzir riscos/danos e respeita o tempo do sujeito, não exigindo abstinência imediata como pré-requisito."
+            text: "116. [Autoral | Prof. Robson Sousa] O Eixo Pedagógico direciona a ação educativa centrada na formação cidadã, escolarização, qualificação profissional e fortalecimento de vínculos.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo I - Eixos",
+            comment: "Correto."
         },
         {
-            text: "124. A Profilaxia Pós-Exposição (PEP) ao HIV é uma urgência médica que deve ser iniciada preferencialmente nas primeiras 2 horas (máximo 72h) após a exposição de risco.",
-            answer: "C",
-            source: "Módulo 4",
-            tag: "IST/AIDS",
-            comment: "Correto. O tempo é crucial para a eficácia da PEP em prevenir a infecção."
+            text: "117. [Autoral | Prof. Robson Sousa] O Eixo Jurídico diz respeito exclusivamente à segurança armada e contenção dos adolescentes nas unidades.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo I - Eixos",
+            comment: "Errado. O eixo jurídico garante o devido processo legal, defesa e cumprimento das normas."
         },
         {
-            text: "125. A notificação de casos suspeitos ou confirmados de violência (física, sexual, psicológica) contra adolescentes é compulsória para os profissionais de saúde e socioeducação.",
-            answer: "C",
-            source: "Módulo 4",
-            tag: "Violência",
-            comment: "Correto. É um dever legal (Lei 13.819 e ECA) notificar às autoridades competentes."
+            text: "118. [Autoral | Prof. Robson Sousa] Na socioeducação, a transdisciplinaridade é desnecessária porque o adolescente em conflito com a lei não é atravessado por múltiplas vulnerabilidades.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo I - Metodologia",
+            comment: "Errado. É justamente pela complexidade das vulnerabilidades que a transdisciplinaridade é essencial."
         },
         {
-            text: "126. A tuberculose é uma doença de notificação compulsória e seu tratamento no sistema socioeducativo deve ser realizado preferencialmente na modalidade TDO (Tratamento Diretamente Observado).",
-            answer: "C",
-            source: "Módulo 4",
-            tag: "Doenças",
-            comment: "Correto. O TDO garante a adesão ao tratamento e evita o contágio na unidade."
+            text: "119. [Autoral | Prof. Robson Sousa] A socioeducação, enquanto política pública, deve ser compreendida como parte integrante do Sistema de Garantia de Direitos (SGD).",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo I - SGD",
+            comment: "Correto."
         },
         {
-            text: "127. Diante de um adolescente com comportamento de automutilação (cutting), a conduta correta é isolá-lo na cela disciplinar para que 'reflita' sobre o ato.",
-            answer: "E",
-            source: "Módulo 4",
-            tag: "Saúde Mental",
-            comment: "Errado. Automutilação é sofrimento psíquico. Exige acolhimento e encaminhamento à saúde mental, nunca punição/isolamento."
+            text: "120. [Autoral | Prof. Robson Sousa] A Justiça Restaurativa propõe o reconhecimento do dano causado e a reconstrução das relações a partir do diálogo e da reparação, envolvendo vítima, ofensor e comunidade.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo I - JR",
+            comment: "Correto."
         },
         {
-            text: "128. O sigilo das informações de saúde (prontuário médico) pode ser quebrado em situações de risco de morte ou notificação compulsória de doenças/violência.",
-            answer: "C",
-            source: "Módulo 4",
-            tag: "Ética",
-            comment: "Correto. O sigilo não é absoluto quando a vida está em risco ou há dever legal de notificar."
+            text: "121. [Autoral | Prof. Robson Sousa] Os Círculos de Paz são práticas restaurativas baseadas em tradições indígenas e adaptadas para contextos urbanos, visando a construção de consenso e resolução de conflitos.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo I - Círculos",
+            comment: "Correto."
         },
         {
-            text: "129. O Projeto Terapêutico Singular (PTS) é uma estratégia exclusiva para casos de surtos psicóticos, não sendo aplicável a outros transtornos.",
-            answer: "E",
-            source: "Módulo 4",
-            tag: "Saúde Mental",
-            comment: "Errado. O PTS é para qualquer caso complexo que exija articulação de cuidados, não apenas surtos."
+            text: "122. [Autoral | Prof. Robson Sousa] No contexto socioeducativo, os Círculos de Paz são aplicados apenas para conflitos leves; em casos de violência, deve-se usar apenas a sanção disciplinar.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo I - JR",
+            comment: "Errado. Podem ser usados em situações complexas e de violência, como forma de responsabilização e restauração."
         },
         {
-            text: "130. O uso de preservativos deve ser disponibilizado nas unidades socioeducativas como medida de prevenção a ISTs, garantindo-se o direito à saúde sexual.",
-            answer: "C",
-            source: "Módulo 4",
-            tag: "Prevenção",
-            comment: "Correto. A privação de liberdade não retira os direitos sexuais e reprodutivos."
+            text: "123. [Autoral | Prof. Robson Sousa] A institucionalização dos Círculos de Paz em unidades requer apenas a boa vontade dos profissionais, dispensando formação específica.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo I - Gestão",
+            comment: "Errado. Exige formação técnica, metodologia e suporte institucional."
         },
-        // --- BLOCO FINAL: QUESTÕES 131 A 200 (SAÚDE, SEGURANÇA E ROTINAS ESPECÍFICAS) ---
-
-    {
-        text: "131. A Escabiose (sarna) é uma doença parasitária comum em ambientes coletivos, transmitida pelo contato direto pessoa a pessoa ou por roupas e roupas de cama contaminadas.",
-        answer: "C", source: "Módulo 4", tag: "Saúde",
-        comment: "Correto. Exige higiene rigorosa e tratamento simultâneo dos contatos."
-    },
-    {
-        text: "132. O uso de psicofármacos (remédios psiquiátricos) pode ser utilizado pela equipe como forma de punição ou contenção química ('sossega-leão') em adolescentes indisciplinados.",
-        answer: "E", source: "Módulo 4", tag: "Saúde Mental",
-        comment: "Errado. Medicação é tratamento de saúde, nunca punição ou ferramenta de gestão disciplinar."
-    },
-    {
-        text: "133. O Serviço de Atendimento Móvel de Urgência (SAMU 192) deve ser acionado imediatamente em casos de emergências clínicas ou traumáticas graves dentro da unidade.",
-        answer: "C", source: "Módulo 4", tag: "Emergência",
-        comment: "Correto. A unidade deve articular com a rede de urgência e emergência."
-    },
-    {
-        text: "134. É permitido o uso de algemas no adolescente durante a visita familiar para garantir que ele não agrida seus parentes.",
-        answer: "E", source: "Módulo 3", tag: "Segurança",
-        comment: "Errado. O uso de algemas na visita viola a dignidade e o direito à convivência familiar. A segurança deve ser garantida por outros meios."
-    },
-    {
-        text: "135. A Lei de Tortura (Lei nº 9.455/97) estabelece que a condenação de servidor público por tortura acarreta a perda do cargo, função ou emprego público e a interdição para seu exercício pelo dobro do prazo da pena aplicada.",
-        answer: "C", source: "Módulo 3", tag: "Legislação",
-        comment: "Correto. A perda do cargo é efeito automático da condenação por tortura."
-    },
-    {
-        text: "136. O prazo para a conclusão do PIA na internação definitiva é de até 45 dias, contados a partir da data de ingresso do adolescente na unidade de internação.",
-        answer: "C", source: "Módulo 2", tag: "Prazos",
-        comment: "Correto. Prazo estipulado pelo SINASE."
-    },
-    {
-        text: "137. A política de Redução de Danos entende que 'reduzir danos' significa liberar o uso de drogas dentro da unidade para evitar crises de abstinência.",
-        answer: "E", source: "Módulo 4", tag: "Drogas",
-        comment: "Errado. Não se permite o uso na unidade. A redução de danos é uma abordagem clínica e educativa, não uma liberação do consumo."
-    },
-    {
-        text: "138. O atendimento odontológico preventivo e curativo deve ser assegurado aos adolescentes, preferencialmente na rede pública de saúde ou, quando possível, na própria unidade.",
-        answer: "C", source: "Módulo 4", tag: "Saúde Bucal",
-        comment: "Correto. Saúde bucal integra a atenção básica."
-    },
-    {
-        text: "139. O procedimento de 'bate-cela' (revista estrutural) deve ser realizado com os adolescentes dentro do alojamento para que eles fiscalizem a ação dos agentes.",
-        answer: "E", source: "Módulo 3", tag: "Segurança",
-        comment: "Errado. Por segurança, os adolescentes devem ser retirados e colocados em local seguro antes da revista na cela."
-    },
-    {
-        text: "140. É garantido aos adolescentes travestis e transexuais o uso de vestuário e corte de cabelo condizentes com sua identidade de gênero, bem como o uso do nome social.",
-        answer: "C", source: "Módulo 1", tag: "Direitos Humanos",
-        comment: "Correto. Respeito à identidade de gênero conforme normativas nacionais e estaduais."
-    },
-    {
-        text: "141. A sanção de isolamento em local escuro, insalubre ou incomunicável (solitária) é estritamente proibida pelo ECA e pelo SINASE.",
-        answer: "C", source: "Módulo 2", tag: "Disciplinar",
-        comment: "Correto. O espaço de cumprimento de sanção deve ter condições de habitabilidade e dignidade."
-    },
-    {
-        text: "142. O agente socioeducativo, por exercer função de risco, tem autorização funcional automática para portar arma de fogo particular dentro da unidade.",
-        answer: "E", source: "Módulo 3", tag: "Armamento",
-        comment: "Errado. É proibido entrar armado na área de convivência dos adolescentes."
-    },
-    {
-        text: "143. Durante o trabalho de parto, a adolescente privada de liberdade deve permanecer algemada à cama hospitalar para evitar fuga.",
-        answer: "E", source: "Módulo 3", tag: "Direitos Humanos",
-        comment: "Errado. Lei federal proíbe uso de algemas no parto e puerpério imediato."
-    },
-    {
-        text: "144. A entrada de alimentos trazidos pela família (jumbo) deve passar por rigorosa revista, sendo vedada a entrada de itens em embalagens não transparentes ou que dificultem a inspeção.",
-        answer: "C", source: "Módulo 3", tag: "Segurança",
-        comment: "Correto. Medida para evitar entrada de ilícitos."
-    },
-    {
-        text: "145. Os Círculos Restaurativos são indicados apenas para resolução de conflitos leves, sendo proibidos em casos de agressão física ou ameaça.",
-        answer: "E", source: "Módulo 1", tag: "Restaurativa",
-        comment: "Errado. Podem ser usados em casos graves, desde que haja segurança e adesão voluntária."
-    },
-    {
-        text: "146. A Hanseníase é uma doença infectocontagiosa que se transmite pelo ar (respiração, tosse, espirro) de uma pessoa doente sem tratamento para outra, exigindo contato prolongado.",
-        answer: "C", source: "Módulo 4", tag: "Doenças",
-        comment: "Correto."
-    },
-    {
-        text: "147. A decisão de acionar o Grupo de Intervenção Tática (GIT) em uma crise cabe exclusivamente ao Coordenador de Segurança ou Diretor da unidade.",
-        answer: "C", source: "Módulo 3", tag: "Crise",
-        comment: "Correto. A cadeia de comando deve ser respeitada."
-    },
-    {
-        text: "148. É permitido ao socioeducador aceitar pequenos presentes ou valores da família do adolescente como forma de gratidão pelo bom tratamento.",
-        answer: "E", source: "Módulo 1", tag: "Ética",
-        comment: "Errado. Configura infração ética e possível crime de corrupção passiva."
-    },
-    {
-        text: "149. A participação em cultos religiosos ou atividades ecumênicas é obrigatória para todos os adolescentes como parte do processo de ressocialização.",
-        answer: "E", source: "Módulo 2", tag: "Direitos",
-        comment: "Errado. A assistência é um direito, mas a participação é facultativa (liberdade de crença)."
-    },
-    {
-        text: "150. A vacinação dos adolescentes deve ser atualizada conforme o calendário nacional, sendo responsabilidade da unidade articular com a rede de saúde para a imunização.",
-        answer: "C", source: "Módulo 4", tag: "Saúde",
-        comment: "Correto."
-    },
-    {
-        text: "151. O controle de chaves e cadeados (claviculário) é irrelevante para a segurança, podendo as chaves ficarem sob posse de qualquer servidor.",
-        answer: "E", source: "Módulo 3", tag: "Segurança",
-        comment: "Errado. O controle de chaves é crítico. Devem ser cauteladas e controladas rigorosamente."
-    },
-    {
-        text: "152. A 'Revista Invertida' é o procedimento onde o adolescente revista o agente socioeducativo antes deste entrar no alojamento.",
-        answer: "E", source: "Módulo 3", tag: "Terminologia",
-        comment: "Errado. Revista invertida geralmente se refere à busca e apreensão na casa de agentes públicos (jurídico) ou termo usado erroneamente. Não existe esse procedimento na rotina."
-    },
-    {
-        text: "153. A aprendizagem profissional (Jovem Aprendiz) pode ser realizada pelo adolescente em cumprimento de medida socioeducativa, inclusive com remuneração.",
-        answer: "C", source: "Módulo 1", tag: "Profissionalização",
-        comment: "Correto. Direito à profissionalização remunerada."
-    },
-    {
-        text: "154. A transferência de adolescentes entre unidades deve ser comunicada imediatamente ao Juiz da Infância e à família.",
-        answer: "C", source: "Módulo 2", tag: "Procedimentos",
-        comment: "Correto."
-    },
-    {
-        text: "155. O uso de espargidores de pimenta (gás OC) em ambientes confinados e sem ventilação é recomendado para dispersar tumultos rapidamente.",
-        answer: "E", source: "Módulo 3", tag: "Uso da Força",
-        comment: "Errado. O uso em local confinado pode causar asfixia e morte. É proibido ou extremamente restrito."
-    },
-    {
-        text: "156. O adolescente com deficiência mental ou transtorno psiquiátrico grave não deve cumprir medida socioeducativa, mas sim receber medida de proteção ou tratamento (ECA/Lei Paulo Delgado).",
-        answer: "C", source: "Módulo 4", tag: "Saúde Mental",
-        comment: "Correto. O sistema socioeducativo não é hospital psiquiátrico. Deve haver tratamento adequado (incidente de insanidade mental)."
-    },
-    {
-        text: "157. A prática de esportes e lazer na unidade é mero passatempo, podendo ser suprimida se faltar funcionário.",
-        answer: "E", source: "Módulo 1", tag: "Direitos",
-        comment: "Errado. Esporte e lazer são direitos fundamentais e eixos pedagógicos obrigatórios."
-    },
-    {
-        text: "158. Os registros no Livro de Ocorrências devem ser claros, objetivos, sem rasuras e assinados pelo servidor responsável pelo plantão.",
-        answer: "C", source: "Módulo 3", tag: "Rotina",
-        comment: "Correto. Documento oficial com valor jurídico."
-    },
-    {
-        text: "159. O socioeducador pode utilizar apelidos pejorativos ou numerações para chamar os adolescentes, visando manter a disciplina e o distanciamento.",
-        answer: "E", source: "Módulo 1", tag: "Ética",
-        comment: "Errado. O adolescente deve ser chamado pelo nome. O uso de números ou apelidos é despersonalização e violência simbólica."
-    },
-    {
-        text: "160. A alimentação fornecida na unidade deve respeitar as necessidades nutricionais e também as restrições alimentares por motivo de saúde ou religião.",
-        answer: "C", source: "Módulo 4", tag: "Alimentação",
-        comment: "Correto. Respeito à diversidade e saúde."
-    },
-    {
-        text: "161. Em caso de fuga, o agente socioeducativo tem o dever de perseguir o adolescente fora da unidade, inclusive invadindo residências vizinhas sem mandado.",
-        answer: "E", source: "Módulo 3", tag: "Segurança",
-        comment: "Errado. A função de recaptura externa é da Polícia Militar. O agente atua no perímetro e não tem poder de polícia para invadir domicílios."
-    },
-    {
-        text: "162. O adolescente indígena tem direito a ter consideradas suas características culturais e costumes durante o cumprimento da medida.",
-        answer: "C", source: "Módulo 1", tag: "Diversidade",
-        comment: "Correto. Respeito à identidade étnico-cultural."
-    },
-    {
-        text: "163. É permitido aos adolescentes a posse de isqueiros e materiais inflamáveis dentro dos alojamentos para acender cigarros autorizados.",
-        answer: "E", source: "Módulo 3", tag: "Segurança",
-        comment: "Errado. Itens inflamáveis são proibidos nos alojamentos pelo risco de incêndio proposital."
-    },
-    {
-        text: "164. A equipe técnica deve elaborar relatório circunstanciado sugerindo a manutenção ou substituição da medida sempre que solicitado pelo juiz ou nos prazos legais.",
-        answer: "C", source: "Módulo 2", tag: "Procedimentos",
-        comment: "Correto."
-    },
-    {
-        text: "165. O acesso à internet e tecnologias de informação é vedado em absoluto aos adolescentes em internação.",
-        answer: "E", source: "Módulo 2", tag: "Educação",
-        comment: "Errado. O acesso monitorado para fins pedagógicos e de inclusão digital é permitido e incentivado."
-    },
-    {
-        text: "166. A medicação assistida (entregue e observada a ingestão) é um procedimento de segurança para evitar que o adolescente acumule remédios para tentativa de suicídio ou 'chapação'.",
-        answer: "C", source: "Módulo 4", tag: "Saúde",
-        comment: "Correto."
-    },
-    {
-        text: "167. O Plano de Contingência da unidade define as ações para situações de emergência, como motins, fugas, incêndios e falta de água/energia.",
-        answer: "C", source: "Módulo 3", tag: "Gestão",
-        comment: "Correto."
-    },
-    {
-        text: "168. O socioeducador deve evitar qualquer contato físico com o adolescente, inclusive aperto de mão, para não ser acusado de agressão.",
-        answer: "E", source: "Módulo 1", tag: "Pedagogia",
-        comment: "Errado. O contato respeitoso (aperto de mão, toque no ombro) faz parte da construção de vínculo. O que se evita é contato agressivo ou invasivo."
-    },
-    {
-        text: "169. As sanções disciplinares aplicadas ao adolescente prescrevem (perdem a validade) se não forem executadas em tempo hábil definido no regimento.",
-        answer: "C", source: "Módulo 2", tag: "Disciplinar",
-        comment: "Correto. Existe prescrição disciplinar para evitar punições eternas ou tardias."
-    },
-    {
-        text: "170. O uso de uniforme pelos adolescentes é obrigatório nas unidades da SEAS para facilitar a identificação e a segurança.",
-        answer: "C", source: "Módulo 3", tag: "Rotina",
-        comment: "Correto. Padronização visual é medida de segurança."
-    },
-    {
-        text: "171. A revista em alimentos (jumbo) deve ser feita perfurando-se ou cortando-se os itens sólidos para verificar se há ilícitos ocultos.",
-        answer: "C", source: "Módulo 3", tag: "Segurança",
-        comment: "Correto. Procedimento padrão."
-    },
-    {
-        text: "172. O adolescente pode ser punido disciplinarmente por fato cometido antes do seu ingresso na unidade socioeducativa.",
-        answer: "E", source: "Módulo 2", tag: "Disciplinar",
-        comment: "Errado. A sanção é apenas para infrações cometidas DURANTE o cumprimento da medida."
-    },
-    {
-        text: "173. A escolarização dentro da unidade deve ofertar modalidade de EJA (Educação de Jovens e Adultos) devido à distorção idade-série comum nesse público.",
-        answer: "C", source: "Módulo 2", tag: "Educação",
-        comment: "Correto."
-    },
-    {
-        text: "174. O Coordenador de Segurança tem autonomia para decidir sobre a liberação de adolescente doente para consulta externa de emergência, comunicando a direção posteriormente.",
-        answer: "C", source: "Módulo 3", tag: "Emergência",
-        comment: "Correto. Em emergência médica (risco de vida), a saída é imediata, a burocracia vem depois."
-    },
-    {
-        text: "175. O 'Pós-Medida' ou programa de egressos visa acompanhar o jovem após a liberdade para evitar a reincidência, oferecendo suporte profissional e educacional.",
-        answer: "C", source: "Módulo 1", tag: "Egressos",
-        comment: "Correto. Programa essencial para a reintegração."
-    },
-    {
-        text: "176. É permitido fumar cigarro industrializado dentro da cela/alojamento, desde que o adolescente seja maior de 18 anos.",
-        answer: "E", source: "Módulo 4", tag: "Saúde",
-        comment: "Errado. Lei Antifumo proíbe fumar em ambientes coletivos fechados."
-    },
-    {
-        text: "177. A comunicação externa por meio de ligações telefônicas monitoradas é um direito do adolescente, regulamentado pela unidade.",
-        answer: "C", source: "Módulo 2", tag: "Direitos",
-        comment: "Correto."
-    },
-    {
-        text: "178. O banho de sol diário deve ter duração mínima de 2 horas para garantir a síntese de vitamina D e a saúde mental.",
-        answer: "C", source: "Módulo 4", tag: "Saúde",
-        comment: "Correto. Recomendação mínima padrão (similar à LEP)."
-    },
-    {
-        text: "179. A visita de irmãos menores de idade é proibida em qualquer circunstância para protegê-los do ambiente de internação.",
-        answer: "E", source: "Módulo 2", tag: "Visitas",
-        comment: "Errado. É permitida, mas pode ter regulamentação específica (acompanhados de responsável, dias específicos)."
-    },
-    {
-        text: "180. O princípio da 'Intervenção Precoce' determina que a medida socioeducativa deve ser aplicada logo após o ato infracional para ter eficácia pedagógica.",
-        answer: "C", source: "Módulo 1", tag: "SINASE",
-        comment: "Correto. A atualidade da medida é fundamental."
-    },
-    {
-        text: "181. A 'escuta especializada' em casos de violência contra o adolescente deve ser feita por qualquer servidor que o adolescente confiar, sem necessidade de técnica específica.",
-        answer: "E", source: "Módulo 1", tag: "Direitos",
-        comment: "Errado. A Lei 13.431/2017 exige profissionais capacitados e ambiente adequado para a escuta especializada."
-    },
-    {
-        text: "182. O adolescente tem direito de saber a identidade dos servidores que o atendem, devendo estes utilizar crachá ou identificação visível.",
-        answer: "C", source: "Módulo 3", tag: "Direitos",
-        comment: "Correto."
-    },
-    {
-        text: "183. Objetos perfurocortantes (tesouras, facas de mesa) na cozinha e escola devem ser cautelados (contados e guardados sob chave) após cada uso.",
-        answer: "C", source: "Módulo 3", tag: "Segurança",
-        comment: "Correto."
-    },
-    {
-        text: "184. A superlotação da unidade autoriza a direção a colocar adolescentes para dormir no chão (sem colchão) temporariamente.",
-        answer: "E", source: "Módulo 1", tag: "Dignidade",
-        comment: "Errado. A dignidade humana e o respeito à capacidade taxativa da unidade devem ser mantidos. Superlotação viola direitos."
-    },
-    {
-        text: "185. O socioeducador deve intervir imediatamente em caso de tentativa de suicídio, priorizando a preservação da vida, mesmo que isso exija entrada rápida no alojamento.",
-        answer: "C", source: "Módulo 3", tag: "Emergência",
-        comment: "Correto. A vida é o bem maior."
-    },
-    {
-        text: "186. A revista pessoal deve ser realizada sempre por servidor do mesmo sexo do adolescente, salvo em situações de emergência extrema com risco à vida.",
-        answer: "C", source: "Módulo 3", tag: "Segurança",
-        comment: "Correto. Regra para preservar a intimidade."
-    },
-    {
-        text: "187. O adolescente que completa 18 anos deve ser transferido imediatamente para o presídio se tiver mau comportamento.",
-        answer: "E", source: "Módulo 1", tag: "Execução",
-        comment: "Errado. O sistema socioeducativo é separado do prisional. Ele permanece na unidade (em ala de maiores) ou é liberado, nunca para presídio."
-    },
-    {
-        text: "188. A equipe de saúde deve realizar ações de educação em saúde abordando temas como sexualidade, drogas e higiene pessoal.",
-        answer: "C", source: "Módulo 4", tag: "Educação em Saúde",
-        comment: "Correto."
-    },
-    {
-        text: "189. O uso de força letal (arma de fogo) é permitido para impedir a fuga de adolescente que não esteja armado.",
-        answer: "E", source: "Módulo 3", tag: "Uso da Força",
-        comment: "Errado. Absolutamente proibido atirar em adolescente em fuga desarmado."
-    },
-    {
-        text: "190. O Agente Socioeducador é um agente de transformação social, cuja função vai além da vigilância, englobando o acompanhamento pedagógico e a garantia de direitos.",
-        answer: "C", source: "Módulo 1", tag: "Identidade Profissional",
-        comment: "Correto."
-    },
-    {
-        text: "191. As atividades profissionalizantes devem ser compatíveis com o mercado de trabalho local, evitando cursos sem aplicabilidade prática.",
-        answer: "C", source: "Módulo 2", tag: "Profissionalização",
-        comment: "Correto."
-    },
-    {
-        text: "192. O adolescente pode ser obrigado a tomar banho frio como forma de disciplina.",
-        answer: "E", source: "Módulo 2", tag: "Disciplinar",
-        comment: "Errado. Tratamento desumano/degradante."
-    },
-    {
-        text: "193. A família do adolescente deve ser informada em caso de doença grave, transferência ou falecimento do interno.",
-        answer: "C", source: "Módulo 2", tag: "Direitos",
-        comment: "Correto."
-    },
-    {
-        text: "194. O adolescente tem direito de peticionar (fazer pedidos) diretamente à direção da unidade ou ao juiz, sem censura.",
-        answer: "C", source: "Módulo 2", tag: "Direitos",
-        comment: "Correto."
-    },
-    {
-        text: "195. O lazer deve ser visto como 'tempo livre' sem planejamento, para que o adolescente faça o que quiser.",
-        answer: "E", source: "Módulo 2", tag: "Metodologia",
-        comment: "Errado. O lazer é pedagógico e deve ser estruturado."
-    },
-    {
-        text: "196. A articulação com o CRAS e CREAS é fundamental para o suporte à família do adolescente durante e após a medida.",
-        answer: "C", source: "Módulo 1", tag: "Rede",
-        comment: "Correto."
-    },
-    {
-        text: "197. O socioeducador pode reter os documentos pessoais do adolescente (RG, CPF) como garantia de bom comportamento.",
-        answer: "E", source: "Módulo 1", tag: "Direitos",
-        comment: "Errado. Retenção de documentos é ilegal."
-    },
-    {
-        text: "198. A medida de internação pode ser cumprida em estabelecimento prisional caso não haja vagas nas unidades socioeducativas.",
-        answer: "E", source: "Módulo 1", tag: "ECA",
-        comment: "Errado. Vedado. Se não há vaga, aguarda em liberdade ou domiciliar (HC STF)."
-    },
-    {
-        text: "199. A avaliação de desempenho dos servidores da SEAS pode impactar na sua progressão funcional.",
-        answer: "C", source: "Módulo 1", tag: "RH",
-        comment: "Correto."
-    },
-    {
-        text: "200. O objetivo final de todo o sistema socioeducativo é a reintegração social do adolescente e a não reincidência.",
-        answer: "C", source: "Módulo 1", tag: "Objetivos",
-        comment: "Correto."
-    }
+        {
+            text: "124. [Autoral | Prof. Robson Sousa] As práticas restaurativas não substituem o sistema jurídico, mas o complementam com abordagens humanizadoras, contribuindo para a redução da reincidência.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo I - JR",
+            comment: "Correto."
+        },
+        {
+            text: "125. [Autoral | Prof. Robson Sousa] A Justiça Restaurativa é mais eficaz quando envolve apenas o ofensor e a vítima, excluindo a comunidade.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo I - JR",
+            comment: "Errado. A participação da comunidade é um dos pilares da JR."
+        },
+        {
+            text: "126. [Autoral | Prof. Robson Sousa] As três fases de atendimento socioeducativo são: Fase Inicial, Fase Intermediária e Fase Conclusiva.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo II - Fases",
+            comment: "Correto."
+        },
+        {
+            text: "127. [Autoral | Prof. Robson Sousa] A Fase Intermediária se inicia quando ocorre o acolhimento na Internação Provisória, ocasião em que é elaborado o Diagnóstico Polidimensional.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo II - Fases",
+            comment: "Errado. Isso descreve a Fase Inicial. A intermediária é a de execução do PIA."
+        },
+        {
+            text: "128. [Autoral | Prof. Robson Sousa] A Fase Conclusiva corresponde ao período de avaliação das metas do PIA para subsidiar o relatório de reavaliação da medida e o desligamento.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo II - Fases",
+            comment: "Correto."
+        },
+        {
+            text: "129. [Autoral | Prof. Robson Sousa] O Diagnóstico Polidimensional tem como objetivo elaborar um quadro coletivo de características dos adolescentes, dispensando a análise individual.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo II - Documentos",
+            comment: "Errado. O foco é o indivíduo, a história singular de cada adolescente."
+        },
+        {
+            text: "130. [Autoral | Prof. Robson Sousa] Na Fase Inicial de Atendimento (Internação Provisória), a equipe técnica elabora o Diagnóstico Polidimensional para subsidiar a decisão judicial.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo II - Documentos",
+            comment: "Correto."
+        },
+        {
+            text: "131. [Autoral | Prof. Robson Sousa] Sendo aplicada medida de Internação, a equipe de referência tem o prazo de 30 dias para elaborar o Plano Individual de Atendimento (PIA) e enviá-lo ao Judiciário.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo II - Prazos",
+            comment: "Errado. O prazo legal para elaboração do PIA na internação é de até 45 dias (na provisória inicia-se o diagnóstico)."
+        },
+        {
+            text: "132. [Autoral | Prof. Robson Sousa] A Portaria SEAS nº 366/2024 é a norma mais recente sobre visitas, reestruturando as regras e substituindo normativas emergenciais da pandemia.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo II - Visitas",
+            comment: "Correto."
+        },
+        {
+            text: "133. [Autoral | Prof. Robson Sousa] A Portaria nº 366/2024 proíbe a alternância de visitantes durante o horário estabelecido e limita o número de visitantes a 2 por dia (ou 3 com cônjuge).",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo II - Visitas",
+            comment: "Correto."
+        },
+        {
+            text: "134. [Autoral | Prof. Robson Sousa] O Body Scanner é uma tecnologia mencionada na Portaria 366/2024 para detecção de objetos no corpo sem contato físico, qualificando a segurança.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo III - Segurança",
+            comment: "Correto."
+        },
+        {
+            text: "135. [Autoral | Prof. Robson Sousa] A Portaria SEAS nº 133/2020 regulamenta a assistência religiosa, definindo que ela deve ser obrigatória para todos os adolescentes visando a reforma moral.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo II - Direitos",
+            comment: "Errado. A assistência religiosa é facultativa (liberdade de crença)."
+        },
+        {
+            text: "136. [Autoral | Prof. Robson Sousa] Por conta da laicidade estatal, é permitida a realização de rituais eclesiásticos no interior dos Centros, desde que respeitada a diversidade e não haja imposição.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo II - Direitos",
+            comment: "Correto. O Estado é laico, mas garante a assistência religiosa."
+        },
+        {
+            text: "137. [Autoral | Prof. Robson Sousa] A Lei do SINASE aborda a não discriminação, especificamente mencionando a não discriminação em razão de orientação sexual ou identidade de gênero.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo I - Direitos",
+            comment: "Correto."
+        },
+        {
+            text: "138. [Autoral | Prof. Robson Sousa] Em relação ao vestuário de adolescentes LGBTQIAP+, é obrigatório o uso de roupas correspondentes ao sexo biológico, sendo proibido o uso de nome social.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo I - Diversidade",
+            comment: "Errado. É garantido o uso de nome social e vestuário conforme a identidade de gênero."
+        },
+        {
+            text: "139. [Autoral | Prof. Robson Sousa] O Projeto 'Abraço em Família' visa fortalecer os vínculos familiares, partindo do princípio que o distanciamento pode desestabilizar o jovem.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo II - Família",
+            comment: "Correto."
+        },
+        {
+            text: "140. [Autoral | Prof. Robson Sousa] O prontuário técnico é um documento público, podendo ser acessado livremente por qualquer pessoa da comunidade.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo II - Documentos",
+            comment: "Errado. O prontuário é sigiloso, de acesso restrito aos profissionais e autoridades."
+        },
+        {
+            text: "141. [Autoral | Prof. Robson Sousa] O Relatório de Diagnóstico Polidimensional tem como objetivo apresentar às autoridades judiciais uma síntese do trabalho e subsidiar a decisão sobre a medida.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo II - Documentos",
+            comment: "Correto."
+        },
+        {
+            text: "142. [Autoral | Prof. Robson Sousa] O Regimento Disciplinar (Portaria 093/2022) classifica as faltas em: Leves, Médias e Graves.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo III - Disciplina",
+            comment: "Correto."
+        },
+        {
+            text: "143. [Autoral | Prof. Robson Sousa] São exemplos de faltas médias: possuir objetos não autorizados (não ilícitos) ou recusar-se a participar de atividades sem justificativa.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo III - Disciplina",
+            comment: "Correto."
+        },
+        {
+            text: "144. [Autoral | Prof. Robson Sousa] A sanção de isolamento (tranca) pode ser aplicada como medida disciplinar punitiva por até 30 dias.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo III - Disciplina",
+            comment: "Errado. O isolamento punitivo é vedado; existe a restrição de convivência por tempo limitado e com acompanhamento."
+        },
+        {
+            text: "145. [Autoral | Prof. Robson Sousa] O Conselho Disciplinar é a instância deliberativa responsável pela análise de ocorrências e sugestão de sanções, devendo garantir a ampla defesa.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo III - Disciplina",
+            comment: "Correto."
+        },
+        {
+            text: "146. [Autoral | Prof. Robson Sousa] A participação de socioeducandos na composição do Conselho Disciplinar é obrigatória para garantir a gestão democrática.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo III - Disciplina",
+            comment: "Errado. Adolescentes não participam do Conselho Disciplinar como membros julgadores."
+        },
+        {
+            text: "147. [Autoral | Prof. Robson Sousa] O Programa de Oportunidades e Cidadania (POC) destina-se a adolescentes em semiliberdade, egressos e familiares, visando a inclusão social.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo II - POC",
+            comment: "Correto."
+        },
+        {
+            text: "148. [Autoral | Prof. Robson Sousa] A Unidade de Internação (UI) é a medida mais grave, com duração máxima de 3 anos (ou até os 21 anos de idade).",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo II - Medidas",
+            comment: "Correto."
+        },
+        {
+            text: "149. [Autoral | Prof. Robson Sousa] A Unidade de Semiliberdade não permite ao adolescente realizar atividades externas, funcionando como um regime fechado.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo II - Medidas",
+            comment: "Errado. A natureza da semiliberdade é justamente a realização de atividades externas."
+        },
+        {
+            text: "150. [Autoral | Prof. Robson Sousa] O art. 228 da CF estabelece que os menores de 18 anos são penalmente inimputáveis, sujeitos às normas da legislação especial.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo III - Legislação",
+            comment: "Correto."
+        },
+        {
+            text: "151. [Autoral | Prof. Robson Sousa] O adolescente apreendido em flagrante de ato infracional será, desde logo, encaminhado à autoridade policial competente.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo III - Fluxo",
+            comment: "Correto."
+        },
+        {
+            text: "152. [Autoral | Prof. Robson Sousa] A Remissão é uma forma de perdão que pode ser concedida pelo Ministério Público (pré-processual) ou pelo Juiz, podendo extinguir o processo.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo III - Fluxo",
+            comment: "Correto."
+        },
+        {
+            text: "153. [Autoral | Prof. Robson Sousa] O Princípio da Brevidade estabelece que a medida de internação deve ser cumprida pelo maior tempo possível para garantir a punição.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo I - Princípios",
+            comment: "Errado. Deve ser o tempo MÍNIMO necessário (breve)."
+        },
+        {
+            text: "154. [Autoral | Prof. Robson Sousa] O Princípio da Individualização determina que cada adolescente deve receber um plano de atendimento (PIA) considerando suas especificidades.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo I - Princípios",
+            comment: "Correto."
+        },
+        {
+            text: "155. [Autoral | Prof. Robson Sousa] O Ministério Público tem livre acesso a todo local onde se encontre adolescente privado de liberdade, sem necessidade de aviso prévio.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo III - MP",
+            comment: "Correto."
+        },
+        {
+            text: "156. [Autoral | Prof. Robson Sousa] O uso de algemas em adolescentes deve ser a regra geral no transporte para garantir a segurança, dispensando justificativa.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo III - Segurança",
+            comment: "Errado. É excepcional e exige justificativa por escrito (Súmula Vinculante 11)."
+        },
+        {
+            text: "157. [Autoral | Prof. Robson Sousa] É proibido o uso de algemas em adolescentes gestantes durante o trabalho de parto e no puerpério imediato.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo III - Segurança",
+            comment: "Correto."
+        },
+        {
+            text: "158. [Autoral | Prof. Robson Sousa] A Revista Estrutural ('bate-cela') tem natureza preventiva e deve ser realizada periodicamente para buscar ilícitos nas instalações.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo III - Segurança",
+            comment: "Correto."
+        },
+        {
+            text: "159. [Autoral | Prof. Robson Sousa] Evento Crítico é aquele que ultrapassa a capacidade de resposta da unidade e exige apoio externo (polícia, bombeiros, negociação).",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo III - Crise",
+            comment: "Correto."
+        },
+        {
+            text: "160. [Autoral | Prof. Robson Sousa] O uso de Equipamentos de Proteção Individual (EPIs) e instrumentos de menor potencial ofensivo deve ser feito apenas por servidores treinados e habilitados.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo III - Segurança",
+            comment: "Correto."
+        },
+        {
+            text: "161. [Autoral | Prof. Robson Sousa] O Grupo de Intervenção Tática (GIT) deve ser acionado para resolver qualquer alteração de rotina, inclusive recusas simples.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo III - GIT",
+            comment: "Errado. GIT é para eventos complexos/críticos, não rotina."
+        },
+        {
+            text: "162. [Autoral | Prof. Robson Sousa] O uso da força deve ser progressivo, proporcional e usado apenas quando o diálogo e a negociação falharem.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo III - Segurança",
+            comment: "Correto."
+        },
+        {
+            text: "163. [Autoral | Prof. Robson Sousa] A tortura é crime inafiançável e o servidor que se omite diante dela também responde criminalmente.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo III - Tortura",
+            comment: "Correto."
+        },
+        {
+            text: "164. [Autoral | Prof. Robson Sousa] A Corregedoria da SEAS tem competência para realizar inspeções, sindicâncias e Processos Administrativos Disciplinares (PAD).",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo III - Corregedoria",
+            comment: "Correto."
+        },
+        {
+            text: "165. [Autoral | Prof. Robson Sousa] O Sistema Único de Saúde (SUS) não é o responsável pela saúde dos adolescentes em conflito com a lei; a responsabilidade é exclusiva da SEAS.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo IV - Saúde",
+            comment: "Errado. A responsabilidade é do SUS (PNAISARI)."
+        },
+        {
+            text: "166. [Autoral | Prof. Robson Sousa] A Política Nacional de Atenção Integral à Saúde dos Adolescentes em Conflito com a Lei (PNAISARI) prevê a atenção integral, incluindo saúde mental, sexual e reprodutiva.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo IV - PNAISARI",
+            comment: "Correto."
+        },
+        {
+            text: "167. [Autoral | Prof. Robson Sousa] O termo DST (Doenças Sexualmente Transmissíveis) foi substituído por IST (Infecções Sexualmente Transmissíveis) para incluir casos assintomáticos.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo IV - IST",
+            comment: "Correto."
+        },
+        {
+            text: "168. [Autoral | Prof. Robson Sousa] A Profilaxia Pós-Exposição (PEP) ao HIV deve ser iniciada preferencialmente nas primeiras 2 horas, ou no máximo até 72 horas após a exposição.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo IV - Saúde",
+            comment: "Correto."
+        },
+        {
+            text: "169. [Autoral | Prof. Robson Sousa] O assédio sexual no trabalho pode ser caracterizado por chantagem (troca de benefícios) ou intimidação (ambiente hostil).",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo IV - Assédio",
+            comment: "Correto."
+        },
+        {
+            text: "170. [Autoral | Prof. Robson Sousa] De acordo com a OMS, todas as drogas são substâncias ilegais, não existindo drogas lícitas.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo IV - Drogas",
+            comment: "Errado. Álcool e tabaco são drogas lícitas."
+        },
+        {
+            text: "171. [Autoral | Prof. Robson Sousa] A Escabiose (sarna) é transmitida pelo contato direto ou roupas contaminadas e exige tratamento do ambiente e das roupas.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo IV - Doenças",
+            comment: "Correto."
+        },
+        {
+            text: "172. [Autoral | Prof. Robson Sousa] A tuberculose é doença de notificação compulsória e seu tratamento deve ser supervisionado (TDO).",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo IV - Doenças",
+            comment: "Correto."
+        },
+        {
+            text: "173. [Autoral | Prof. Robson Sousa] A política de Redução de Danos visa eliminar o uso de drogas imediatamente através da abstinência forçada.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo IV - Redução de Danos",
+            comment: "Errado. Visa reduzir riscos e danos, sem exigir abstinência imediata."
+        },
+        {
+            text: "174. [Autoral | Prof. Robson Sousa] O Projeto Terapêutico Singular (PTS) é uma estratégia de cuidado em saúde mental construída pela equipe interdisciplinar para casos complexos.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo IV - Saúde Mental",
+            comment: "Correto."
+        },
+        {
+            text: "175. [Autoral | Prof. Robson Sousa] Diante de um adolescente com comportamento de automutilação, deve-se aplicar sanção disciplinar por dano ao próprio corpo.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo IV - Saúde Mental",
+            comment: "Errado. Deve-se acolher e tratar como questão de saúde, não disciplinar."
+        },
+        {
+            text: "176. [Autoral | Prof. Robson Sousa] A vacinação dos adolescentes deve ser atualizada conforme o calendário nacional de imunização.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo IV - Saúde",
+            comment: "Correto."
+        },
+        {
+            text: "177. [Autoral | Prof. Robson Sousa] O banho de sol é um direito garantido aos adolescentes, essencial para a saúde física e mental.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo IV - Saúde",
+            comment: "Correto."
+        },
+        {
+            text: "178. [Autoral | Prof. Robson Sousa] A alimentação nas unidades deve ser supervisionada por nutricionista e respeitar restrições de saúde.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo IV - Alimentação",
+            comment: "Correto."
+        },
+        {
+            text: "179. [Autoral | Prof. Robson Sousa] É permitido o porte de arma de fogo pelos socioeducadores dentro dos alojamentos para garantir a ordem.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo III - Segurança",
+            comment: "Errado. É proibido o porte de arma na área interna."
+        },
+        {
+            text: "180. [Autoral | Prof. Robson Sousa] A contagem (confere) dos adolescentes deve ser realizada na passagem de plantão e em momentos estratégicos.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo III - Rotina",
+            comment: "Correto."
+        },
+        {
+            text: "181. [Autoral | Prof. Robson Sousa] Em caso de incêndio, a prioridade do plano de emergência é a preservação do patrimônio da unidade.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo III - Emergência",
+            comment: "Errado. A prioridade é a vida humana."
+        },
+        {
+            text: "182. [Autoral | Prof. Robson Sousa] A revista pessoal (busca) deve ser realizada por servidor do mesmo sexo do adolescente para evitar constrangimento.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo III - Segurança",
+            comment: "Correto."
+        },
+        {
+            text: "183. [Autoral | Prof. Robson Sousa] O uso de spray de pimenta em ambiente confinado (cela fechada) é proibido devido ao risco de asfixia.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo III - Segurança",
+            comment: "Correto."
+        },
+        {
+            text: "184. [Autoral | Prof. Robson Sousa] As chaves da unidade podem ficar expostas ou sob a guarda de adolescentes de confiança.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo III - Segurança",
+            comment: "Errado. Controle de chaves é rigoroso e exclusivo dos servidores."
+        },
+        {
+            text: "185. [Autoral | Prof. Robson Sousa] O relatório de ocorrência deve ser preenchido de forma clara, objetiva e sem rasuras ao final de cada evento relevante.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo III - Rotina",
+            comment: "Correto."
+        },
+        {
+            text: "186. [Autoral | Prof. Robson Sousa] A comunicação externa (telefonemas) é um direito do adolescente e deve ser garantida conforme regulamento.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo II - Direitos",
+            comment: "Correto."
+        },
+        {
+            text: "187. [Autoral | Prof. Robson Sousa] É permitido o confisco definitivo de cartas dos adolescentes sem justificativa ou comunicação.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo II - Direitos",
+            comment: "Errado. A correspondência é inviolável, salvo exceções legais justificadas."
+        },
+        {
+            text: "188. [Autoral | Prof. Robson Sousa] A medida de Prestação de Serviços à Comunidade (PSC) deve ser cumprida em jornada máxima de 8 horas semanais.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo I - Medidas",
+            comment: "Correto."
+        },
+        {
+            text: "189. [Autoral | Prof. Robson Sousa] A Liberdade Assistida (LA) tem prazo mínimo de 6 meses, podendo ser prorrogada ou revogada.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo I - Medidas",
+            comment: "Correto."
+        },
+        {
+            text: "190. [Autoral | Prof. Robson Sousa] A Remissão pode ser cumulada com medida de internação.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo I - Medidas",
+            comment: "Errado. A remissão não pode aplicar internação (privação de liberdade), apenas medidas de meio aberto."
+        },
+        {
+            text: "191. [Autoral | Prof. Robson Sousa] A Internação-Sanção tem prazo máximo de 3 meses e é aplicada por descumprimento de outra medida.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo I - Medidas",
+            comment: "Correto."
+        },
+        {
+            text: "192. [Autoral | Prof. Robson Sousa] O princípio da incompletude institucional orienta que a unidade deve utilizar os serviços da comunidade (saúde, educação).",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo I - Princípios",
+            comment: "Correto."
+        },
+        {
+            text: "193. [Autoral | Prof. Robson Sousa] O sigilo médico pode ser quebrado em caso de suspeita de risco de vida ou violência contra o adolescente.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo IV - Ética",
+            comment: "Correto."
+        },
+        {
+            text: "194. [Autoral | Prof. Robson Sousa] A notificação de violência contra criança e adolescente é facultativa para profissionais de saúde.",
+            answer: "E", source: "Apostila Robzu", tag: "Módulo IV - Violência",
+            comment: "Errado. É compulsória."
+        },
+        {
+            text: "195. [Autoral | Prof. Robson Sousa] A pandemia de COVID-19 exigiu adaptações nas rotinas de visita, priorizando contatos virtuais em momentos críticos.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo IV - Saúde",
+            comment: "Correto."
+        },
+        {
+            text: "196. [Autoral | Prof. Robson Sousa] O assédio moral caracteriza-se por comportamentos abusivos e recorrentes que violam a dignidade do trabalhador.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo IV - Assédio",
+            comment: "Correto."
+        },
+        {
+            text: "197. [Autoral | Prof. Robson Sousa] A dengue é uma doença transmitida por vetor (mosquito) e exige controle ambiental na unidade.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo IV - Saúde",
+            comment: "Correto."
+        },
+        {
+            text: "198. [Autoral | Prof. Robson Sousa] A saúde mental do trabalhador socioeducativo também deve ser objeto de atenção para prevenir adoecimento (Burnout).",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo IV - Saúde do Trabalhador",
+            comment: "Correto."
+        },
+        {
+            text: "199. [Autoral | Prof. Robson Sousa] O socioeducador é um agente de transformação social, cuja função vai além da vigilância, englobando o acompanhamento pedagógico.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo I - Identidade",
+            comment: "Correto."
+        },
+        {
+            text: "200. [Autoral | Prof. Robson Sousa] O objetivo final de todo o sistema socioeducativo é a reintegração social do adolescente e a não reincidência.",
+            answer: "C", source: "Apostila Robzu", tag: "Módulo I - Objetivos",
+            comment: "Correto."
+        }
+    
     ];
     
     while(questions.length < 200) {
