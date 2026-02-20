@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema Elite SEAS - 200 Questões Comentadas</title>
+    <title>Sistema Elite SEAS - 200 Questões</title>
     <style>
         :root { --primary: #2c3e50; --secondary: #34495e; --accent: #0984e3; --correct: #00b894; --wrong: #d63031; --light: #dfe6e9; --text: #2d3436; }
         body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--light); color: var(--text); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
@@ -35,16 +35,19 @@
         .progress-container { width: 100%; background-color: #b2bec3; border-radius: 10px; margin-bottom: 30px; height: 10px; overflow: hidden; }
         .progress-bar { width: 0%; height: 100%; background-color: var(--accent); transition: width 0.4s ease; }
 
+        /* ESTILOS DA NOVA FEATURE: HISTÓRICO DE ERROS AO VIVO */
+        #liveReview { margin-top: 40px; padding-top: 20px; border-top: 2px dashed #b2bec3; display: none; text-align: left; width: 100%; }
+        .live-review-title { color: var(--wrong); font-weight: bold; font-size: 1.2rem; margin-bottom: 15px; text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
+        .live-review-item { background-color: #fff; border: 1px solid #fab1a0; border-left: 5px solid var(--wrong); padding: 15px; margin-bottom: 12px; border-radius: 6px; font-size: 1rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .live-review-item strong { color: #2d3436; }
+        .live-review-item em { color: #636e72; background: #fff0f0; padding: 8px; display: block; margin-top: 8px; border-radius: 4px; font-style: italic;}
+
+        /* Tela Final */
         .review-card { background-color: #fff; border: 1px solid #fab1a0; border-left: 6px solid var(--wrong); padding: 20px; margin-bottom: 20px; border-radius: 8px; text-align: left; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .review-q-text { font-weight: bold; display: block; margin-bottom: 10px; color: #2d3436; }
         .review-comment { display: block; margin-top: 10px; padding: 10px; background: #fff0f0; border-radius: 5px; color: #636e72; font-style: italic; }
 
-        /* Responsividade */
-        @media (max-width: 600px) {
-            .container { padding: 20px; }
-            .question-box { font-size: 1.1rem; }
-            .options { flex-direction: column; }
-        }
+        @media (max-width: 600px) { .container { padding: 20px; } .question-box { font-size: 1.1rem; } .options { flex-direction: column; } }
     </style>
 </head>
 <body>
@@ -77,21 +80,22 @@
         </div>
 
         <div class="feedback" id="feedbackArea"></div>
+        
         <button class="btn-next" id="nextBtn" onclick="nextQuestion()">PRÓXIMA QUESTÃO</button>
+
+        <div id="liveReview">
+            <div class="live-review-title">⚠️ Histórico de Erros e Fundamentos</div>
+            <div id="liveReviewContent"></div>
+        </div>
     </div>
 
     <div id="resultArea" style="display: none; text-align: center;"></div>
 </div>
 
 <script>
-    // =================================================================================
-    // BANCO DE DADOS ELITE - 200 QUESTÕES (PROVA ANALISTA + APOSTILA ROBZU)
-    // =================================================================================
+    
     const questions = [
         
-        // =============================================================================
-        // PARTE 1: PROVA DE ANALISTA SOCIOEDUCATIVO (100 QUESTÕES OFICIAIS)
-        // =============================================================================
         {
             text: "1. Um grupo de adolescentes em medida de internação propõe organizar um jornal mural para discutir temas da comunidade e da unidade. O coordenador pedagógico veta a iniciativa sob a justificativa de que adolescentes em cumprimento de medida não podem assumir funções de expressão coletiva.",
             answer: "E", source: "Prova Analista", tag: "Pedagogia",
@@ -593,9 +597,6 @@
             comment: "Errado. Álcool e tabaco são lícitas."
         },
 
-        // =============================================================================
-        // PARTE 2: QUESTÕES AUTORAIS APOSTILA ROBZU (MÓDULOS I, II, III, IV)
-        // =============================================================================
         {
             text: "101. [Autoral | Prof. Robson Sousa] Ao analisarmos a estrutura normativa da SEAS, observamos sua conexão com os dispositivos da Constituição Federal (CF), do ECA e da Lei do SINASE. Tais instrumentos estabelecem os fundamentos para a organização do atendimento socioeducativo como uma política pública pautada pela legalidade, pela prioridade absoluta e pelo princípio da proteção integral.",
             answer: "C", source: "Apostila Robzu", tag: "Módulo I - Fundamentos",
@@ -1095,21 +1096,518 @@
             text: "200. [Autoral | Prof. Robson Sousa] O objetivo final de todo o sistema socioeducativo é a reintegração social do adolescente e a não reincidência.",
             answer: "C", source: "Apostila Robzu", tag: "Módulo I - Objetivos",
             comment: "Correto."
+        },
+        {
+            text: "201. Um novo socioeducador argumenta que o ECA (1990) é apenas uma atualização do antigo Código de Menores (1979), mantendo a mesma essência de intervenção sobre o jovem infrator. Essa afirmação está correta à luz da Doutrina da Proteção Integral.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo I - História",
+            comment: "Errado. Houve uma ruptura (inflexão). O Código de Menores baseava-se na Situação Irregular (tutelar e higienista). O ECA trouxe a Proteção Integral, reconhecendo o jovem como sujeito de direitos."
+        },
+        {
+            text: "202. Uma unidade socioeducativa decidiu construir um posto de saúde completo e uma escola própria dentro de seus muros, proibindo a saída dos jovens para a rede pública visando maior segurança. Essa prática contraria o princípio da Incompletude Institucional.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - Princípios",
+            comment: "Correto. O princípio da Incompletude Institucional (SINASE) exige que a unidade não seja autossuficiente, mas que utilize as políticas públicas (SUS, Educação estadual) da comunidade."
+        },
+        {
+            text: "203. Segundo os fundamentos da Justiça Restaurativa, diante de uma briga entre dois adolescentes que resultou em escoriações leves, a prioridade absoluta da equipe técnica deve ser a aplicação imediata da sanção de restrição ao dormitório para restabelecer a ordem.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo I - Justiça Restaurativa",
+            comment: "Errado. A Justiça Restaurativa foca no diálogo, na responsabilização e na reparação do dano entre ofensor e vítima (mesmo que outro interno), não na punição isolada como primeira resposta."
+        },
+        {
+            text: "204. Antônio Carlos Gomes da Costa, ao formular a 'Pedagogia da Presença', defende que o educador atue como uma presença construtiva e incondicional na vida do adolescente, construindo vínculos que permitam influenciar positivamente suas escolhas.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - Pedagogia",
+            comment: "Correto. A presença do educador não é apenas física ou de vigilância, mas uma presença ética, aberta e construtiva."
+        },
+        {
+            text: "205. Um socioeducador presencia um adolescente chorando e decide ignorar, alegando que o jovem está apenas 'manipulando' a equipe e que a escuta ativa não faz parte das atribuições da segurança. Tal atitude fere o Eixo Pedagógico do atendimento.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - Eixos",
+            comment: "Correto. A atitude fere a Pedagogia da Presença e o Eixo Pedagógico. A escuta qualificada é dever de TODOS os profissionais, inclusive da segurança socioeducativa."
+        },
+        {
+            text: "206. A execução das medidas socioeducativas de meio aberto (LA e PSC) deve ser municipalizada, cabendo ao Estado (SEAS) a execução do meio fechado, em respeito à descentralização político-administrativa do SINASE.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - SINASE",
+            comment: "Correto. É a divisão exata de competências estabelecida pela Lei do SINASE (Art. 5º e 6º)."
+        },
+        {
+            text: "207. A transdisciplinaridade na socioeducação exige que as decisões sobre o adolescente sejam tomadas de forma isolada por cada especialista (assistente social decide sobre a família, psicólogo sobre a mente), para evitar interferência entre as profissões.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo I - Metodologia",
+            comment: "Errado. Isso descreve uma visão fragmentada. A transdisciplinaridade exige integração, diálogo e construção conjunta de saberes para ver o adolescente como um todo."
+        },
+        {
+            text: "208. O Círculo de Construção de Paz, quando aplicado a um conflito, possui três fases fundamentais: Pré-Círculo (preparação), o Círculo em si, e o Pós-Círculo (acompanhamento dos acordos).",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - Círculos",
+            comment: "Correto. Essas são as etapas metodológicas consagradas por Kay Pranis."
+        },
+        {
+            text: "209. O Sistema de Garantia de Direitos (SGD) atua em três eixos: Defesa, Promoção e Controle Social. A SEAS insere-se primariamente no eixo de Promoção, pois executa uma política pública específica.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - SGD",
+            comment: "Correto. Quem promove e executa o serviço (SEAS) está no eixo da Promoção. O MP e o Judiciário estão na Defesa."
+        },
+        {
+            text: "210. O socioeducador, por atuar na segurança e contenção, está isento da obrigatoriedade de seguir os preceitos do Plano Individual de Atendimento (PIA), ferramenta exclusiva da equipe técnica.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo I - PIA",
+            comment: "Errado. O PIA orienta a ação de TODA a unidade. O socioeducador é essencial na sua execução, pois acompanha a rotina diária do jovem."
+        },
+        {
+            text: "211. No Ceará, a SEAS possui autonomia financeira e administrativa plena, respondendo diretamente ao Governador do Estado, sem qualquer vinculação a outras Secretarias de Estado.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo I - Legislação SEAS",
+            comment: "Errado. A SEAS é uma autarquia com autonomia, mas é VINCULADA à Secretaria da Proteção Social (SPS) para fins de alinhamento de políticas."
+        },
+        {
+            text: "212. O princípio da excepcionalidade, consagrado na Constituição e no ECA, orienta que a privação de liberdade do adolescente só deve ocorrer quando a infração for grave e não houver outra medida adequada.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - Princípios",
+            comment: "Correto. Tríade da internação: Brevidade, Excepcionalidade e Respeito à condição peculiar de pessoa em desenvolvimento."
+        },
+        {
+            text: "213. Um adolescente indígena, ao ingressar no sistema socioeducativo estadual, deve abandonar suas vestimentas e rituais tradicionais, assumindo integralmente a cultura e o padrão de vestuário exigido pela unidade.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo I - Direitos Humanos",
+            comment: "Errado. O ECA e o SINASE garantem o respeito à identidade e diversidade étnico-cultural de povos indígenas e comunidades tradicionais."
+        },
+        {
+            text: "214. O Estatuto da Criança e do Adolescente determina que nenhum adolescente será privado de liberdade sem o devido processo legal, exceto em situação de flagrante de ato infracional.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - ECA",
+            comment: "Correto. A privação só ocorre por ordem escrita da autoridade judiciária ou flagrante de ato infracional."
+        },
+        {
+            text: "215. A ressocialização, embora seja o termo mais popularmente utilizado, vem sendo substituída na literatura técnica pela 'socioeducação', pois o jovem não deixou de ser um ser social, mas necessita de uma intervenção de caráter pedagógico e responsabilizante.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - Conceitos",
+            comment: "Correto. O termo ressocialização remete ao sistema prisional adulto. Na infância, usa-se o termo 'socioeducação'."
+        },
+        {
+            text: "216. Um dos grandes desafios atuais da política socioeducativa é a superação da cultura do encarceramento, que frequentemente pressiona o sistema a adotar posturas unicamente punitivas em detrimento das práticas socioeducativas.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - Desafios",
+            comment: "Correto. A tensão entre o anseio social punitivo e o dever legal de educar é um desafio constante nas unidades."
+        },
+        {
+            text: "217. A Justiça Restaurativa foca na pergunta: 'Qual lei foi quebrada e como vamos punir o infrator?', diferenciando-se da Justiça Retributiva que pergunta: 'Quem foi ferido e o que é necessário para reparar o dano?'.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo I - Justiça Restaurativa",
+            comment: "Errado. Os conceitos estão invertidos. A Justiça Retributiva foca na quebra da lei e punição. A Restaurativa foca no dano causado e na reparação."
+        },
+        {
+            text: "218. O Núcleo de Atendimento Integrado (NAI) é uma estratégia preconizada pelo SINASE para reunir em um mesmo espaço físico órgãos do Judiciário, MP, Defensoria e Segurança Pública, agilizando o atendimento inicial do adolescente.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - SINASE",
+            comment: "Correto. O NAI visa evitar a peregrinação do adolescente e garantir o atendimento articulado e célere."
+        },
+        {
+            text: "219. O ECA estabelece que a medida socioeducativa de prestação de serviços à comunidade (PSC) não pode ser aplicada por período superior a 6 meses.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - Medidas",
+            comment: "Correto. A PSC tem o limite máximo de 6 meses (Art. 117, ECA)."
+        },
+        {
+            text: "220. Se um adolescente descumprir reiteradamente as regras da Liberdade Assistida, o juiz poderá aplicar a medida de Internação-Sanção, cujo prazo é de no máximo 45 dias.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo I - Medidas",
+            comment: "Errado. O prazo máximo da Internação-Sanção (por descumprimento de medida anterior) é de 3 meses, não 45 dias."
+        },
+        {
+            text: "221. O princípio da 'Mínima Intervenção' orienta que o Estado deve intervir na vida do adolescente infrator apenas o estritamente necessário para garantir sua responsabilização, evitando institucionalizações desnecessárias.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - Princípios",
+            comment: "Correto. É a base para a priorização das medidas de meio aberto sobre o meio fechado."
+        },
+        {
+            text: "222. Para atuar como educador no sistema socioeducativo, basta o conhecimento sobre técnicas de imobilização e segurança patrimonial, sendo os conhecimentos pedagógicos exigidos apenas dos professores e pedagogos da unidade.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo I - Perfil Profissional",
+            comment: "Errado. O agente socioeducador tem função híbrida (segurança e educação) e o domínio de conhecimentos pedagógicos é indispensável."
+        },
+        {
+            text: "223. A SEAS é responsável por promover cursos de qualificação básica e continuada para os profissionais do sistema socioeducativo, através de estruturas como a Escola Nacional de Socioeducação (ENS).",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - Formação",
+            comment: "Correto. A formação continuada é diretriz do SINASE e competência do órgão gestor."
+        },
+        {
+            text: "224. O Estatuto da Criança e do Adolescente aplica-se, em regra, às pessoas com idade entre 12 e 18 anos incompletos, podendo, excepcionalmente, aplicar-se a pessoas de até 21 anos de idade.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - ECA",
+            comment: "Correto. A liberação compulsória do sistema socioeducativo ocorre aos 21 anos."
+        },
+        {
+            text: "225. A figura do socioeducador surge em substituição ao antigo 'guarda de menores', marcando uma mudança de paradigma: da vigilância punitiva para a intervenção protetiva e pedagógica.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - Profissionais",
+            comment: "Correto. Reflete a transição do Código de Menores para o paradigma do ECA."
+        },
+        {
+            text: "226. Caso um adolescente pratique ato infracional análogo ao crime de homicídio um dia antes de completar 18 anos, ele será julgado pelo Código Penal adulto, visto que a sentença sairá quando já for maior de idade.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo I - Imputabilidade",
+            comment: "Errado. Considera-se a idade do adolescente na DATA DO FATO, não a data da sentença (Teoria da Atividade)."
+        },
+        {
+            text: "227. A 'Educação entre Pares' é uma metodologia incentivada nas unidades, na qual os próprios adolescentes atuam como agentes multiplicadores de boas práticas e conhecimentos entre si.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - Metodologia",
+            comment: "Correto. Fortalece o protagonismo e o pertencimento ao grupo."
+        },
+        {
+            text: "228. A remissão, concedida pelo Juiz durante a fase judicial, importa no reconhecimento formal da culpa e gera antecedentes infracionais para o adolescente.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo I - Remissão",
+            comment: "Errado. A remissão (perdão) NÃO implica reconhecimento de culpa nem gera antecedentes (Art. 127 do ECA)."
+        },
+        {
+            text: "229. Em conformidade com o SINASE, a estrutura arquitetônica das unidades de internação deve observar o número máximo de 90 adolescentes por centro, visando garantir a qualidade do atendimento.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - SINASE",
+            comment: "Correto. A lotação máxima recomendada legalmente é de 90 adolescentes por unidade."
+        },
+        {
+            text: "230. O adolescente civilmente identificado não deve ser submetido à identificação datiloscópica (tocar o piano na delegacia), salvo se houver dúvida fundada sobre sua identidade.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - ECA",
+            comment: "Correto. Para evitar constrangimentos, o RG civil já basta (Art. 109, ECA)."
+        },
+        {
+            text: "231. A 'Prevalência do Interesse Superior da Criança e do Adolescente' determina que, em qualquer conflito de interesses envolvendo um adolescente infrator e o Estado, o adolescente deve sempre ser absolvido.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo I - Princípios",
+            comment: "Errado. O interesse superior visa garantir seus direitos fundamentais e o tratamento adequado, não a impunidade ou absolvição automática em caso de ato infracional comprovado."
+        },
+        {
+            text: "232. As Práticas Restaurativas no Ceará buscam reduzir a violência institucional e promover um ambiente socioeducativo colaborativo, e devem ser integradas ao Projeto Político Pedagógico da Unidade.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - Justiça Restaurativa",
+            comment: "Correto. Devem ser transversais e constar no planejamento (PPP)."
+        },
+        {
+            text: "233. O Eixo de Profissionalização e Trabalho previsto no SINASE permite que o adolescente exerça atividades laborais na unidade com fins estritamente produtivos para o Estado, desvinculados de cunho educativo.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo I - Eixos",
+            comment: "Errado. É proibido trabalho forçado ou com fim puramente econômico. Todo trabalho deve ter caráter educativo e profissionalizante."
+        },
+        {
+            text: "234. As diretrizes nacionais proíbem a revista íntima ou vexatória (desnudamento) dos adolescentes nas unidades, devendo as revistas estruturais e buscas pessoais focar no respeito à dignidade humana.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - Direitos Humanos",
+            comment: "Correto. A revista vexatória é vedada pelas resoluções do CNJ e CONANDA."
+        },
+        {
+            text: "235. Na abordagem do ato infracional, a doutrina da Proteção Integral enxerga o jovem não como um 'delinquente nato' irrecuperável, mas como uma pessoa em desenvolvimento que cometeu um ato em um contexto de vulnerabilidade.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - Fundamentos",
+            comment: "Correto. Essa é a visão paradigmática do ECA em oposição ao antigo Código de Menores."
+        },
+        {
+            text: "236. Os Círculos de Construção de Paz não podem ser utilizados com familiares dos adolescentes, sendo uma ferramenta de uso exclusivo entre os internos da unidade.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo I - Círculos",
+            comment: "Errado. Os círculos são altamente recomendados para incluir famílias, fortalecendo vínculos e redes de apoio."
+        },
+        {
+            text: "237. O Eixo Administrativo da unidade socioeducativa é responsável por garantir a infraestrutura, a manutenção predial, a alimentação e o quadro de pessoal adequado para o funcionamento do centro.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - Eixos",
+            comment: "Correto. É a dimensão da gestão dos recursos e logística."
+        },
+        {
+            text: "238. O papel do Ministério Público (MP) cessa a partir do momento em que o adolescente é sentenciado, cabendo a fiscalização da execução da medida apenas ao Juiz da Vara de Execução e à Defensoria Pública.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo I - SGD",
+            comment: "Errado. O MP é fiscal da lei em TODAS as fases, inspecionando unidades e acompanhando a execução da medida continuamente."
+        },
+        {
+            text: "239. O Estatuto da Criança e do Adolescente adota a presunção de inocência, garantindo que o adolescente só sofra as sanções definitivas de uma medida após o trânsito em julgado da sentença.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - ECA",
+            comment: "Correto. O direito à presunção de inocência é garantido pelo art. 106 do ECA."
+        },
+        {
+            text: "240. Quando o adolescente comete múltiplos atos infracionais, os prazos de internação são somados, podendo o tempo total de permanência na unidade ultrapassar 5 anos ininterruptos.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo I - Prazos",
+            comment: "Errado. O limite máximo de privação de liberdade ininterrupta é de 3 anos, mesmo em caso de múltiplos atos ou unificação de medidas."
+        },
+        {
+            text: "241. O Plano Individual de Atendimento (PIA) é um instrumento construído conjuntamente que deve conter as metas do adolescente para a escola, saúde, convivência familiar e desdobramentos de sua responsabilização.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - PIA",
+            comment: "Correto. O PIA abrange todas as dimensões da vida do jovem (polidimensional)."
+        },
+        {
+            text: "242. O programa Liberdade Assistida Comunitária permite que o próprio socioeducador atue como o orientador (padrinho) do jovem no meio aberto após sua saída da internação.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo I - Medidas",
+            comment: "Errado. A execução da LA é de competência municipal, guiada por técnicos específicos da assistência social (CREAS), não pelo socioeducador da unidade estadual."
+        },
+        {
+            text: "243. A Pedagogia da Presença baseia-se na ideia de que os jovens em conflito com a lei sofreram profundas ausências (abandono estatal, familiar) e necessitam da presença de um adulto significativo e confiável.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - Pedagogia",
+            comment: "Correto. A carência histórica justifica a necessidade de uma presença afirmativa."
+        },
+        {
+            text: "244. Uma conduta ética do socioeducador exige que ele mantenha em sigilo absoluto todas as confissões dos adolescentes, inclusive aquelas sobre planos iminentes de fuga ou motim.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo I - Ética",
+            comment: "Errado. O sigilo tem limites. Planos de fuga ou ameaças à segurança da unidade e de vidas devem ser comunicados imediatamente à direção."
+        },
+        {
+            text: "245. Os eixos do SINASE (Educação, Saúde, Profissionalização, Segurança, Família, Cultura) funcionam como norteadores obrigatórios na construção do Projeto Político Pedagógico (PPP) das unidades.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - SINASE",
+            comment: "Correto. O PPP é o espelho institucional dessas diretrizes nacionais."
+        },
+        {
+            text: "246. O uso da advertência verbal em unidades socioeducativas é considerado uma violação de direitos, devendo o educador utilizar apenas o isolamento como forma legal de correção disciplinar.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo I - ECA",
+            comment: "Errado. A advertência verbal ou admoestação é o primeiro passo pedagógico, enquanto o isolamento punitivo é totalmente ilegal."
+        },
+        {
+            text: "247. A medida socioeducativa possui natureza mista: tem um caráter retributivo/sancionatório (resposta do Estado à quebra da lei) e um caráter eminentemente pedagógico (foco no desenvolvimento do jovem).",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - Conceitos",
+            comment: "Correto. Consenso doutrinário e legal sobre a dupla natureza da medida."
+        },
+        {
+            text: "248. No processo de apuração do ato infracional, a oitiva informal (entrevista inicial do adolescente pelo Promotor de Justiça) é a etapa que pode resultar na concessão da remissão pré-processual.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - Processo",
+            comment: "Correto. A oitiva com o MP define se haverá denúncia ou remissão."
+        },
+        {
+            text: "249. A Doutrina da Situação Irregular (Código de 1979) tratava do mesmo modo o adolescente autor de ato infracional e o adolescente abandonado ou órfão, ambos recolhidos em instituições fechadas.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I - História",
+            comment: "Correto. O sistema antigo criminalizava a pobreza, misturando infratores e carentes nas antigas FEBEMs/FUNABEMs."
+        },
+        {
+            text: "250. O adolescente aprendiz, ao iniciar uma atividade laborativa externa enquanto cumpre semiliberdade, perde o direito às atividades de lazer na unidade, pois o trabalho assume prioridade integral no seu tempo livre.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo I - Direitos",
+            comment: "Errado. O lazer e a cultura são direitos inalienáveis. A rotina deve ser adaptada para garantir o acesso a todos os eixos."
+        },
+
+        // --- MÓDULO 3: SEGURANÇA, ROTINAS, USO DA FORÇA E CORREGEDORIA (251 a 300) ---
+        {
+            text: "251. A Súmula Vinculante nº 11 do STF orienta que, durante o transporte do adolescente para atendimento hospitalar, o uso de algemas pode ser dispensado se o jovem for colaborativo e não apresentar risco de fuga avaliado pela equipe.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo III - Algemas",
+            comment: "Correto. O uso não é automático. Se não há resistência, receio de fuga ou perigo, o uso de algemas não é necessário."
+        },
+        {
+            text: "252. De acordo com a Portaria 004/2021 (SEAS), um evento é classificado como 'Simples' quando a equipe de plantão não consegue resolvê-lo sozinha, sendo necessária a intervenção direta do Diretor da Unidade.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo III - Crise",
+            comment: "Errado. Se exige apoio da direção, é um Evento 'Complexo'. Evento 'Simples' é aquele que o próprio plantão resolve."
+        },
+        {
+            text: "253. A Revista Estrutural ('bate-cela') deve ser feita com os adolescentes retirados do alojamento e alocados em local seguro, a fim de garantir a segurança dos agentes e evitar conflitos diretos durante o procedimento.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo III - Revistas",
+            comment: "Correto. Procedimento padrão de segurança operacional para evitar reféns ou motins durante a busca."
+        },
+        {
+            text: "254. Ao perceber o início de um tumulto no refeitório, o socioeducador deve imediatamente sacar sua arma menos letal (spray de pimenta/tonfa) e aplicá-la em todos os envolvidos para demonstrar controle.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo III - Uso da Força",
+            comment: "Errado. O uso da força deve ser progressivo (presença, verbalização, negociação). O uso imediato de equipamentos sem tentar o diálogo viola os protocolos, salvo agressão iminente."
+        },
+        {
+            text: "255. No caso de uma rebelião generalizada com reféns, configurando um 'Evento Crítico', o Diretor da Unidade perde provisoriamente o comando da negociação direta, que deve ser assumida pelas Forças de Segurança Pública (Polícia).",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo III - Crise",
+            comment: "Correto. Em eventos críticos com reféns/motim generalizado, a Polícia Militar/Batalhão de Choque assume a operação tática de retomada."
+        },
+        {
+            text: "256. A revista pessoal em visitantes (familiares) deve utilizar preferencialmente equipamentos eletrônicos como pórticos detectores de metal e body scanners. Na ausência destes, a revista manual (apalpamento) só pode ser feita por servidor do mesmo sexo do visitante.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo III - Revistas",
+            comment: "Correto. Procedimento humanizado de revista de visitantes (Portaria 366/2024 e normas nacionais)."
+        },
+        {
+            text: "257. O Grupo de Intervenção Tática (GIT) da SEAS possui autorização para utilizar armamento letal (armas de fogo) durante o controle de motins nos pátios das unidades de internação.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo III - GIT",
+            comment: "Errado. É proibido arma de fogo dentro das unidades, inclusive para o GIT. Eles usam Equipamentos de Proteção Individual (EPIs) e Instrumentos de Menor Potencial Ofensivo (IMPO)."
+        },
+        {
+            text: "258. A conferência de efetivo (contagem de adolescentes) é uma rotina obrigatória que deve ser realizada no momento da assunção do plantão, em conjunto pelas equipes que entram e que saem do serviço.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo III - Rotinas",
+            comment: "Correto. O 'confere' mútuo garante que a equipe que assume saiba exatamente o número de jovens sob sua custódia."
+        },
+        {
+            text: "259. A escolta para audiências no Fórum é de responsabilidade da Polícia Militar, não sendo permitida a participação dos agentes socioeducadores no interior dos veículos de transporte prisional.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo III - Escolta",
+            comment: "Errado. A SEAS realiza a escolta de adolescentes em viaturas próprias descaracterizadas. A PM pode dar apoio externo em casos de alto risco."
+        },
+        {
+            text: "260. Segundo a Lei de Tortura (Lei 9.455/97), a prática de agressões físicas intensas contra o adolescente infrator, com o fim de aplicar castigo pessoal e causar sofrimento, configura crime de tortura qualificando o agente público.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo III - Legislação",
+            comment: "Correto. É o tipo penal de tortura-castigo."
+        },
+        {
+            text: "261. O controle rigoroso do molho de chaves da unidade é responsabilidade de todos os servidores. Se um socioeducador perder a chave de um alojamento, ele deve substituir o cadeado silenciosamente por conta própria para não gerar alarde.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo III - Segurança",
+            comment: "Errado. O extravio de chaves é uma falha gravíssima de segurança. O Coordenador deve ser comunicado imediatamente para adoção de medidas emergenciais e registro da ocorrência."
+        },
+        {
+            text: "262. O princípio da 'Proporcionalidade' no uso da força estabelece que a reação do agente deve ser compatível com a resistência ou o grau da ameaça apresentada pelo adolescente.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo III - Uso da Força",
+            comment: "Correto. Não se pode usar força excessiva para conter uma resistência passiva, por exemplo."
+        },
+        {
+            text: "263. O registro de ocorrência em livro (ou sistema eletrônico) é facultativo para desentendimentos verbais leves entre adolescentes, sendo obrigatório apenas em casos com derramamento de sangue.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo III - Rotinas",
+            comment: "Errado. Todo fato que altera a rotina disciplinar, inclusive conflitos verbais e ameaças, deve ser registrado para embasar a avaliação técnica e eventuais processos disciplinares."
+        },
+        {
+            text: "264. No gerenciamento de crises (ex: um jovem armado com um estilete caseiro ameaçando outro interno), a primeira ação tática recomendada é o isolamento do local e o início do processo de negociação (verbalização).",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo III - Crise",
+            comment: "Correto. O isolamento previne que a crise cresça, e a negociação é a via primária para preservar vidas."
+        },
+        {
+            text: "265. De acordo com a Portaria que institui o Regimento Disciplinar na SEAS (093/2022), o adolescente que praticar falta disciplinar leve poderá sofrer a sanção de isolamento profilático em cela escura por até 24 horas.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo III - Disciplinar",
+            comment: "Errado. Falta leve gera advertência/restrição de lazer. Isolamento em cela escura é tortura/tratamento degradante, expressamente proibido pela lei e Constituição."
+        },
+        {
+            text: "266. A Sindicância (SD), instrumento jurídico correcional utilizado pela Corregedoria da SEAS, tem como objetivo apurar responsabilidades por transgressões funcionais praticadas por servidores, garantindo o contraditório e a ampla defesa.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo III - Corregedoria",
+            comment: "Correto. Definição correta do papel e natureza da Sindicância no âmbito correcional."
+        },
+        {
+            text: "267. O 'Jumbo' refere-se aos itens (alimentos, produtos de higiene, vestuário) entregues pelas famílias. Por segurança, potes de creme e embalagens de shampoo devem ser abertos e inspecionados cautelosamente antes de entrarem nos alojamentos.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo III - Revistas",
+            comment: "Correto. São itens com alto risco de ocultação de drogas ou chips de celular."
+        },
+        {
+            text: "268. A Revista Incerta, diferente da Revista Estrutural, é aquela agendada semanalmente e avisada com antecedência aos adolescentes, para que eles próprios retirem materiais ilícitos antes da ação dos agentes.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo III - Revistas",
+            comment: "Errado. Revista INCERTA é feita de surpresa (dia e hora não previsíveis), baseada em denúncia ou inteligência. A revista de rotina é a estrutural/preventiva."
+        },
+        {
+            text: "269. Em caso de necessidade de condução de um adolescente algemado, as algemas devem ser preferencialmente colocadas com as mãos para trás para garantir a segurança da escolta, sendo ajustadas para não causar lesão.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo III - Escolta",
+            comment: "Correto. A contenção para trás reduz as chances de agressão ou tentativa de tomar a arma/equipamento do agente."
+        },
+        {
+            text: "270. Uma denúncia anônima sobre maus-tratos cometidos por agentes socioeducativos dentro da unidade deve ser imediatamente descartada e arquivada pela Corregedoria, exigindo-se que toda denúncia seja identificada em cartório.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo III - Corregedoria",
+            comment: "Errado. A Corregedoria tem o dever de investigar denúncias anônimas (notitia criminis inqualificada) mediante averiguação preliminar (Procedimento Administrativo - PA)."
+        },
+        {
+            text: "271. Os Extintores de Incêndio da unidade devem estar sempre sinalizados, desobstruídos e com a carga dentro da validade, sendo proibido aos agentes socioeducativos o seu uso em casos de rebelião e queima de colchões.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo III - Emergência",
+            comment: "Errado. O Agente e a equipe de APR (Ações de Pronta Resposta) são treinados e devem operar os extintores rapidamente em caso de queima de colchão, para salvar vidas."
+        },
+        {
+            text: "272. A prática de 'Baculejo' abusivo (agressões verbais, jogar roupas no chão, quebrar objetos lícitos) durante a revista de celas configura infração disciplinar por parte do servidor, além de eventual crime de abuso de autoridade.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo III - Legislação",
+            comment: "Correto. A busca deve ser técnica e minuciosa, não um instrumento de degradação patrimonial ou psicológica."
+        },
+        {
+            text: "273. Durante a escolta externa para um atendimento médico especializado, se o adolescente pedir para usar o banheiro, o agente de segurança deve permitir a entrada do jovem sozinho e desalgemado para respeitar sua privacidade total.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo III - Escolta",
+            comment: "Errado. Em local externo, a vigilância deve ser contínua. O banheiro deve ser inspecionado previamente e o acompanhamento visual/sonoro mantido para evitar fugas por vitrôs ou recebimento de armas/drogas."
+        },
+        {
+            text: "274. O afastamento preventivo (cautelar) de um servidor que está respondendo a PAD pode ser aplicado quando sua permanência no cargo ameaçar a coleta de provas ou a instrução do processo.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo III - PAD",
+            comment: "Correto. É uma medida para proteger a investigação, sem configurar punição antecipada."
+        },
+        {
+            text: "275. Para que se configure o crime de tortura por omissão, não é necessário que o servidor tenha participado das agressões físicas; basta que ele estivesse presente, devesse agir, pudesse evitar e se omitisse deliberadamente.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo III - Tortura",
+            comment: "Correto. A figura do 'garante' (quem tem o dever legal de evitar o resultado) pune a conivência."
+        },
+        {
+            text: "276. O uso de cães de guarda não treinados da própria vizinhança da unidade é regulamentado pela SEAS como procedimento válido de apoio tático noturno ao agente de segurança.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo III - Segurança",
+            comment: "Errado. A utilização de cães (cinotecnia) deve seguir padrões operacionais de forças especializadas (Choque/PM), não se utilizando animais não treinados."
+        },
+        {
+            text: "277. O procedimento de entrada (recepção) de um adolescente recém-apreendido na unidade inclui a verificação de guia de internação judicial e exame de corpo de delito prévio, evitando que lesões antigas sejam imputadas à equipe da unidade.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo III - Rotinas",
+            comment: "Correto. A segurança jurídica da equipe exige a constatação do estado de saúde na admissão."
+        },
+        {
+            text: "278. No Conselho Disciplinar da unidade (Portaria 093/2022), o adolescente não tem direito à presença de um defensor técnico (advogado/defensor público), cabendo ao diretor realizar sua defesa técnica informalmente.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo III - Disciplinar",
+            comment: "Errado. A ampla defesa e o contraditório são garantidos, sendo obrigatória a intimação e participação da defesa técnica."
+        },
+        {
+            text: "279. Em caso de identificação de tentativa de fuga nos muros da unidade, a primeira ação do posto de guarita deve ser a comunicação imediata via rádio à chefia de equipe e o acionamento do alarme, antes de qualquer intervenção física isolada.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo III - Segurança",
+            comment: "Correto. A comunicação ('dar o pronto') é vital para enviar o reforço e conter a quebra do perímetro."
+        },
+        {
+            text: "280. Equipamentos como o bastão policial (tonfa) e escudos balísticos podem ser levados e mantidos dentro dos alojamentos à noite para que o agente repouse com segurança.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo III - Segurança",
+            comment: "Errado. Equipamentos táticos devem ficar nas reservas de armamento (armarias/salas cofre). Entrar no alojamento com eles permite que os jovens os tomem em um ataque surpresa."
+        },
+        {
+            text: "281. O Termo de Ajustamento de Conduta (TAC) e o Termo de Orientação Funcional (TOF) são medidas pedagógicas aplicadas pela Corregedoria a servidores por condutas de baixa complexidade, sem caráter de demissão.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo III - Corregedoria",
+            comment: "Correto. São alternativas saneadoras para pequenos desvios, focando na reeducação do servidor."
+        },
+        {
+            text: "282. Em ambientes de contenção socioeducativa, as facções criminosas devem ter o direito de escolher a gestão das alas e determinar os horários de visitas, a fim de evitar conflitos (cogestão informal).",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo III - Segurança Institucional",
+            comment: "Errado. A entrega da autoridade prisional/socioeducativa ao crime organizado viola a soberania do Estado e agrava as crises institucionales."
+        },
+        {
+            text: "283. O 'Alarme Falso', acionado deliberadamente por um agente de segurança como forma de brincadeira, é considerado uma falha grave, pois banaliza o sistema de resposta e retarda ações em crises reais.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo III - Segurança",
+            comment: "Correto. A confiabilidade do sistema de comunicações é fundamental em presídios e centros de internação."
+        },
+        {
+            text: "284. Durante uma escolta de fórum, se jornalistas tentarem fotografar e entrevistar o adolescente, a equipe de segurança deve permitir a exposição na TV, desde que o jovem autorize verbalmente.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo III - Escolta / ECA",
+            comment: "Errado. O ECA proíbe a divulgação de fotos, nomes ou imagens que identifiquem crianças/adolescentes autores de atos infracionais. A equipe deve proteger a identidade do jovem da mídia."
+        },
+        {
+            text: "285. A punição para a prática de tortura cometida por socioeducadores contra adolescentes não é suscetível de graça ou anistia e o crime é inafiançável, conforme a CF/88.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo III - Tortura",
+            comment: "Correto. A tortura está equiparada aos crimes hediondos na Constituição."
+        },
+        {
+            text: "286. Uma das medidas preventivas fundamentais de segurança é evitar o estabelecimento de rotinas e horários padronizados, surpreendendo os adolescentes com horários aleatórios de alimentação e banho todos os dias.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo III - Rotinas",
+            comment: "Errado. A imprevisibilidade é boa para revistas (incertas). A rotina de vida (comer, dormir, estudar) DEVE ser estruturada e previsível, pois reduz a ansiedade e organiza a vida institucional."
+        },
+        {
+            text: "287. O Agente de Segurança que flagrar um pacote arremessado de fora para dentro do muro da unidade (modalidade 'arremesso') deve isolar a área, não manipular o pacote com as mãos desprotegidas e comunicar a chefia imediata.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo III - Segurança",
+            comment: "Correto. Pode ser material ilícito contendo drogas, celulares ou até explosivos (preservação de local e prova)."
+        },
+        {
+            text: "288. Em uma Sindicância Administrativa instaurada na SEAS contra um socioeducador, se este não constituir advogado particular, o processo será extinto automaticamente por falta de defesa.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo III - PAD",
+            comment: "Errado. O processo não é extinto. O Estado deve nomear um defensor dativo ou servidor ad hoc para garantir a ampla defesa."
+        },
+        {
+            text: "289. Em situação de princípio de motim na sala de aula, o professor é a autoridade máxima de segurança no recinto e deve comandar as imobilizações físicas necessárias, cabendo aos agentes apenas auxiliá-lo.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo III - Crise",
+            comment: "Errado. Em situação de contenção física e risco à segurança, o comando passa para a equipe de segurança e coordenação, devendo o professor ser retirado do local para sua proteção."
+        },
+        {
+            text: "290. As algemas devem ser mantidas sempre lubrificadas e testadas pelo agente no início do plantão, devendo ser recolhidas as que apresentarem defeitos nas catracas para evitar que travem demasiadamente no pulso do custodiado.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo III - Equipamentos",
+            comment: "Correto. A manutenção preventiva do equipamento de contenção evita lesões (cortes, isquemias) acidentais."
+        },
+        {
+            text: "291. Para realizar escolta hospitalar, recomenda-se que a algemação do adolescente na maca (leito) seja feita sempre por uma perna e uma mão, evitando acorrentá-lo na mesma posição, desde que autorizado pela equipe médica.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo III - Escolta",
+            comment: "Correto. É uma técnica comum para evitar fugas hospitalares sem inviabilizar o tratamento de saúde (depende sempre do aval médico)."
+        },
+        {
+            text: "292. A Comunicação Não-Violenta (CNV) é uma teoria pedagógica utópica, não possuindo aplicabilidade prática nas táticas de desescalada de conflitos (verbalização policial/socioeducativa).",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo III - Gerenciamento de Crise",
+            comment: "Errado. A CNV e a escuta ativa são técnicas avançadas de gerenciamento de crise amplamente usadas no primeiro estágio de uso progressivo da força."
+        },
+        {
+            text: "293. A Lei do SINASE prevê expressamente a separação dos adolescentes nas unidades de internação por critérios como idade, compleição física e gravidade do ato infracional.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo III - Segurança Institucional",
+            comment: "Correto. A triagem adequada (classificação de alojamentos) previne extorsões, violência sexual e bullying institucional (Art. 43, SINASE)."
+        },
+        {
+            text: "294. A tortura psicológica, caracterizada por ameaças constantes, simulação de execução ou humilhações sexuais contra o adolescente visando obter confissão de objetos ilícitos escondidos, também configura o crime da Lei 9.455/97, da mesma forma que a física.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo III - Tortura",
+            comment: "Correto. A tortura pode ser física ou mental (psicológica)."
+        },
+        {
+            text: "295. A 'Tranca Administrativa' por tempo indeterminado pode ser aplicada pelo Diretor em resposta imediata à quebra de televisões e colchões no alojamento, suspendendo direitos sem ouvir os jovens e sem instaurar Conselho Disciplinar.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo III - Disciplinar",
+            comment: "Errado. A punição imediata sem PAD/Conselho Disciplinar e ampla defesa é arbitrária. A contenção para cessar o dano é legal, mas a sanção deve seguir o processo."
+        },
+        {
+            text: "296. Em abordagens de rotina dentro dos alojamentos, o socioeducador deve manter sempre distância de segurança (margem de reação), evitar ficar de costas para o grupo e nunca adentrar em áreas de 'ponto cego' sozinho.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo III - Segurança",
+            comment: "Correto. Princípios de doutrina de segurança de instalações e sobrevivência policial/socioeducativa."
+        },
+        {
+            text: "297. Um Procedimento Administrativo Disciplinar (PAD) na Corregedoria pode investigar fatos ocorridos fora da unidade socioeducativa, caso a conduta do servidor atente contra o decoro e a dignidade do cargo público.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo III - Corregedoria",
+            comment: "Correto. A vida pregressa e atos públicos do servidor (ex: crime de racismo nas ruas) refletem na administração pública."
+        },
+        {
+            text: "298. Para prevenir suicídios (enforcamentos), a equipe de segurança deve realizar revistas periódicas visando retirar das celas itens como 'teresas' (cordas de lençol), cadarços longos e sacos plásticos não autorizados.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo III - Segurança/Saúde",
+            comment: "Correto. A prevenção estrutural é fundamental para o sucesso das políticas de saúde mental na unidade."
+        },
+        {
+            text: "299. Durante a entrega de medicamentos contínuos psiquiátricos, o agente de segurança deve permitir que o próprio adolescente guarde a caixa de remédios na cela para que aprenda autonomia no tratamento.",
+            answer: "E", source: "Inéditas UECE", tag: "Módulo III - Rotinas",
+            comment: "Errado. O medicamento é um bem controlado. O acesso livre permite o tráfico interno ('comércio de drogas') ou o suicídio por superdosagem. A dose deve ser unificada e assistida."
+        },
+        {
+            text: "300. A gestão humanizada e integrada entre o corpo técnico e o corpo de segurança das unidades da SEAS é o fator primordial que distingue um Centro Socioeducativo de um Presídio Comum.",
+            answer: "C", source: "Inéditas UECE", tag: "Módulo I e III - Identidade",
+            comment: "Correto. A socioeducação exige que a segurança seja pedagógica, alinhada aos direitos e não apenas à contenção punitiva."
         }
-    
+        
     ];
-    
-    while(questions.length < 200) {
-        questions.push(questions[Math.floor(Math.random() * 60)]);
-    }
-    // =================================================================================
 
     // LÓGICA DO QUIZ
     let currentQIndex = 0;
     let score = 0;
     let wrongAnswers = [];
     
-    // Embaralhar
+    // Embaralhar Questões
     questions.sort(() => Math.random() - 0.5);
     
     document.getElementById("totalQ").innerText = questions.length;
@@ -1127,7 +1625,6 @@
         feedback.className = "feedback";
         document.getElementById("nextBtn").style.display = "none";
         document.getElementById("optionsContainer").style.pointerEvents = "auto";
-        document.querySelectorAll(".options button").forEach(btn => btn.style.opacity = "1");
         
         // Barra de progresso
         const progress = ((currentQIndex) / questions.length) * 100;
@@ -1145,13 +1642,45 @@
             feedback.innerHTML = `<strong>CORRETO!</strong><br>${q.comment}`;
             feedback.classList.add("correct");
         } else {
+            // Adiciona a questão aos erros
             wrongAnswers.push(q);
-            feedback.innerHTML = `<strong>ERRADO!</strong> A resposta correta é <strong>${q.answer}</strong>.<br>${q.comment}`;
+            feedback.innerHTML = `<strong>ERRADO!</strong> A resposta correta é <strong>${q.answer === 'C' ? 'CERTO' : 'ERRADO'}</strong>.<br>${q.comment}`;
             feedback.classList.add("incorrect");
         }
         
         feedback.style.display = "block";
         document.getElementById("nextBtn").style.display = "block";
+        
+        // NOVA FEATURE: Atualiza a lista de erros em tempo real
+        updateLiveReview();
+    }
+
+    // NOVA FUNÇÃO: Renderiza a lista de erros abaixo do botão "Próxima"
+    function updateLiveReview() {
+        const container = document.getElementById("liveReview");
+        const content = document.getElementById("liveReviewContent");
+        
+        if (wrongAnswers.length === 0) {
+            container.style.display = "none";
+            return;
+        }
+        
+        container.style.display = "block";
+        
+        // Gera o HTML para cada erro cometido
+        let html = "";
+        wrongAnswers.forEach((wq, index) => {
+            let gabaritoText = wq.answer === 'C' ? 'CERTO' : 'ERRADO';
+            html += `
+                <div class="live-review-item">
+                    <strong>Questão ${index + 1}:</strong> ${wq.text} <br>
+                    <strong>Gabarito:</strong> <span style="color:var(--correct)">${gabaritoText}</span> <br>
+                    <em><strong>Fundamento:</strong> ${wq.comment}</em>
+                </div>
+            `;
+        });
+        
+        content.innerHTML = html;
     }
 
     function nextQuestion() {
@@ -1179,7 +1708,7 @@
         `;
 
         if(wrongAnswers.length > 0) {
-            html += `<h3 style="color: #d63031; text-align: left;">REVISÃO DOS ERROS (${wrongAnswers.length})</h3>`;
+            html += `<h3 style="color: #d63031; text-align: left;">REVISÃO FINAL DOS ERROS (${wrongAnswers.length})</h3>`;
             wrongAnswers.forEach((q, index) => {
                 html += `
                     <div class="review-card">
@@ -1201,7 +1730,7 @@
         resultArea.innerHTML = html;
     }
 
-    // Iniciar
+    // Iniciar o Simulado
     loadQuestion();
 
 </script>
